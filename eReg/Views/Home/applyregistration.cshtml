@@ -1,0 +1,102 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!--<div class="container">
+    <div class="row">
+        <div class="col-sm-3 " id="leftCol">
+
+            <ul class="nav nav-stacked" id="sidebar">
+                <li class="active"><a href="#/applyregistration">Apply Registration</a></li>
+                <li><a href="/home">Know your Sub-registrar</a></li>
+                <li><a href="#sec2">Help</a></li>
+                <li><a href="#sec3">FAQ</a></li>
+                <li><a href="#sec4">Loucha Pathap</a></li>
+            </ul>
+        </div>-->
+        <!--<div class="col-sm-9">-->
+            <h1>Apply registration  </h1>
+            <hr />
+
+<div class="col-sm-6" id="bord" >
+    <form class="form-horizontal" role="form" name="regapplyform">
+        <div class="form-group">
+            <label for="" class="col-sm-4 control-label">Transaction type: </label>
+            <div class="col-sm-8 pull-left ">
+                <select name="transaction" class="form-control "
+                    data-ng-model="transaction"
+                    data-ng-options="trans.tran_name for trans in transactions | orderBy:'tran_name'">
+                    <option value="">--select Transaction --</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-4 control-label">Sub Registrar: </label>
+            <div class="col-sm-8 pull-left ">
+                <select name="sr" class="form-control "
+                    data-ng-model="transaction.sro" >
+                    <option value="">--select --</option>
+                     <option value="SROLamphel">SRO Lamphel</option>
+                     <option value="SROPorompat">SRO Porompat</option>
+                     <option value="SROBishenpur">SRO Bishenpur</option>
+                    <option value="SROThoubal">SRO Thoubal</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Password:</label>
+            <div class="col-sm-8 pull-left">
+                <input data-ng-model="transaction.passwd" class="form-control"  type="password" name="name" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Confirm Password:</label>
+            <div class="col-sm-8 pull-left">
+                <input data-ng-model="transaction.confmpasswd" class="form-control" type="password" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Mobile:</label>
+            <div class="col-sm-8 pull-left">
+                <input data-ng-model="transaction.mobile" class="form-control" type="text" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Aadhar No:</label>
+            <div class="col-sm-8 pull-left">
+                <input data-ng-model="transaction.aadhar" class="form-control" type="text" value="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4">
+                <button class="btn btn-primary btn-md" data-ng-click="next()">next</button>
+                <button class="btn btn-default btn-md" data-ng-click="transaction=''">Reset</button>
+                <button class="btn btn-default btn-md" type="reset">Reset</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-sm-6">
+    <div class="row">
+    <div class="col-sm-12 ">
+        <h4><span class="label label-default">Plz login with Ackno and password to view application</span></h4>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-primary col-sm-3 col-sm-offset-4" data-ng-click="login()" data-ng-show="visibility">View</button>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-sm-12" data-ui-view data-ng-show="click"></div>
+    </div>
+</div>
+        <!--</div>-->
+   
+   
+<!--</div>
+    </div>-->

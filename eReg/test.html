@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/angular.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('appdemo', []);
+        app.controller('simpleController', ['$scope',
+            function ($scope) {
+                $scope.name = 'name';
+                $scope.age = 'age';
+
+
+
+            }
+        ]);
+    </script>
+</head>
+<body data-ng-app="appdemo" >
+    <div data-ng-controller="simpleController">
+        <label>Name:</label>
+        <input data-ng-model="name" />
+        <label>Age:</label>
+        <input data-ng-model="age" />
+
+        <h3> hello  {{name}} and your age is  {{age}} </h3>
+
+    </div>
+
+</body>
+</html>
