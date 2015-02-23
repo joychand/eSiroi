@@ -207,20 +207,40 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
          
     //$locationProvider.html5Mode(true).hashPrefix("!");
     app.run(function ($rootScope, $state, $window, $timeout, $stateParams) {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            console.log('hahahahah');
+            if (toState.resolve) {
+                $rootScope.page.loading = true;
+            }
+        });
+
         $rootScope.addError = function (error) {
             $rootScope.message = error.message;
             $rootScope.reason = error.reason;
+            $rootScope.page.loading = true;
             //$rootScope.values = 'jhgkjhkj';
         }
         $rootScope.$state = $state;
        
         $rootScope.$stateParams = $stateParams;
         $rootScope.$on("$stateChangeSuccess", function () {
+            console.log('success');
+            if (toState.resolve) {
+                $rootScope.page.loading = false;
+            }
             $timeout(function () {
                 $window.ga('send', 'pageview', $window.location.pathname + $window.location.hash);
             });
         });
+
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            console.log('hahahahah');
+            if (toState.resolve) {
+                $rootScope.page.loading = true;
+            }
+        });
     });
+    
 
     //$rootScope.$on("$routeChangeStart", function (event, next, current) {
     //    if (sessionStorage.restorestate == "true") {
@@ -253,6 +273,7 @@ app.controller('simpleController2', ['$scope', '$state', 'dataFactory', '$rootSc
     $scope.currAckno = [];
     $scope.ackno = [];
     function init() {
+        $scope.loading = true;
         getMajortransaction();
         //getsession();
 
@@ -260,8 +281,12 @@ app.controller('simpleController2', ['$scope', '$state', 'dataFactory', '$rootSc
 
     
     function getMajortransaction() {
-        dataFactory.getMajortransaction().then(function (transaction) {
-            $scope.transactions = transaction;
+        dataFactory.getMajortransaction().then(function (response) {
+            $scope.transactions = response.data;
+        },
+        function (result) { })
+        .finally(function () {
+            $scope.loading = false;
         });
 
     }

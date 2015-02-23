@@ -1,4 +1,10 @@
-﻿<h3>IdentifierDetailsForm</h3>
+﻿<div class="row">
+    <div class="col-sm-6">
+        <h3>IdentifierDetailForm</h3>
+    </div>
+    <div class=" col-sm-2 pull-right"><span class="text-danger"> #<em>optional</em></span></div>
+    
+</div>
 <hr />
          <form class="form-horizontal" role="form" name="identform"  data-ng-submit="submit()" novalidate>
                 <div class="form-group">
@@ -46,6 +52,10 @@
                  <div class="col-sm-3" >
                      <input type="text" name="alias" data-ng-model="identifier.alias" class="form-control" placeholder="alias"  required >
                      <p  data-ng-show="identform.alias.$invalid && identform.alias.$dirty">Please input a alias</p>
+                 </div>
+                 <label for="Aadhaar" class="col-sm-2 col-md-2 control-label  ">Aadhaar <span class="text-danger">#</span></label>
+                 <div class="col-sm-3">
+                     <input type="text" name="alias" data-ng-model="identifier.Aadhaar" class="form-control" placeholder="Aadhaar">
                  </div>
              </div>
              <div class="form-group">
@@ -170,6 +180,12 @@
                      <input type="text" class="form-control text-left" data-ng-model="ident.postoffice.pinCode" placeholder="Pincode" />
                  </div>
                  <!--</div> -->
+             </div>
+             <div class="form-group">
+                 <label class="control-label col-sm-2">PoliceStation</label>
+                 <div class="col-sm-4">
+                     <input type="text"  class="form-control" />
+                 </div>
              </div>
 
              <!-- ======================================== -->

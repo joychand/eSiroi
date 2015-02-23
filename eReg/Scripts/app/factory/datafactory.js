@@ -128,9 +128,6 @@ angular.module('eRegApp')
                 method: 'GET',
                 url: urlBase3 + 'MajorTrans_code',
                 cache: true
-            }).then(function (results) {
-                return results.data;
-
             });
         };
         dataFactory.getCircle = function () {

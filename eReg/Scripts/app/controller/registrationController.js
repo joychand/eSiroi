@@ -28,12 +28,7 @@ angular
     }]);
 
 (function () {
-    //'use strict';
-
-    //angular
-    //    .module('eRegApp')
-    //    .controller('registrationController' ['$scope', 'dataFactory', registrationController]);
-
+    
     var registrationController = function registrationController($scope, $state, dataFactory, $location, $rootScope, sessionFactory, ModalService, $modal, $log) {
         $scope.title = 'registrationController';
         $scope.propertyObject = {};
@@ -90,6 +85,7 @@ angular
             getRevVillages()
             getTransName()
             getSro()
+           // $scope.loading = false;
            
             //party details
             getSubDivisions();
@@ -105,11 +101,12 @@ angular
         }
 
 
-        //function getTransName(maj_code) {
-        //    dataFactory.getTransName(maj_code).then(function (transName) {
-        //        $scope.transName = transName;
-        //        $scope.trans = $scope.transName.tran_name;
-        //    });
+        //function showspinning() {
+        //    $scope.loading = true;
+        //}
+
+        //function hidespinning() {
+        //    $scope.loading = false;
         //}
 
         function getSro() {

@@ -224,24 +224,24 @@
       <DependentUpon>201502161658049_updateonlineclaimant.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\CensusSubDiv.cs" />
-    <Compile Include="Models\CensusSubDivision.cs" />
-    <Compile Include="Models\CensusVillage.cs" />
-    <Compile Include="Models\circle.cs" />
-    <Compile Include="Models\district.cs" />
-    <Compile Include="Models\eregdbContext.cs" />
-    <Compile Include="Models\MajorTrans_code.cs" />
-    <Compile Include="Models\onlineapplication.cs" />
-    <Compile Include="Models\OnlineClaimant.cs" />
-    <Compile Include="Models\OnlineExecutant.cs" />
-    <Compile Include="Models\OnlineExecutantList.cs" />
-    <Compile Include="Models\OnlineIdentifier.cs" />
-    <Compile Include="Models\onlinePlot.cs" />
-    <Compile Include="Models\PoliceStation.cs" />
-    <Compile Include="Models\PostOffice.cs" />
-    <Compile Include="Models\RevVillage.cs" />
-    <Compile Include="Models\State.cs" />
-    <Compile Include="Models\subDivision.cs" />
+    <Compile Include="Migrations\Models\CensusSubDiv.cs" />
+    <Compile Include="Migrations\Models\CensusSubDivision.cs" />
+    <Compile Include="Migrations\Models\CensusVillage.cs" />
+    <Compile Include="Migrations\Models\circle.cs" />
+    <Compile Include="Migrations\Models\district.cs" />
+    <Compile Include="Migrations\Models\eregdbContext.cs" />
+    <Compile Include="Migrations\Models\MajorTrans_code.cs" />
+    <Compile Include="Migrations\Models\onlineapplication.cs" />
+    <Compile Include="Migrations\Models\OnlineClaimant.cs" />
+    <Compile Include="Migrations\Models\OnlineExecutant.cs" />
+    <Compile Include="Migrations\Models\OnlineExecutantList.cs" />
+    <Compile Include="Migrations\Models\OnlineIdentifier.cs" />
+    <Compile Include="Migrations\Models\onlinePlot.cs" />
+    <Compile Include="Migrations\Models\PoliceStation.cs" />
+    <Compile Include="Migrations\Models\PostOffice.cs" />
+    <Compile Include="Migrations\Models\RevVillage.cs" />
+    <Compile Include="Migrations\Models\State.cs" />
+    <Compile Include="Migrations\Models\subDivision.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\executantRepository.cs" />
   </ItemGroup>
@@ -311,6 +311,7 @@
     <Content Include="Scripts\app\factory\dept_sessionFactory.js" />
     <Content Include="Scripts\app\factory\sessionFactory.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.12.0.js" />
+    <Content Include="spinning.gif" />
     <Content Include="Views\Home\modal.html" />
     <Content Include="Views\Home\deptOnlineData.html" />
     <Content Include="Scripts\app\Partials\dept_claimant.html" />

@@ -20,7 +20,7 @@
 
     function dept_regController($scope, $state, majortrans) {
         $scope.title = 'dept_regController';
-        $scope.transactions = majortrans;
+        $scope.transactions = majortrans.data;
        //// $scope.links.dataSelected = false;
        // init();
        // function init() {
@@ -66,12 +66,11 @@
         
      
 
-        //$scope.route1Active = true;
-        //activate();
-
-        //function activate() { }
+        
     }
 })();
+
+// dept_dataEntry_from Controller //
 
 (function () {
     'use strict';
@@ -81,9 +80,19 @@
         .controller('dataEntryformController', ['$scope', '$state', dataEntryformController]);
 
     function dataEntryformController($scope, $state) {
+      
+        init();
 
-        $scope.visibility = true;
-        $scope.click = false;
+        //initialize $scope properties
+
+        function init() {
+            $scope.tsyear = {};
+            $scope.visibility = true;
+            $scope.click = false;
+
+            }
+       
+      
         $scope.getOnline = function () {
             $scope.visibility = false;
             $scope.click = true;
@@ -92,13 +101,10 @@
             $scope.visibility = true;
             $scope.click = false;
         }
+       
 
 
-
-        //$scope.route1Active = true;
-        //activate();
-
-        //function activate() { }
+       
     }
 })();
 
@@ -115,10 +121,7 @@
         $scope.districts = district;
 
 
-        //$scope.route1Active = true;
-        //activate();
-
-        //function activate() { }
+      
     }
 })();
 
@@ -132,14 +135,21 @@
         .controller('deptExeController', ['$scope', '$state', 'dataFactory', deptExeController]);
 
     function deptExeController($scope, $state, dataFactory) {
-        //$scope.districts = district;
-        console.log('TS:' + $scope.tsyear.ts)
 
+        $scope.session = {};
 
-        //$scope.route1Active = true;
-        //activate();
-
-        //function activate() { }
+        // initialize $scope property
+        init();
+        
+        function init() {
+            $scope.success = false;
+            $scope.executant = {};
+            $scope.executant.Slno = 1;
+            $scope.session.Slno = $scope.executant.Slno;
+        }
+        
+       
+        
     }
 })();
 
