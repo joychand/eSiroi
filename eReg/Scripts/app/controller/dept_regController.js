@@ -81,6 +81,7 @@
         .controller('dataEntryformController', ['$scope', '$state', dataEntryformController]);
 
     function dataEntryformController($scope, $state) {
+
         $scope.visibility = true;
         $scope.click = false;
         $scope.getOnline = function () {
@@ -101,6 +102,8 @@
     }
 })();
 
+//dept_dataEntry_form_property Controller //
+
 (function () {
     'use strict';
 
@@ -119,16 +122,18 @@
     }
 })();
 
+//dept_dataEntry_form_executant controller
+
 (function () {
     'use strict';
 
     angular
         .module('eRegApp')
-        .controller('deptExeController', ['$scope', '$state',  deptExeController]);
+        .controller('deptExeController', ['$scope', '$state', 'dataFactory', deptExeController]);
 
-    function deptExeController($scope, $state) {
+    function deptExeController($scope, $state, dataFactory) {
         //$scope.districts = district;
-        console.log('TS:' + $scope.$parent.tsyear.ts)
+        console.log('TS:' + $scope.tsyear.ts)
 
 
         //$scope.route1Active = true;
@@ -137,3 +142,34 @@
         //function activate() { }
     }
 })();
+
+
+
+//dept_dataEntry_form_claimant Controller//
+
+(function () {
+    'use strict';
+
+    angular
+        .module('eRegApp')
+        .controller('deptClaimController', ['$scope', '$state', deptClaimController]);
+
+    function deptClaimController($scope, $state) {
+        
+    }
+})();
+
+//dept_dataEntry_form_Identifier Controller//
+
+(function () {
+    'use strict';
+
+    angular
+        .module('eRegApp')
+        .controller('deptIdentController', ['$scope', '$state', deptIdentController]);
+
+    function deptIdentController($scope, $state) {
+       
+    }
+})();
+
