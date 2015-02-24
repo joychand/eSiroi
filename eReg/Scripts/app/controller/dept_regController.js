@@ -89,6 +89,12 @@
             $scope.tsyear = {};
             $scope.visibility = true;
             $scope.click = false;
+            $scope.executant = {};
+            $scope.claimant = {};
+            $scope.identifier = {};
+            $scope.exec = {};
+            $scope.ident = {};
+            $scope.claim = {};
 
             }
        
@@ -148,7 +154,7 @@
         
         function init() {
             $scope.success = false;
-            $scope.executant = {};
+            //$scope.executant = {};
             $scope.executant.Slno = 1;
             $scope.session.Slno = $scope.executant.Slno;
             $scope.online = online;

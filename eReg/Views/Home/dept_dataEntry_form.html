@@ -30,31 +30,31 @@
         </div>
     </div>
      <hr />
-    <form class="form-horizontal" name="deptRegform" novalidate>
+    <form class="form-horizontal " name="deptRegform" novalidate>
         <div class="form-group">
-                 <label for="TS" class="col-sm-2 control-label ">TS</label>
-                 <div class="col-sm-3">
-                     <input type="text" name="TS" data-ng-model="tsyear.ts" class="form-control" placeholder="TS">
-                 </div>
-                  <label for="TS" class="col-sm-2 control-label ">TYear</label>
-                  <div class="col-sm-3">
-                     <input type="text" name="TYear" data-ng-model="tsyear.tyear" class="form-control" placeholder="TYear">
-                 </div>
-             </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <ul class="nav nav-pills" role="tablist">
-
-                <li ui-sref-active="active"><a ui-sref="department.content.form.property">PropertyDetails</a></li>
-                <li ui-sref-active="active"><a ui-sref="department.content.form.executant">Executant</a></li>
-                <li ui-sref-active="active"><a ui-sref="department.content.form.claimant">Claimant</a></li>
-                <li ui-sref-active="active"><a ui-sref="department.content.form.identifier">Identifier</a></li>
-
-            </ul>
+            <label for="TS" class="col-sm-2 control-label ">TS</label>
+            <div class="col-sm-3">
+                <input type="text" name="TS" data-ng-model="tsyear.ts" class="form-control" placeholder="TS">
+            </div>
+            <label for="TS" class="col-sm-2 control-label ">TYear</label>
+            <div class="col-sm-3">
+                <input type="text" name="TYear" data-ng-model="tsyear.tyear" class="form-control" placeholder="TYear">
+            </div>
         </div>
-    </div>
-    
-     <div ui-view></div>
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="nav nav-pills" role="tablist">
+
+                    <li ui-sref-active="active"><a ui-sref="department.content.form.property">PropertyDetails</a></li>
+                    <li ui-sref-active="active"><a ui-sref="department.content.form.executant">Executant</a></li>
+                    <li ui-sref-active="active"><a ui-sref="department.content.form.claimant">Claimant</a></li>
+                    <li ui-sref-active="active"><a ui-sref="department.content.form.identifier">Identifier</a></li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div ui-view></div>
     </form>
 
     
