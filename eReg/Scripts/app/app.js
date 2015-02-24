@@ -110,7 +110,12 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
         .state('department.content.form.executant', {
             url: '/dataEntryformexecutant',
             templateUrl: 'Home/dept_dataEntry_form_executant',
-            controller: 'deptExeController'
+            controller: 'deptExeController',
+            resolve: {
+                online: function (dept_sessionfactory) {
+                    return dept_sessionfactory.getOnline();
+                }
+            }
         })
 
          .state('department.content.form.claimant', {

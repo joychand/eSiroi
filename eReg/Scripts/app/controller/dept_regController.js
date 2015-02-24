@@ -77,9 +77,9 @@
 
     angular
         .module('eRegApp')
-        .controller('dataEntryformController', ['$scope', '$state', dataEntryformController]);
+        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory', dataEntryformController]);
 
-    function dataEntryformController($scope, $state) {
+    function dataEntryformController($scope, $state, dept_sessionfactory) {
       
         init();
 
@@ -101,7 +101,11 @@
             $scope.visibility = true;
             $scope.click = false;
         }
-       
+        $scope.onlineData = function () {
+            dept_sessionfactory.putOnline();
+            $state.go('department.content.form');
+
+        }
 
 
        
@@ -132,11 +136,12 @@
 
     angular
         .module('eRegApp')
-        .controller('deptExeController', ['$scope', '$state', 'dataFactory', deptExeController]);
+        .controller('deptExeController', ['$scope', '$state', 'dataFactory', 'online', deptExeController]);
 
-    function deptExeController($scope, $state, dataFactory) {
+    function deptExeController($scope, $state, dataFactory, online) {
 
         $scope.session = {};
+        console.log(online);
 
         // initialize $scope property
         init();
@@ -146,8 +151,11 @@
             $scope.executant = {};
             $scope.executant.Slno = 1;
             $scope.session.Slno = $scope.executant.Slno;
+            $scope.online = online;
         }
-        
+        if ($scope.online=== true) {
+            $scope.executant.ExecSurName = 'meow';
+        }
        
         
     }
