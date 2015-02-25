@@ -77,9 +77,9 @@
 
     angular
         .module('eRegApp')
-        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory', dataEntryformController]);
+        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory','dataFactory', dataEntryformController]);
 
-    function dataEntryformController($scope, $state, dept_sessionfactory) {
+    function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory) {
       
         init();
 
@@ -89,15 +89,64 @@
             $scope.tsyear = {};
             $scope.visibility = true;
             $scope.click = false;
-            //$scope.executant = {};
-            //$scope.claimant = {};
-            //$scope.identifier = {};
-            //$scope.exec = {};
-            //$scope.ident = {};
-            //$scope.claim = {};
+            $scope.states = {};
+            $scope.districts = {};
+            $scope.subdivisions = {};
+            $scope.villages = {};
+            $scope.revvillages = {};
+            $scope.postoffices = {};
+            $scope.circles = {};
+
+            // *** inject dropdownlist data **//
+            getDistricts();
+            getSubDivisions();
+            getStates();
+           // getPoliceStations();
+            getPostOffices();
+            getVillages();
+
+           
 
             }
        
+        //*****  function call to inject dropdownlist data from dataFactory *****//  
+
+        function getStates() {
+            dataFactory.getStates().then(function (states) {
+                $scope.states = states;
+               // $scope.execddl.state = $scope.states[21];
+            });
+
+        }
+
+        function getDistricts() {
+            dataFactory.getDistricts().then(function (districts) {
+                $scope.districts = districts;
+            });
+        }
+
+
+        function getSubDivisions() {
+            dataFactory.getSubDivisions().then(function (subdivisions) {
+                $scope.subdivisions = subdivisions;
+            });
+        }
+        function getVillages() {
+            dataFactory.getVillages().then(function (villages) {
+                $scope.villages = villages;
+            });
+        }
+        //function getPoliceStations() {
+        //    dataFactory.getPoliceStations().then(function (policestations) {
+        //        $scope.policestations = policestations;
+        //    });
+        //}
+
+        function getPostOffices() {
+            dataFactory.getPostOffices().then(function (postoffices) {
+                $scope.postoffices = postoffices;
+            });
+        }
       
         $scope.getOnline = function () {
             $scope.visibility = false;
@@ -135,7 +184,7 @@
     }
 })();
 
-//dept_dataEntry_form_executant controller
+// **dept_dataEntry_form_executant controller** //
 
 (function () {
     'use strict';
@@ -152,14 +201,25 @@
        
         $scope.session = {};
         $scope.session.isonline = dept_sessionfactory.getExecOnline();
-        //console.log(online);
+        if ($scope.online === true) {
+            if ($scope.session.isonline) {
+               // flush the executant modal
+                deptModalService.executant = {};
+                deptModalService.execddl = {};
+                //  *** To be done *** Get Online Executantlist for first time
+                
+
+               // update the online status
+                dept_sessionfactory.updateExecOnline();
+
+            }
+        }
+
+        // Injecting executant from Modal Service
         $scope.executant = deptModalService.executant;
         $scope.execddl = deptModalService.execddl;
-        //console.log(deptModalService.exec.district);
-        $scope.list = deptModalService.getlist();
-        console.log($scope.list[0]);
-        // initialize $scope property
-       
+            
+       // initialize dropdownlist       
         init();
         function init() {
             $scope.success = false;
@@ -167,70 +227,59 @@
             $scope.executant.Slno = 1;
             $scope.session.Slno = $scope.executant.Slno;
             //$scope.online = online;
-            getDistricts();
-            getSubDivisions();
-            getStates();
-            getPoliceStations();
-            getPostOffices();
-            getVillages();
+            //getDistricts();
+            //getSubDivisions();
+            //getStates();
+            //getPoliceStations();
+            //getPostOffices();
+            //getVillages();
             $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
         }
 
-        console.log('online  ' + $scope.session.isonline);
-        if ($scope.online === true) {
-            if ($scope.session.isonline){
-            $scope.executant.ExecSurName = 'meow';
-            $scope.executant = {};
-            $scope.execddl = {};
-           
-            dept_sessionfactory.updateExecOnline();
-            
-            }
-        }
         
             
            
-       
+     //***** inject dropdownlist data from dataFactory *****//  
 
-        function getStates() {
-            dataFactory.getStates().then(function (states) {
-                $scope.states = states;
-                $scope.execddl.state = $scope.states[21];
-            });
+        //function getStates() {
+        //    dataFactory.getStates().then(function (states) {
+        //        $scope.states = states;
+        //        $scope.execddl.state = $scope.states[21];
+        //    });
 
-        }
+        //}
 
-        function getDistricts() {
-            dataFactory.getDistricts().then(function (districts) {
-                $scope.districts = districts;
-            });
-        }
+        //function getDistricts() {
+        //    dataFactory.getDistricts().then(function (districts) {
+        //        $scope.districts = districts;
+        //    });
+        //}
 
 
-        function getSubDivisions() {
-            dataFactory.getSubDivisions().then(function (subdivisions) {
-                $scope.subdivisions = subdivisions;
-            });
-        }
-        function getVillages() {
-            dataFactory.getVillages().then(function (villages) {
-                $scope.villages = villages;
-            });
-        }
-        function getPoliceStations() {
-            dataFactory.getPoliceStations().then(function (policestations) {
-                $scope.policestations = policestations;
-            });
-        }
+        //function getSubDivisions() {
+        //    dataFactory.getSubDivisions().then(function (subdivisions) {
+        //        $scope.subdivisions = subdivisions;
+        //    });
+        //}
+        //function getVillages() {
+        //    dataFactory.getVillages().then(function (villages) {
+        //        $scope.villages = villages;
+        //    });
+        //}
+        //function getPoliceStations() {
+        //    dataFactory.getPoliceStations().then(function (policestations) {
+        //        $scope.policestations = policestations;
+        //    });
+        //}
 
-        function getPostOffices() {
-            dataFactory.getPostOffices().then(function (postoffices) {
-                $scope.postoffices = postoffices;
-            });
-        }
+        //function getPostOffices() {
+        //    dataFactory.getPostOffices().then(function (postoffices) {
+        //        $scope.postoffices = postoffices;
+        //    });
+        //}
 
     }
-})();
+})();  //  //***** End of deptExeController ****//
 
 
 
@@ -247,6 +296,8 @@
         
     }
 })();
+
+
 
 //dept_dataEntry_form_Identifier Controller//
 

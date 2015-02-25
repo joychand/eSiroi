@@ -131,7 +131,7 @@
         <div class="col-sm-4">
             <select name="subdiv" class="form-control"
                     data-ng-model="execddl.subdiv"
-                    data-ng-options="subdiv.subDivName for subdiv in subdivisions track by subdiv.subDivName | filter:{distCode:exec.district.distCode} | orderBy:'subDivName'"
+                    data-ng-options="subdiv.subDivName for subdiv in subdivisions track by subdiv.subDivName | filter:{distCode:execddl.district.distCode} | orderBy:'subDivName'"
                     data-ng-disabled="!execddl.district">
                 <option value="">--Select Sub-div--</option>
             </select>
