@@ -177,13 +177,15 @@
         }
 
         console.log('online  ' + $scope.session.isonline);
-        if ($scope.online=== true && $scope.session.isOnline===true) {
+        if ($scope.online === true) {
+            if ($scope.session.isonline){
             $scope.executant.ExecSurName = 'meow';
             $scope.executant = {};
             $scope.execddl = {};
-            //$scope.session.online = false;
+           
             dept_sessionfactory.updateExecOnline();
-            //$scope.a.online = false;
+            
+            }
         }
         
             
