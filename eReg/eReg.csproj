@@ -307,6 +307,7 @@
     <Content Include="Scripts\app\factory\angularModalService.js" />
     <Content Include="Scripts\app\factory\dataCommonFactory.js" />
     <Content Include="Scripts\app\factory\datafactory.js" />
+    <Content Include="Scripts\app\factory\deptModelService.js" />
     <Content Include="Scripts\app\factory\dept_dataFactory.js" />
     <Content Include="Scripts\app\factory\dept_sessionFactory.js" />
     <Content Include="Scripts\app\factory\sessionFactory.js" />

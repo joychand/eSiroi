@@ -8,7 +8,8 @@
     function dept_sessionfactory($http) {
         var service = {};
         var linksVisibility;
-        var Online
+        var Online = false;
+        var execOnline = false;
 
         service.getLinkVisibility = function () {
             return linkVisibilty;
@@ -28,11 +29,18 @@
 
 
         }
+        service.getExecOnline = function () {
+            return execOnline;
+        }
 
         service.putOnline = function () {
             Online = true;
+            execOnline = true;
         }
 
+        service.updateExecOnline = function () {
+            execOnline = false;
+        }
 
         return service;
 

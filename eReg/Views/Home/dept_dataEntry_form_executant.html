@@ -103,7 +103,7 @@
         <label for="" class="control-label col-sm-2">State</label>
         <div class="col-sm-4">
             <select name="state" id="" class="form-control"
-                    data-ng-model="state"
+                    data-ng-model="execddl.state"
                     data-ng-options="state.stateName for state in states  ">
                 <option value="">-Select State-</option>
 
@@ -115,9 +115,9 @@
         <label for="" class="control-label col-sm-2">District</label>
         <div class="col-sm-4">
             <select name="district" class="form-control"
-                    data-ng-model="exec.distName"
-                    data-ng-options="district.distName for district in exec.districts  | orderBy:'distName'"
-                    data-ng-change="exec.clrpincode()">
+                    data-ng-model="execddl.district"
+                    data-ng-options="district.distName for district in districts track by district.distName | orderBy:'distName'"
+                    data-ng-change="execddl.clrpincode()">
                 <option value="">--Select District--</option>
             </select>
         </div>
@@ -130,9 +130,9 @@
         <label for="" class="control-label col-sm-2">Sub-Division</label>
         <div class="col-sm-4">
             <select name="subdiv" class="form-control"
-                    data-ng-model="exec.subdiv"
-                    data-ng-options="subdiv.subDivName for subdiv in subdivisions | filter:{distCode:exec.district.distCode} | orderBy:'subDivName'"
-                    data-ng-disabled="!exec.district">
+                    data-ng-model="execddl.subdiv"
+                    data-ng-options="subdiv.subDivName for subdiv in subdivisions track by subdiv.subDivName | filter:{distCode:exec.district.distCode} | orderBy:'subDivName'"
+                    data-ng-disabled="!execddl.district">
                 <option value="">--Select Sub-div--</option>
             </select>
 
@@ -143,9 +143,9 @@
         <label for="" class="control-label col-sm-2">Village</label>
         <div class="col-sm-4">
             <select name="village" id="" class="form-control"
-                    data-ng-model="exec.village"
-                    data-ng-options="village.villName for village in villages | filter:{distCode:exec.district.distCode} | filter:{subDivCode: exec.subdiv.subDivCode} | orderBy: 'villName'"
-                    data-ng-disabled="!exec.subdiv">
+                    data-ng-model="execddl.village"
+                    data-ng-options="village.villName for village in villages track by village.villName | filter:{distCode:execddl.district.distCode} | filter:{subDivCode: execddl.subdiv.subDivCode} | orderBy: 'villName'"
+                    data-ng-disabled="!execddl.subdiv">
                 <option value="">--Select Village--</option>
             </select>
         </div>
@@ -156,9 +156,9 @@
         <label for="" class="control-label col-sm-2">Post Office</label>
         <div class="col-sm-4">
             <select name="PostOffice" id="" class="form-control"
-                    data-ng-model="exec.postoffice"
-                    data-ng-options="po.postOffice1 for po in postoffices | filter:{distCode:exec.district.distCode}  | orderBy: 'postOffice1'"
-                    data-ng-disabled="!exec.subdiv">
+                    data-ng-model="execddl.postoffice"
+                    data-ng-options="po.postOffice1 for po in postoffices track by po.postOffice1 | filter:{distCode:execddl.district.distCode}  | orderBy: 'postOffice1'"
+                    data-ng-disabled="!execddl.subdiv">
 
                 <option value="">--select post office --</option>
 
@@ -169,7 +169,7 @@
         ================================  -->
         <label for="" class="control-label col-sm-2">PinCode</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control text-left" data-ng-model="exec.postoffice.pinCode" placeholder="Pincode" />
+            <input type="text" class="form-control text-left" data-ng-model="execddl.postoffice.pinCode" placeholder="Pincode" />
         </div>
         <!--</div> -->
     </div>
@@ -177,7 +177,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2">PoliceStation</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control" data-ng-model="executant.policestation"/>
+            <input type="text" class="form-control" data-ng-model="execddl.policestation"/>
         </div>
     </div>
 

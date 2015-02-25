@@ -89,12 +89,12 @@
             $scope.tsyear = {};
             $scope.visibility = true;
             $scope.click = false;
-            $scope.executant = {};
-            $scope.claimant = {};
-            $scope.identifier = {};
-            $scope.exec = {};
-            $scope.ident = {};
-            $scope.claim = {};
+            //$scope.executant = {};
+            //$scope.claimant = {};
+            //$scope.identifier = {};
+            //$scope.exec = {};
+            //$scope.ident = {};
+            //$scope.claim = {};
 
             }
        
@@ -142,22 +142,31 @@
 
     angular
         .module('eRegApp')
-        .controller('deptExeController', ['$scope', '$state', 'dataFactory', 'online', 'dept_sessionfactory', deptExeController]);
+        .controller('deptExeController', ['$scope', '$state', 'dataFactory', 'online', 'dept_sessionfactory', 'deptModalService', deptExeController]);
 
-    function deptExeController($scope, $state, dataFactory, online, dept_sessionfactory) {
+    function deptExeController($scope, $state, dataFactory, online, dept_sessionfactory, deptModalService) {
 
+        $scope.online = online;
+        $scope.executant = {};
+        $scope.execddl = {};
+       
         $scope.session = {};
-        console.log(online);
-
+        $scope.session.isonline = dept_sessionfactory.getExecOnline();
+        //console.log(online);
+        $scope.executant = deptModalService.executant;
+        $scope.execddl = deptModalService.execddl;
+        //console.log(deptModalService.exec.district);
+        $scope.list = deptModalService.getlist();
+        console.log($scope.list[0]);
         // initialize $scope property
+       
         init();
-        
         function init() {
             $scope.success = false;
             //$scope.executant = {};
             $scope.executant.Slno = 1;
             $scope.session.Slno = $scope.executant.Slno;
-            $scope.online = online;
+            //$scope.online = online;
             getDistricts();
             getSubDivisions();
             getStates();
@@ -166,24 +175,32 @@
             getVillages();
             $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
         }
-        if ($scope.online=== true) {
-            $scope.executant.ExecSurName = 'meow';
-        }
-        else {
 
+        console.log('online  ' + $scope.session.isonline);
+        if ($scope.online=== true && $scope.session.isOnline===true) {
+            $scope.executant.ExecSurName = 'meow';
+            $scope.executant = {};
+            $scope.execddl = {};
+            //$scope.session.online = false;
+            dept_sessionfactory.updateExecOnline();
+            //$scope.a.online = false;
         }
+        
+            
+           
+       
 
         function getStates() {
             dataFactory.getStates().then(function (states) {
                 $scope.states = states;
-                $scope.state = $scope.states[21];
+                $scope.execddl.state = $scope.states[21];
             });
 
         }
 
         function getDistricts() {
             dataFactory.getDistricts().then(function (districts) {
-                $scope.exec.districts = districts;
+                $scope.districts = districts;
             });
         }
 

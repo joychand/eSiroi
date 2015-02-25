@@ -32,6 +32,7 @@ namespace eReg
                       "~/Scripts/app/factory/dataFactory.js",
                       "~/Scripts/app/factory/sessionFactory.js",
                        "~/Scripts/app/factory/dept_sessionFactory.js",
+                        "~/Scripts/app/factory/deptModelService.js",
                       "~/Scripts/app/factory/angularModalService.js",
                       "~/Scripts/app/controller/registrationController.js",
                       "~/Scripts/app/controller/dept_regController.js"));
