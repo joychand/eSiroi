@@ -1,4 +1,4 @@
-﻿
+﻿/// <reference path = ~/scripts/app/factory/dataFactory.js>
 (function () {
     'use strict';
 
@@ -128,7 +128,7 @@
         .controller('deptPropController', ['$scope', '$state', 'district', deptPropController]);
 
     function deptPropController($scope, $state, district) {
-        $scope.districts = district;
+        //$scope.districts = district;
 
 
       
@@ -142,9 +142,9 @@
 
     angular
         .module('eRegApp')
-        .controller('deptExeController', ['$scope', '$state', 'dataFactory', 'online', deptExeController]);
+        .controller('deptExeController', ['$scope', '$state', 'dataFactory', 'online', 'dept_sessionfactory', deptExeController]);
 
-    function deptExeController($scope, $state, dataFactory, online) {
+    function deptExeController($scope, $state, dataFactory, online, dept_sessionfactory) {
 
         $scope.session = {};
         console.log(online);
@@ -158,12 +158,58 @@
             $scope.executant.Slno = 1;
             $scope.session.Slno = $scope.executant.Slno;
             $scope.online = online;
+            getDistricts();
+            getSubDivisions();
+            getStates();
+            getPoliceStations();
+            getPostOffices();
+            getVillages();
+            $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
         }
         if ($scope.online=== true) {
             $scope.executant.ExecSurName = 'meow';
         }
-       
-        
+        else {
+
+        }
+
+        function getStates() {
+            dataFactory.getStates().then(function (states) {
+                $scope.states = states;
+                $scope.state = $scope.states[21];
+            });
+
+        }
+
+        function getDistricts() {
+            dataFactory.getDistricts().then(function (districts) {
+                $scope.exec.districts = districts;
+            });
+        }
+
+
+        function getSubDivisions() {
+            dataFactory.getSubDivisions().then(function (subdivisions) {
+                $scope.subdivisions = subdivisions;
+            });
+        }
+        function getVillages() {
+            dataFactory.getVillages().then(function (villages) {
+                $scope.villages = villages;
+            });
+        }
+        function getPoliceStations() {
+            dataFactory.getPoliceStations().then(function (policestations) {
+                $scope.policestations = policestations;
+            });
+        }
+
+        function getPostOffices() {
+            dataFactory.getPostOffices().then(function (postoffices) {
+                $scope.postoffices = postoffices;
+            });
+        }
+
     }
 })();
 
