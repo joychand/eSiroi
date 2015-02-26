@@ -25,17 +25,23 @@ namespace eReg.Controllers
         }
 
         // GET: api/OnlineExecutants/5
-        [ResponseType(typeof(OnlineExecutant))]
-        public async Task<IHttpActionResult> GetOnlineExecutant(int id)
-        {
-            OnlineExecutant onlineExecutant = await db.OnlineExecutant.FindAsync(id);
-            if (onlineExecutant == null)
-            {
-                return NotFound();
-            }
+       // [ResponseType(typeof(OnlineExecutant))]
+        //public  List<OnlineExecutant> GetOnlineExecutant(int id)
+        //{
 
-            return Ok(onlineExecutant);
-        }
+        //    //IQueryable<OnlineExecutant> query;
+        //    //return query = from OnlineExecutant in db.OnlineExecutant.Where(v => v.Ackno == id)
+        //    //                   select OnlineExecutant
+        //    //                   .ToList();
+
+        //    OnlineExecutant onlineExecutant = await db.OnlineExecutant.FindAsync(id);
+        //    if (onlineExecutant == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(onlineExecutant);
+        //}
 
         // PUT: api/OnlineExecutants/5
         [ResponseType(typeof(void))]

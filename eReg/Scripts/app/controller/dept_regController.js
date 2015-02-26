@@ -77,9 +77,9 @@
 
     angular
         .module('eRegApp')
-        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory','dataFactory', dataEntryformController]);
+        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory','dataFactory','dept_dataFactory', dataEntryformController]);
 
-    function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory) {
+    function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory) {
       
         init();
 
@@ -104,6 +104,7 @@
            // getPoliceStations();
             getPostOffices();
             getVillages();
+            $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
 
            
 
@@ -158,6 +159,12 @@
         }
         $scope.onlineData = function () {
             dept_sessionfactory.putOnline();
+            dept_dataFactory.getOnlineExecutantList($scope.ackno).then(function (response) {
+                dept_sessionfactory.updateOnlineExecModal(response.data)
+
+            }, function (result) {
+                console.log('getOnlineExecutantList fails ' + result)
+            });
             $state.go('department.content.form');
 
         }
@@ -224,8 +231,8 @@
         function init() {
             $scope.success = false;
             //$scope.executant = {};
-            $scope.executant.Slno = 1;
-            $scope.session.Slno = $scope.executant.Slno;
+            //$scope.executant.Slno = 1;
+            //$scope.session.Slno = $scope.executant.Slno;
             //$scope.online = online;
             //getDistricts();
             //getSubDivisions();
@@ -233,7 +240,7 @@
             //getPoliceStations();
             //getPostOffices();
             //getVillages();
-            $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
+            
         }
 
         
@@ -277,6 +284,9 @@
         //        $scope.postoffices = postoffices;
         //    });
         //}
+        $scope.execddl.clrpincode = function () {
+           
+        }
 
     }
 })();  //  //***** End of deptExeController ****//
@@ -309,6 +319,13 @@
         .controller('deptIdentController', ['$scope', '$state', deptIdentController]);
 
     function deptIdentController($scope, $state) {
+        $scope.ident = {};
+
+        $scope.online = $scope.states[21];
+        console.log('hahaha' + $scope.online);
+        $scope.displayModal=function(){
+            console.log('identifier district modal' + $scope.ident.district.distName)
+        }
        
     }
 })();

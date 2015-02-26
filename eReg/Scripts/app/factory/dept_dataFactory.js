@@ -6,12 +6,21 @@
         .factory('dept_dataFactory', ['$http', dept_dataFactory]);
 
     function dept_dataFactory($http) {
+        var urlBase = '';
         var service = {
-            getData: getData
+
+
+
+            getOnlineExecutantList: function (ackno) {
+                return $http({
+                    method: 'GET',
+                    url: urlBase + ackno + '/'
+                });
+            }
         };
 
         return service;
 
-        function getData() { }
+        
     }
 })();

@@ -33,7 +33,7 @@
             execddl: {
                 state:{},
                 district: {},
-                subdivision: {},
+                subdiv: {},
                 village: {},
                 policestation: {}, 
             },

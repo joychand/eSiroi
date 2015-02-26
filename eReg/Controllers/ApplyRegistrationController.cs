@@ -119,6 +119,24 @@ namespace eReg.Controllers
 
             // Request.CreateResponse(HttpStatusCode.OK, online);
         }
+
+        [HttpGet]
+        [Route("api/ApplyRegistrationController/{ackno}/excutantlist")]
+        public IQueryable <OnlineExecutant> excutantlist(int ackno)
+        {
+            IQueryable<OnlineExecutant> elist;
+
+                elist=db.OnlineExecutant
+               .Where(a => a.Ackno==ackno)
+               .Select (s=> new OnlineExecutant{Ackno=s.Ackno});
+
+            return elist;
+           
+           
+
+
+            // Request.CreateResponse(HttpStatusCode.OK, online);
+        }
         [HttpPost]
         [Route("api/ApplyRegistrationController/postapplication")]
         public async Task<IHttpActionResult> PostOnlineApplication([FromBody] onlineapplication   onlineapplication)

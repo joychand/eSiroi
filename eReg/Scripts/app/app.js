@@ -125,7 +125,8 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
 
         .state('department.content.form.identifier', {
             url: '/dataEntryformidentifier',
-            templateUrl: 'Home/dept_dataEntry_form_identifier'
+            templateUrl: 'Home/dept_dataEntry_form_identifier',
+            controller: 'deptIdentController'
         })
 
         // APPLY REGISTRATION ROUTING

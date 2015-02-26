@@ -318,28 +318,28 @@ angular
         
         //submit the Registration forms
         $scope.formsubmit = function () {
-            //createIdentifierObject();
-            //dataFactory.postexecutant(sessionFactory.getExecutantList())
-            //.then(function (response) {
-            //    console.log('ExecutantList inserted');
-            //    dataFactory.postclaimant(sessionFactory.getClaimantList())
-            //    .then(function (response) {
-            //        console.log('claimantList inserted');
-            //        dataFactory.postidentifier(sessionFactory.getIdentifierList())
-            //        .then(function (response) {
-            //            console.log('idetifierlist inserted');
+            createIdentifierObject();
+            dataFactory.postexecutant(sessionFactory.getExecutantList())
+            .then(function (response) {
+                console.log('ExecutantList inserted');
+                dataFactory.postclaimant(sessionFactory.getClaimantList())
+                .then(function (response) {
+                    console.log('claimantList inserted');
+                    dataFactory.postidentifier(sessionFactory.getIdentifierList())
+                    .then(function (response) {
+                        console.log('idetifierlist inserted');
 
-            //        }, function (result) {
-            //            console.log('identifierlist insert fails' + result)
+                    }, function (result) {
+                        console.log('identifierlist insert fails' + result)
 
-            //        });
+                    });
 
-            //    }, function (result) {
-            //        console.log('claimantList insert fails' + result)
-            //    });
-            //}, function (result) {
-            //    console.log('executantlist insert fails' + result);
-            //});
+                }, function (result) {
+                    console.log('claimantList insert fails' + result)
+                });
+            }, function (result) {
+                console.log('executantlist insert fails' + result);
+            });
             //$scope.mod = {};
             $scope.modalInstance = {};
             $scope.modalInstance = $modal.open({
