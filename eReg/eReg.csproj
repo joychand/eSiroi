@@ -170,6 +170,7 @@
     <Compile Include="Controllers\ApplyRegController.cs" />
     <Compile Include="Controllers\ApplyRegistrationController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DeptController.cs" />
     <Compile Include="Controllers\DistrictsController.cs" />
     <Compile Include="Areas\Public_User\Public_UserAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />

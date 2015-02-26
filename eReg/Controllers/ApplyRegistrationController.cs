@@ -122,13 +122,25 @@ namespace eReg.Controllers
 
         [HttpGet]
         [Route("api/ApplyRegistrationController/{ackno}/excutantlist")]
-        public IQueryable <OnlineExecutant> excutantlist(int ackno)
+        public IEnumerable <OnlineExecutant> excutantlist(int ackno)
         {
-            IQueryable<OnlineExecutant> elist;
 
-                elist=db.OnlineExecutant
-               .Where(a => a.Ackno==ackno)
-               .Select (s=> new OnlineExecutant{Ackno=s.Ackno});
+            //return db.OnlineExecutant 
+            IEnumerable<OnlineExecutant> elist;
+            elist = db.OnlineExecutant
+                  .Where(b => b.Ackno == ackno);
+                  
+            //elist = (from p in db.OnlineExecutant
+            //         where p.Ackno == ackno
+            //         select p);
+            //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
+
+            //return elist;
+
+            //elist = (from p in db.Set<OnlineExecutant>()
+            //         where p.Ackno == ackno
+            //         select new { Ackno = p.Ackno }).AsEnumerable();
+            //         //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
 
             return elist;
            
