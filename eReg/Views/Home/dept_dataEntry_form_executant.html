@@ -11,10 +11,11 @@
           <div class="form-group">
         <label class="col-sm-2 control-label">Slno:</label>
         <div class="col-sm-2">
-            <input list="slno" data-ng-model="executant.slNo" class="form-control" ng-show="on" />
-            <select name="slno" id="" class="form-control" ng-hide="on"
+            <input list="slno" data-ng-model="executant.slNo" class="form-control" ng-show="slnoddlVisibility" />
+            <select name="slno" id="" class="form-control" ng-hide="slnoddlVisibility"
                     data-ng-model="executant.slNo"
-                    data-ng-options="slno as slno for slno in exeslnolist">
+                    data-ng-options="slno as slno for slno in exeslnolist"
+                    data-ng-change="getselectedExecutant()">
                 <option value="">slno</option>
             </select>
         </div>
