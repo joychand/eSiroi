@@ -10,15 +10,15 @@
         var model = {
             // executant Model
             executant: {
-                Slno: '',
-                ExecSurName: '',
-                ExecMiddleName: '',
-                ExecLastName: '',
+                slNo: '',
+                execLastName: '',
+                execMiddleName: '',
+                execSurName: '',
                 alias:'',
                 Aadhaar:'',
-                fatherSurname:'',
-                fatherMiddleName:'',
-                fatherLastName:'',
+                fatherSurName: '',
+                fatherMiddleName: '',
+                fatherLastName: '',
                 sex: '',
                 occupation: '',
                 state: '',

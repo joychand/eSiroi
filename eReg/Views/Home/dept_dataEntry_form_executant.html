@@ -10,8 +10,13 @@
          <ng-form class="form-horizontal css-form " name="execform" novalidate>
           <div class="form-group">
         <label class="col-sm-2 control-label">Slno:</label>
-        <div class="col-sm-1">
-            <input list="slno" data-ng-model="executant.Slno" class="form-control" />
+        <div class="col-sm-2">
+            <input list="slno" data-ng-model="executant.slNo" class="form-control" ng-show="on" />
+            <select name="slno" id="" class="form-control" ng-hide="on"
+                    data-ng-model="executant.slNo"
+                    data-ng-options="slno as slno for slno in exeslnolist">
+                <option value="">slno</option>
+            </select>
         </div>
     </div>
 
@@ -19,19 +24,19 @@
         <label for="executant" class="col-sm-2 control-label">Executant</label>
 
         <div class="col-sm-3">
-            <input type="text" name="ExecSurName" data-ng-model="executant.ExecSurName" class="form-control" placeholder="Surnanme" data-ng-required="true">
+            <input type="text" name="ExecSurName" data-ng-model="executant.execSurName" class="form-control" placeholder="Surnanme" data-ng-required="true">
             <span style="color:#ff0000" data-ng-show="execform.ExecSurName.$dirty && execform.ExecSurName.$invalid">
                 <span data-ng-show="execform.ExecSurName.$error.required">Plz input a surname</span>
             </span>
         </div>
         <div class="col-sm-3">
-            <input type="text" name="ExecMiddleName" data-ng-model="executant.ExecMiddleName" class="form-control text-left css-form" placeholder="MiddleName" required>
+            <input type="text" name="ExecMiddleName" data-ng-model="executant.execMiddleName" class="form-control text-left css-form" placeholder="MiddleName" required>
             <span style="color:#ff0000" data-ng-show="execform.ExecMiddleName.$dirty && execform.ExecMiddleName.$invalid">
                 <span data-ng-show="execform.ExecMiddleName.$error.required">Plz input a MiddleName</span>
             </span>
         </div>
         <div class="col-sm-3">
-            <input type="text" name="ExecLastName" data-ng-model="executant.ExecLastName" class="form-control text-left" placeholder="LastName" required>
+            <input type="text" name="ExecLastName" data-ng-model="executant.execLastName" class="form-control text-left" placeholder="LastName" required>
             <span style="color:#ff0000" data-ng-show="execform.ExecLastName.$dirty && execform.ExecLastName.$invalid">
                 <span data-ng-show="execform.ExecLastName.$error.required">Plz input a LastName</span>
             </span>
@@ -53,7 +58,7 @@
         <label for="father" class="col-sm-2 control-label">Father</label>
 
         <div class="col-sm-3">
-            <input type="text" name="Surname" data-ng-model="executant.fatherSurname" class="form-control" placeholder="Surnanme" />
+            <input type="text" name="Surname" data-ng-model="executant.fatherSurName" class="form-control" placeholder="Surnanme" />
         </div>
         <div class="col-sm-3">
             <input type="text" name="MiddleName" data-ng-model="executant.fatherMiddleName" class="form-control text-left" placeholder="MiddleName" />
@@ -157,7 +162,7 @@
         <div class="col-sm-4">
             <select name="PostOffice" id="" class="form-control"
                     data-ng-model="execddl.postoffice"
-                    data-ng-options="po.postOffice1 for po in postoffices track by po.postOffice1 | filter:{distCode:execddl.district.distCode}  | orderBy: 'postOffice1' track by po.postOffice1"
+                    data-ng-options="po.postOffice1 for po in postoffices  | filter:{distCode:execddl.district.distCode}  | orderBy: 'postOffice1' track by po.postOffice1"
                     data-ng-disabled="!execddl.subdiv">
 
                 <option value="">--select post office --</option>

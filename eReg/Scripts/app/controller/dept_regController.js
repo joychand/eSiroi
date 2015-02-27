@@ -77,7 +77,7 @@
 
     angular
         .module('eRegApp')
-        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory','dataFactory','dept_dataFactory', dataEntryformController]);
+        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory', 'dataFactory', 'dept_dataFactory', dataEntryformController]);
 
     function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory) {
       
@@ -96,6 +96,8 @@
             $scope.revvillages = {};
             $scope.postoffices = {};
             $scope.circles = {};
+            $scope.online = {};
+            $scope.on = true;
 
             // *** inject dropdownlist data **//
             getDistricts();
@@ -159,8 +161,10 @@
         }
         $scope.onlineData = function () {
             dept_sessionfactory.putOnline();
-            dept_dataFactory.getOnlineExecutantList($scope.ackno).then(function (response) {
+            dept_dataFactory.getOnlineExecutantList($scope.online.ackno).then(function (response) {
+                console.log(response.data);
                 dept_sessionfactory.updateOnlineExecModal(response.data)
+                $scope.on = false;
 
             }, function (result) {
                 console.log('getOnlineExecutantList fails ' + result)
@@ -205,17 +209,26 @@
         $scope.online = online;
         $scope.executant = {};
         $scope.execddl = {};
-       
+        $scope.executantlist = [];
+        
         $scope.session = {};
+        $scope.exeslnolist = [];
         $scope.session.isonline = dept_sessionfactory.getExecOnline();
+        // ***To get online data ***
         if ($scope.online === true) {
             if ($scope.session.isonline) {
-               // flush the executant modal
+               // flush the service executant model
                 deptModalService.executant = {};
                 deptModalService.execddl = {};
                 //  *** To be done *** Get Online Executantlist for first time
-                
-
+                $scope.executantlist = angular.copy(dept_sessionfactory.getOnlineExecModallist());
+                for (var i = 0; i < $scope.executantlist.length; i++) {
+                    console.log($scope.executantlist[0].slNo);
+                    $scope.exeslnolist.push($scope.executantlist[i].slNo);
+                }
+                console.log($scope.exeslnolist);
+                deptModalService.executant = $scope.executantlist[0];
+                $scope.session.execlistIndex = 0;
                // update the online status
                 dept_sessionfactory.updateExecOnline();
 
@@ -225,7 +238,7 @@
         // Injecting executant from Modal Service
         $scope.executant = deptModalService.executant;
         $scope.execddl = deptModalService.execddl;
-            
+       
        // initialize dropdownlist       
         init();
         function init() {
