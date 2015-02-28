@@ -44,12 +44,13 @@
         }
         
         service.updateOnlineExecModal = function (executantlist) {
-            console.log('executantlist' + executantlist[0].ackno);
-            sessionexecutantlist = angular.copy(executantlist);
-            console.log('service' + sessionexecutantlist[0].ackno);
+            
+            sessionexecutantlist = executantlist;
+            //console.log('service' + sessionexecutantlist[0].ackno);
         }
         
         service.getOnlineExecModallist = function () {
+           
             return sessionexecutantlist;
         }
         return service;

@@ -1,23 +1,32 @@
 ﻿<div class="row">
     <div class="col-sm-6">
-    <h3>ExecutantDetailForm</h3></div>
+        <h3>ExecutantDetailForm</h3>
+    </div>
     <div class=" col-sm-2 pull-right"><span class="text-danger"> #<em>optional</em></span></div>
 </div>
 <hr />
 <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>You have successfully added the Executant
 </div>
-         <ng-form class="form-horizontal css-form " name="execform" novalidate>
-          <div class="form-group">
-        <label class="col-sm-2 control-label">Slno:</label>
+<ng-form class="form-horizontal css-form " name="execform" novalidate>
+    <div class="form-group" ng-hide="slnoddlVisibility">
+        <label class="col-sm-4 control-label pull-left">Select Executant Slno:</label>
         <div class="col-sm-2">
-            <input list="slno" data-ng-model="executant.slNo" class="form-control" ng-show="slnoddlVisibility" />
-            <select name="slno" id="" class="form-control" ng-hide="slnoddlVisibility"
-                    data-ng-model="executant.slNo"
-                    data-ng-options="slno as slno for slno in exeslnolist"
+            <select name="slno" id="" class="form-control"
+                    data-ng-model="Elist.slNo"
+                    data-ng-options="slno for slno in exeslnolist"
                     data-ng-change="getselectedExecutant()">
                 <option value="">slno</option>
             </select>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Slno:</label>
+        <div class="col-sm-1">
+            <input list="slno" data-ng-model="executant.slNo" class="form-control" readonly />
+
         </div>
     </div>
 
@@ -183,7 +192,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2">PoliceStation</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control" data-ng-model="execddl.policestation"/>
+            <input type="text" class="form-control" data-ng-model="execddl.policestation" />
         </div>
     </div>
 

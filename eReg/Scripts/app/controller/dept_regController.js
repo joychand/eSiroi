@@ -97,7 +97,8 @@
             $scope.postoffices = {};
             $scope.circles = {};
             $scope.online = {};
-            $scope.on = true;
+            $scope.slnoddlVisibility = true;
+            $scope.exeslnolist = [];
 
             // *** inject dropdownlist data **//
             getDistricts();
@@ -162,9 +163,9 @@
         $scope.onlineData = function () {
             dept_sessionfactory.putOnline();
             dept_dataFactory.getOnlineExecutantList($scope.online.ackno).then(function (response) {
-                console.log(response.data);
+                //console.log(response.data);
                 dept_sessionfactory.updateOnlineExecModal(response.data)
-                $scope.on = false;
+                $scope.slnoddlVisibility = false;
 
             }, function (result) {
                 console.log('getOnlineExecutantList fails ' + result)
@@ -210,26 +211,27 @@
         $scope.executant = {};
         $scope.execddl = {};
         $scope.executantlist = [];
-        
+        $scope.Elist = {}
         $scope.session = {};
-        $scope.exeslnolist = [];
+        
+        $scope.executantlist = dept_sessionfactory.getOnlineExecModallist();
+        //console.log(executantlist);
         $scope.session.isonline = dept_sessionfactory.getExecOnline();
         // ***To get online data ***
         if ($scope.online === true) {
             if ($scope.session.isonline) {
                // flush the service executant model
-                deptModalService.executant = {};
-                deptModalService.execddl = {};
+                //deptModalService.executant = {};
+                //deptModalService.execddl = {};
                 //  *** To be done *** Get Online Executantlist for first time
-                $scope.executantlist = angular.copy(dept_sessionfactory.getOnlineExecModallist());
+                
                 for (var i = 0; i < $scope.executantlist.length; i++) {
-                    console.log($scope.executantlist[0].slNo);
+                    
                     $scope.exeslnolist.push($scope.executantlist[i].slNo);
                 }
                 console.log($scope.exeslnolist);
                 deptModalService.executant = $scope.executantlist[0];
-                $scope.session.execlistIndex = 0;
-               // update the online status
+                // update the online status
                 dept_sessionfactory.updateExecOnline();
 
             }
@@ -243,61 +245,25 @@
         init();
         function init() {
             $scope.success = false;
-            //$scope.executant = {};
-            //$scope.executant.Slno = 1;
-            //$scope.session.Slno = $scope.executant.Slno;
-            //$scope.online = online;
-            //getDistricts();
-            //getSubDivisions();
-            //getStates();
-            //getPoliceStations();
-            //getPostOffices();
-            //getVillages();
+            
             
         }
 
         
             
            
-     //***** inject dropdownlist data from dataFactory *****//  
-
-        //function getStates() {
-        //    dataFactory.getStates().then(function (states) {
-        //        $scope.states = states;
-        //        $scope.execddl.state = $scope.states[21];
-        //    });
-
-        //}
-
-        //function getDistricts() {
-        //    dataFactory.getDistricts().then(function (districts) {
-        //        $scope.districts = districts;
-        //    });
-        //}
-
-
-        //function getSubDivisions() {
-        //    dataFactory.getSubDivisions().then(function (subdivisions) {
-        //        $scope.subdivisions = subdivisions;
-        //    });
-        //}
-        //function getVillages() {
-        //    dataFactory.getVillages().then(function (villages) {
-        //        $scope.villages = villages;
-        //    });
-        //}
-        //function getPoliceStations() {
-        //    dataFactory.getPoliceStations().then(function (policestations) {
-        //        $scope.policestations = policestations;
-        //    });
-        //}
-
-        //function getPostOffices() {
-        //    dataFactory.getPostOffices().then(function (postoffices) {
-        //        $scope.postoffices = postoffices;
-        //    });
-        //}
+    
         $scope.execddl.clrpincode = function () {
+           
+        }
+       
+        //******* ONLINE SELECT EXECUTANT LIST **********/
+        $scope.getselectedExecutant = function () {
+           
+            var currSlno = $scope.Elist.slNo;
+            deptModalService.executant = $scope.executantlist[currSlno - 1];
+            $scope.executant = deptModalService.executant;
+
            
         }
 
