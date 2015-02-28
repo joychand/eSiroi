@@ -149,6 +149,38 @@ namespace eReg.Controllers
 
             // Request.CreateResponse(HttpStatusCode.OK, online);
         }
+
+        //***   GET EXECUTANT DDL DATA *********//
+        [HttpGet]
+        [Route("api/ApplyRegistrationController/{ackno}/execddllist")]
+        public System.Collections.IEnumerable execddlist(int ackno)
+        {
+
+            //return db.OnlineExecutant 
+            System.Collections.IEnumerable elist;
+            //elist = db.OnlineExecutant
+            //      .Where(b => b.Ackno == ackno);
+
+            //elist = (from p in db.OnlineExecutant
+            //         where p.Ackno == ackno
+            //         select p);
+            //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
+
+            //return elist;
+
+            elist = (from p in db.Set<OnlineExecutant>()
+                     where p.Ackno == ackno
+                     select new { p.State, p.District,p.SubDivision,p.Village,p.PostOffice,p.PinCode,p.PoliceSt}).AsEnumerable();
+            //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
+
+            return elist;
+
+
+
+
+            // Request.CreateResponse(HttpStatusCode.OK, online);
+        }
+
         [HttpPost]
         [Route("api/ApplyRegistrationController/postapplication")]
         public async Task<IHttpActionResult> PostOnlineApplication([FromBody] onlineapplication   onlineapplication)

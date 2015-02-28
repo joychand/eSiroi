@@ -31,11 +31,13 @@
             },
             // scope for executant dropdownlist
             execddl: {
-                state:{},
-                district: {},
-                subdiv: {},
-                village: {},
-                policestation: {}, 
+                state:'',
+                district: '',
+                subDivision: '',
+                village: '',
+                policeSt: '',
+                pinCode: '',
+                postOffice:'',
             },
             
             getlist: function() {

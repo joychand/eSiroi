@@ -11,6 +11,7 @@
         var Online = false;
         var execOnline = false;
         var sessionexecutantlist = [];
+        var sessionexecddlist = [];
 
         service.getLinkVisibility = function () {
             return linkVisibilty;
@@ -53,6 +54,16 @@
            
             return sessionexecutantlist;
         }
+
+        service.updateOnlineExecddllModal = function (execddlist) {
+            sessionexecddlist = execddlist;
+        }
+
+        service.getOnlineExecddlModallist = function () {
+
+            return sessionexecddlist;
+        }
+
         return service;
 
         //function getData() { }

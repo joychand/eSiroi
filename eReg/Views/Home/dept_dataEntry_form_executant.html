@@ -119,7 +119,7 @@
         <div class="col-sm-4">
             <select name="state" id="" class="form-control"
                     data-ng-model="execddl.state"
-                    data-ng-options="state.stateName for state in states  ">
+                    data-ng-options="state.stateName as state.stateName for state in states  ">
                 <option value="">-Select State-</option>
 
             </select>
@@ -131,7 +131,7 @@
         <div class="col-sm-4">
             <select name="district" class="form-control"
                     data-ng-model="execddl.district"
-                    data-ng-options="district.distName for district in districts  | orderBy:'distName' track by district.distName"
+                    data-ng-options="district.distName as district.distName for district in districts  | orderBy:'distName' track by distName"
                     data-ng-change="execddl.clrpincode()">
                 <option value="">--Select District--</option>
             </select>
@@ -145,8 +145,8 @@
         <label for="" class="control-label col-sm-2">Sub-Division</label>
         <div class="col-sm-4">
             <select name="subdiv" class="form-control"
-                    data-ng-model="execddl.subdiv"
-                    data-ng-options="subdiv.subDivName for subdiv in subdivisions | filter:{distCode:execddl.district.distCode} | orderBy:'subDivName' track by subdiv.subDivName"
+                    data-ng-model="execddl.subDivision"
+                    data-ng-options="subdiv.subDivName for subdiv in subdivisions | filter:{distCode:execddl.district.distCode} | orderBy:'subDivName' track by subDivision.subDivName"
                     data-ng-disabled="!execddl.district">
                 <option value="">--Select Subdiv--</option>
             </select>
@@ -159,8 +159,8 @@
         <div class="col-sm-4">
             <select name="village" id="" class="form-control"
                     data-ng-model="execddl.village"
-                    data-ng-options="village.villName for village in villages  | filter:{distCode:execddl.district.distCode} | filter:{subDivCode: execddl.subdiv.subDivCode} | orderBy: 'villName' track by village.villName"
-                    data-ng-disabled="!execddl.subdiv">
+                    data-ng-options="village.villName for village in villages  | filter:{distCode:execddl.district.distCode} | filter:{subDivCode: execddl.subDivision.subDivCode} | orderBy: 'villName' track by villName"
+                    data-ng-disabled="!execddl.subDivision">
                 <option value="">--Select Village--</option>
             </select>
         </div>
@@ -171,9 +171,9 @@
         <label for="" class="control-label col-sm-2">Post Office</label>
         <div class="col-sm-4">
             <select name="PostOffice" id="" class="form-control"
-                    data-ng-model="execddl.postoffice"
+                    data-ng-model="execddl.postOffice"
                     data-ng-options="po.postOffice1 for po in postoffices  | filter:{distCode:execddl.district.distCode}  | orderBy: 'postOffice1' track by po.postOffice1"
-                    data-ng-disabled="!execddl.subdiv">
+                    data-ng-disabled="!execddl.subDivision">
 
                 <option value="">--select post office --</option>
 
@@ -192,7 +192,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2">PoliceStation</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control" data-ng-model="execddl.policestation" />
+            <input type="text" class="form-control" data-ng-model="execddl.policeSt" />
         </div>
     </div>
 

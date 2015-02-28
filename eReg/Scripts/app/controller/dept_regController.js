@@ -164,8 +164,13 @@
             dept_sessionfactory.putOnline();
             dept_dataFactory.getOnlineExecutantList($scope.online.ackno).then(function (response) {
                 //console.log(response.data);
-                dept_sessionfactory.updateOnlineExecModal(response.data)
+                dept_sessionfactory.updateOnlineExecModal(response.data);
                 $scope.slnoddlVisibility = false;
+                dept_dataFactory.getOnlineExecddlist($scope.online.ackno).then(function (response) {
+                    dept_sessionfactory.updateOnlineExecddllModal(response.data);
+                }, function (result) {
+                    console.log('getOnlineExecddlist fails' + result);
+                });
 
             }, function (result) {
                 console.log('getOnlineExecutantList fails ' + result)
@@ -211,10 +216,13 @@
         $scope.executant = {};
         $scope.execddl = {};
         $scope.executantlist = [];
+        $scope.execddlist = [];
         $scope.Elist = {}
         $scope.session = {};
         
         $scope.executantlist = dept_sessionfactory.getOnlineExecModallist();
+        $scope.execddlist = dept_sessionfactory.getOnlineExecddlModallist();
+        console.log($scope.execddlist);
         //console.log(executantlist);
         $scope.session.isonline = dept_sessionfactory.getExecOnline();
         // ***To get online data ***
@@ -231,6 +239,7 @@
                 }
                 console.log($scope.exeslnolist);
                 deptModalService.executant = $scope.executantlist[0];
+                deptModalService.execddl = $scope.execddlist[0];
                 // update the online status
                 dept_sessionfactory.updateExecOnline();
 
@@ -240,6 +249,7 @@
         // Injecting executant from Modal Service
         $scope.executant = deptModalService.executant;
         $scope.execddl = deptModalService.execddl;
+        console.log($scope.execddl.state);
        
        // initialize dropdownlist       
         init();
@@ -253,17 +263,18 @@
             
            
     
-        $scope.execddl.clrpincode = function () {
+        //$scope.execddl.clrpincode = function () {
            
-        }
+        //}
        
         //******* ONLINE SELECT EXECUTANT LIST **********/
         $scope.getselectedExecutant = function () {
            
             var currSlno = $scope.Elist.slNo;
             deptModalService.executant = $scope.executantlist[currSlno - 1];
+            deptModalService.execddl = $scope.execddlist[currSlno - 1];
             $scope.executant = deptModalService.executant;
-
+            $scope.execddl = deptModalService.execddl;
            
         }
 

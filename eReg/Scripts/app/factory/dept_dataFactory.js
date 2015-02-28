@@ -14,7 +14,16 @@
                     method: 'GET',
                     url: urlBase + ackno + '/excutantlist '
                 });
-            }
+            },
+
+            
+            getOnlineExecddlist: function (ackno) {
+            return $http({
+                method: 'GET',
+                url: urlBase + ackno + '/execddllist'
+            });
+        }
+
         };
 
         return service;
