@@ -39,6 +39,8 @@
                 pinCode: '',
                 postOffice:'',
             },
+
+           
             
             getlist: function() {
                 return executantList;

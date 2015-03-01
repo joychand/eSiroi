@@ -125,7 +125,7 @@
                  <div class="col-sm-4">
                      <select name="district" class="form-control"
                          data-ng-model="ident.district"
-                         data-ng-options="district.distName for district in districts  | orderBy:'distName'">
+                         data-ng-options="district.distName for district in districts  | orderBy:'distName' track by district.distName">
                          <option value="">--Select District--</option>
                      </select>
                  </div>

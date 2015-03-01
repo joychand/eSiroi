@@ -21,18 +21,7 @@
     function dept_regController($scope, $state, majortrans) {
         $scope.title = 'dept_regController';
         $scope.transactions = majortrans.data;
-       //// $scope.links.dataSelected = false;
-       // init();
-       // function init() {
-       //     getMajortransaction();
-       // }
-       // //get Major Transaction
-       // function getMajortransaction() {
-       //     dataFactory.getMajortransaction().then(function (transaction) {
-       //         $scope.transactions = transaction;
-       //     });
-
-       // }
+      
         $scope.proceed = function () {
             //console.log($scope.links.dataSelected);
             $state.go('department.content.form');
@@ -99,6 +88,8 @@
             $scope.online = {};
             $scope.slnoddlVisibility = true;
             $scope.exeslnolist = [];
+            $scope.OnlineStatus = 'offline';
+         
 
             // *** inject dropdownlist data **//
             getDistricts();
@@ -166,6 +157,7 @@
                 //console.log(response.data);
                 dept_sessionfactory.updateOnlineExecModal(response.data);
                 $scope.slnoddlVisibility = false;
+                $scope.OnlineStatus = 'online';
                 dept_dataFactory.getOnlineExecddlist($scope.online.ackno).then(function (response) {
                     dept_sessionfactory.updateOnlineExecddllModal(response.data);
                 }, function (result) {
@@ -194,7 +186,7 @@
         .controller('deptPropController', ['$scope', '$state', 'district', deptPropController]);
 
     function deptPropController($scope, $state, district) {
-        //$scope.districts = district;
+       
 
 
       
@@ -220,24 +212,23 @@
         $scope.Elist = {}
         $scope.session = {};
         
-        $scope.executantlist = dept_sessionfactory.getOnlineExecModallist();
-        $scope.execddlist = dept_sessionfactory.getOnlineExecddlModallist();
-        console.log($scope.execddlist);
+        
+       
+        //console.log($scope.execddlist);
         //console.log(executantlist);
         $scope.session.isonline = dept_sessionfactory.getExecOnline();
         // ***To get online data ***
         if ($scope.online === true) {
             if ($scope.session.isonline) {
-               // flush the service executant model
-                //deptModalService.executant = {};
-                //deptModalService.execddl = {};
+              
                 //  *** To be done *** Get Online Executantlist for first time
-                
+                $scope.executantlist = dept_sessionfactory.getOnlineExecModallist();
+                $scope.execddlist = dept_sessionfactory.getOnlineExecddlModallist();
                 for (var i = 0; i < $scope.executantlist.length; i++) {
                     
                     $scope.exeslnolist.push($scope.executantlist[i].slNo);
                 }
-                console.log($scope.exeslnolist);
+               
                 deptModalService.executant = $scope.executantlist[0];
                 deptModalService.execddl = $scope.execddlist[0];
                 // update the online status
@@ -248,8 +239,15 @@
 
         // Injecting executant from Modal Service
         $scope.executant = deptModalService.executant;
-        $scope.execddl = deptModalService.execddl;
-        console.log($scope.execddl.state);
+        
+        
+            $scope.execddl = deptModalService.execddl;
+
+            //else {
+        //    $scope.execddl = deptModalService.execOfflineddl;
+        //}
+        
+        //console.log($scope.execddl.state);
        
        // initialize dropdownlist       
         init();
@@ -259,14 +257,7 @@
             
         }
 
-        
             
-           
-    
-        //$scope.execddl.clrpincode = function () {
-           
-        //}
-       
         //******* ONLINE SELECT EXECUTANT LIST **********/
         $scope.getselectedExecutant = function () {
            

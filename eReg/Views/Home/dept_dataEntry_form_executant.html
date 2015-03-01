@@ -2,7 +2,7 @@
     <div class="col-sm-6">
         <h3>ExecutantDetailForm</h3>
     </div>
-    <div class=" col-sm-2 pull-right"><span class="text-danger"> #<em>optional</em></span></div>
+    <div class=" col-sm-2 pull-right"><span class="text-danger">#<em>optional</em></span></div>
 </div>
 <hr />
 <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
@@ -95,8 +95,7 @@
             </label>
         </div>
 
-        <!-- Dropdown select with jquery
-        ============================================================  -->
+        
 
         <label for="" class=" control-label col-sm-2">Occupation</label>
         <div class="col-sm-3">
@@ -109,17 +108,17 @@
 
 
     </div>
-    <!-- Select list without dropdown
+    <!-- ***** DropDownList Template ********
     ========================================================  --->
-    <!-- State Dropdown
-    ================================  -->
-
-    <div class="form-group">
+    <div class="container" ng-switch="OnlineStatus">
+        <!-- ========== DropDownlist Template for Offline Data Entry =========  -->
+        <div class="container" ng-switch-when="offline">
+            <div class="form-group">
         <label for="" class="control-label col-sm-2">State</label>
         <div class="col-sm-4">
             <select name="state" id="" class="form-control"
                     data-ng-model="execddl.state"
-                    data-ng-options="state.stateName as state.stateName for state in states  ">
+                    data-ng-options="state.stateName for state in states  ">
                 <option value="">-Select State-</option>
 
             </select>
@@ -131,7 +130,7 @@
         <div class="col-sm-4">
             <select name="district" class="form-control"
                     data-ng-model="execddl.district"
-                    data-ng-options="district.distName as district.distName for district in districts  | orderBy:'distName' track by distName"
+                    data-ng-options="district.distName for district in districts  | orderBy:'distName' track by district.distName "
                     data-ng-change="execddl.clrpincode()">
                 <option value="">--Select District--</option>
             </select>
@@ -146,7 +145,7 @@
         <div class="col-sm-4">
             <select name="subdiv" class="form-control"
                     data-ng-model="execddl.subDivision"
-                    data-ng-options="subdiv.subDivName for subdiv in subdivisions | filter:{distCode:execddl.district.distCode} | orderBy:'subDivName' track by subDivision.subDivName"
+                    data-ng-options="subdiv.subDivName for subdiv in subdivisions | filter:{distCode:execddl.district.distCode} | orderBy:'subDivName' track by subdiv.subDivName"
                     data-ng-disabled="!execddl.district">
                 <option value="">--Select Subdiv--</option>
             </select>
@@ -159,7 +158,7 @@
         <div class="col-sm-4">
             <select name="village" id="" class="form-control"
                     data-ng-model="execddl.village"
-                    data-ng-options="village.villName for village in villages  | filter:{distCode:execddl.district.distCode} | filter:{subDivCode: execddl.subDivision.subDivCode} | orderBy: 'villName' track by villName"
+                    data-ng-options="village.villName for village in villages  | filter:{distCode:execddl.district.distCode} | filter:{subDivCode: execddl.subDivision.subDivCode} | orderBy: 'villName' track by village.villName"
                     data-ng-disabled="!execddl.subDivision">
                 <option value="">--Select Village--</option>
             </select>
@@ -184,7 +183,7 @@
         ================================  -->
         <label for="" class="control-label col-sm-2">PinCode</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control text-left" data-ng-model="execddl.postoffice.pinCode" placeholder="Pincode" />
+            <input type="text" class="form-control text-left" data-ng-model="execddl.postOffice.pinCode" placeholder="Pincode" />
         </div>
         <!--</div> -->
     </div>
@@ -195,6 +194,76 @@
             <input type="text" class="form-control" data-ng-model="execddl.policeSt" />
         </div>
     </div>
+        </div>
+         <!-- ========== DropDownlist Template for Online Data Entry =========  -->
+        <div class="container" ng-switch-when="online">
+            <!-- State Dropdown
+                          ================================  -->
+
+    <div class="form-group">
+        <label for="" class="control-label col-sm-2">State</label>
+        <div class="col-sm-4">
+           <input type="text" data-ng-model="execddl.state" class="form-control" />
+                  
+        </div>
+
+        <!-- District Dropdown
+        ================================  -->
+        <label for="" class="control-label col-sm-2">District</label>
+        <div class="col-sm-4">
+           <input type="text" data-ng-model="execddl.district" class="form-control" />
+                    
+        </div>
+
+    </div>
+
+    <!-- SubDivision Dropdown
+    ================================  -->
+    <div class="form-group">
+        <label for="" class="control-label col-sm-2">Sub-Division</label>
+        <div class="col-sm-4">
+            <input type="text" data-ng-model="execddl.subDivision" class="form-control" />
+
+        </div>
+
+        <!-- Village Dropdown
+        ================================  -->
+        <label for="" class="control-label col-sm-2">Village</label>
+        <div class="col-sm-4">
+            <input type="text" data-ng-model="execddl.village" class="form-control" />
+        </div>
+    </div>
+    <!-- Post Office Dropdown
+    ================================  -->
+    <div class="form-group">
+        <label for="" class="control-label col-sm-2">Post Office</label>
+        <div class="col-sm-4">
+            <input type="text" data-ng-model="execddl.postOffice" class="form-control" />
+
+        </div>
+        <!-- Pincode Dropdown
+        ================================  -->
+        <label for="" class="control-label col-sm-2">PinCode</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control text-left" data-ng-model="execddl.pinCode" placeholder="Pincode" />
+        </div>
+        <!--</div> -->
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2">PoliceStation</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" data-ng-model="execddl.policeSt" />
+        </div>
+    </div>
+
+        </div>
+    </div>
+
+  
+    
+
+    
 
     <!-- ======================================== -->
     <div class="form-group  ">
