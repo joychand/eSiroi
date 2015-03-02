@@ -277,17 +277,37 @@
         //***** exsubmit() button *********//
         $scope.onexsubmit = function () {
 
-            for (var i = 0; i < $scope.executantlist.length; i++) {
+            if ($scope.OnlineStatus === 'offline') {
 
-                $scope.executantlist[i].tsno = $scope.tsyear.tsno;
-                $scope.executantlist[i].tsyear = $scope.tsyear.tyear;
-                $scope.executantlist[i].enterby = 'abc';
+                $scope.executant.tsno = $scope.tsyear.ts;
+                $scope.executant.tsyear = $scope.tsyear.tyear;
+                $scope.executant.state = $scope.execddl.state.stateName;
+                $scope.executant.district = $scope.execddl.district.distName;
+                $scope.executant.subDivison = $scope.execddl.subDivison.subDivName;
+                $scope.executant.village = $scope.execddl.village.villName;
+                $scope.executant.postOffice = $scope.execddl.postOffice.postOffice1;
+                $scope.executant.pinCode = $scope.execddl.postOffice.pinCode;
+                $scope.executant.enterby = 'radha'
+                dept_sessionfactory.pushExecutant($scope.executant);
+
+                              
             }
-            dept_dataFactory.postdeptexecutantlist($scope.executantlist).then(function (response) {
-                console.log('registration successfully data entered');
-            }, function (result) {
-                console.log('registration fails');
-            })
+            else {
+                for (var i = 0; i < $scope.executantlist.length; i++) {
+
+                    $scope.executantlist[i].tsno = $scope.tsyear.ts;
+                    $scope.executantlist[i].tsyear = $scope.tsyear.tyear;
+                    $scope.executantlist[i].enterby = 'radha';
+                }
+
+                dept_sessionfactory.putOnlineExecutantlist($scope.executantlist)
+            }
+            
+            //dept_dataFactory.postdeptexecutantlist($scope.executantlist).then(function (response) {
+            //    console.log('registration successfully data entered');
+            //}, function (result) {
+            //    console.log('registration fails');
+            //})
 
         }
 
@@ -319,13 +339,19 @@
 
     angular
         .module('eRegApp')
-        .controller('deptIdentController', ['$scope', '$state', deptIdentController]);
+        .controller('deptIdentController', ['$scope', '$state','dept_sessionfactory', 'deptModalService', 'dept_dataFactory', deptIdentController]);
 
-    function deptIdentController($scope, $state) {
+    function deptIdentController($scope, $state,dept_sessionfactory, deptModalService, dept_dataFactory) {
         $scope.ident = {};
 
         $scope.online = $scope.states[21];
-        console.log('hahaha' + $scope.online);
+        $scope.formsubmit = function () {
+            dept_dataFactory.postdeptexecutantlist(dept_sessionfactory.getExecutantlist()).then(function (response) {
+                console.log('registration successfully data entered');
+            }, function (result) {
+                console.log('registration fails');
+            })
+        }
         $scope.displayModal=function(){
             console.log('identifier district modal' + $scope.ident.district.distName)
         }

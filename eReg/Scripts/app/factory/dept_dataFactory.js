@@ -7,7 +7,7 @@
 
     function dept_dataFactory($http) {
         var urlBase = 'api/ApplyRegistrationController/';
-        var urlBase2 = 'api/deptRegistraionController';
+        var urlBase2 = 'api/deptRegistraionController/';
         var service = {
 
             getOnlineExecutantList: function (ackno) {
@@ -29,7 +29,7 @@
                 return $http({
                     method: 'POST',
                     data: executantlist,
-                    url: urlBase2 + '//postexecutant'
+                    url: urlBase2 + 'postexecutant'
                 });
 
         }

@@ -12,6 +12,7 @@
         var execOnline = false;
         var sessionexecutantlist = [];
         var sessionexecddlist = [];
+        var executantlist = [];
 
         service.getLinkVisibility = function () {
             return linkVisibilty;
@@ -63,6 +64,20 @@
 
             return sessionexecddlist;
         }
+
+        service.pushExecutant=function(executant){
+            executantlist.push(executant);
+        }
+
+        service.getExecutantlist = function () {
+            console.log(executantlist);
+            return executantlist;
+        }
+        service.putOnlineExecutantlist = function (onlineExecutantlist) {
+            executantlist = [];
+            executantlist = onlineExecutantlist;
+        }
+        
 
         return service;
 
