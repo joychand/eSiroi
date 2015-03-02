@@ -34,6 +34,7 @@ namespace eReg.Models
         public System.Data.Entity.DbSet<eReg.Models.onlinePlot> onlinePlot { get; set; }
         public System.Data.Entity.DbSet<eReg.Models.OnlineIdentifier> OnlineIdentifier { get; set; }
         public System.Data.Entity.DbSet<eReg.Models.OnlineClaimant> OnlineClaimant { get; set; }
+        public System.Data.Entity.DbSet<eReg.Migrations.Models.Executant> Executant { get; set; }
         // public System.Data.Entity.DbSet<eReg.Models.OnlineExecutantList> OnlineExecutantList { get; set; }
     }
 }

@@ -171,6 +171,7 @@
     <Compile Include="Controllers\ApplyRegistrationController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DeptController.cs" />
+    <Compile Include="Controllers\deptRegistraionController.cs" />
     <Compile Include="Controllers\DistrictsController.cs" />
     <Compile Include="Areas\Public_User\Public_UserAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -224,6 +225,10 @@
     <Compile Include="Migrations\201502161658049_updateonlineclaimant.Designer.cs">
       <DependentUpon>201502161658049_updateonlineclaimant.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503021054347_executant.cs" />
+    <Compile Include="Migrations\201503021054347_executant.Designer.cs">
+      <DependentUpon>201503021054347_executant.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Models\CensusSubDiv.cs" />
     <Compile Include="Migrations\Models\CensusSubDivision.cs" />
@@ -231,6 +236,7 @@
     <Compile Include="Migrations\Models\circle.cs" />
     <Compile Include="Migrations\Models\district.cs" />
     <Compile Include="Migrations\Models\eregdbContext.cs" />
+    <Compile Include="Migrations\Models\Executant.cs" />
     <Compile Include="Migrations\Models\MajorTrans_code.cs" />
     <Compile Include="Migrations\Models\onlineapplication.cs" />
     <Compile Include="Migrations\Models\OnlineClaimant.cs" />
@@ -453,6 +459,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502161658049_updateonlineclaimant.resx">
       <DependentUpon>201502161658049_updateonlineclaimant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503021054347_executant.resx">
+      <DependentUpon>201503021054347_executant.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

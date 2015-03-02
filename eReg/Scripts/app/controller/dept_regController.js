@@ -200,9 +200,9 @@
 
     angular
         .module('eRegApp')
-        .controller('deptExeController', ['$scope', '$state', 'dataFactory', 'online', 'dept_sessionfactory', 'deptModalService', deptExeController]);
+        .controller('deptExeController', ['$scope', '$state', 'dataFactory', 'online', 'dept_sessionfactory', 'deptModalService', 'dept_dataFactory', deptExeController]);
 
-    function deptExeController($scope, $state, dataFactory, online, dept_sessionfactory, deptModalService) {
+    function deptExeController($scope, $state, dataFactory, online, dept_sessionfactory, deptModalService, dept_dataFactory) {
 
         $scope.online = online;
         $scope.executant = {};
@@ -217,13 +217,16 @@
         //console.log($scope.execddlist);
         //console.log(executantlist);
         $scope.session.isonline = dept_sessionfactory.getExecOnline();
+        $scope.executantlist = dept_sessionfactory.getOnlineExecModallist();
+        $scope.execddlist = dept_sessionfactory.getOnlineExecddlModallist();
         // ***To get online data ***
         if ($scope.online === true) {
             if ($scope.session.isonline) {
+
+               // $scope.exeslnolist = [];
               
                 //  *** To be done *** Get Online Executantlist for first time
-                $scope.executantlist = dept_sessionfactory.getOnlineExecModallist();
-                $scope.execddlist = dept_sessionfactory.getOnlineExecddlModallist();
+               
                 for (var i = 0; i < $scope.executantlist.length; i++) {
                     
                     $scope.exeslnolist.push($scope.executantlist[i].slNo);
@@ -236,6 +239,7 @@
 
             }
         }
+        //console.log($scope.exeslnolist);
 
         // Injecting executant from Modal Service
         $scope.executant = deptModalService.executant;
@@ -260,6 +264,7 @@
             
         //******* ONLINE SELECT EXECUTANT LIST **********/
         $scope.getselectedExecutant = function () {
+            //console.log($scope.Elist.slNo);
            
             var currSlno = $scope.Elist.slNo;
             deptModalService.executant = $scope.executantlist[currSlno - 1];
@@ -267,6 +272,23 @@
             $scope.executant = deptModalService.executant;
             $scope.execddl = deptModalService.execddl;
            
+        }
+
+        //***** exsubmit() button *********//
+        $scope.onexsubmit = function () {
+
+            for (var i = 0; i < $scope.executantlist.length; i++) {
+
+                $scope.executantlist[i].tsno = $scope.tsyear.tsno;
+                $scope.executantlist[i].tsyear = $scope.tsyear.tyear;
+                $scope.executantlist[i].enterby = 'abc';
+            }
+            dept_dataFactory.postdeptexecutantlist($scope.executantlist).then(function (response) {
+                console.log('registration successfully data entered');
+            }, function (result) {
+                console.log('registration fails');
+            })
+
         }
 
     }

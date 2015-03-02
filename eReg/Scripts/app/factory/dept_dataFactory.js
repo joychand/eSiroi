@@ -7,6 +7,7 @@
 
     function dept_dataFactory($http) {
         var urlBase = 'api/ApplyRegistrationController/';
+        var urlBase2 = 'api/deptRegistraionController';
         var service = {
 
             getOnlineExecutantList: function (ackno) {
@@ -22,8 +23,16 @@
                 method: 'GET',
                 url: urlBase + ackno + '/execddllist'
             });
-        }
+            },
 
+            postdeptexecutantlist: function (executantlist) {
+                return $http({
+                    method: 'POST',
+                    data: executantlist,
+                    url: urlBase2 + '//postexecutant'
+                });
+
+        }
         };
 
         return service;
