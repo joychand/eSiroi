@@ -33,18 +33,38 @@
                 });
             },
 
+            // CLAIMANT FORM DATAFACTORY
+
             getOnlineClaimantlist: function (ackno) {
             return $http({
                 method: 'GET',
                 url: urlBase2 + ackno + '/claimantlist '
             });
             },
+
+            getclaimddlist: function (ackno) {
+                return $http({
+                    method: 'GET',
+                    url: urlBase2 + ackno + '/claimddlist '
+                });
+            },
+
+
+            // IDENTIFIER FORM DATAFACTORY
+
             getOnlineIdentifierlist: function (ackno) {
                 return $http({
                     method: 'GET',
                     url: urlBase2 + ackno + '/identifierlist'
                 })
-            }
+            },
+
+            getOnlineIdentddlist: function (ackno) {
+            return $http({
+                method: 'GET',
+                url: urlBase2 + ackno + '/identddllist'
+            })
+        }
 
         };
 

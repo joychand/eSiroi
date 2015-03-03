@@ -83,5 +83,45 @@ namespace eReg.Controllers
 
             return ilist;
         }
+
+        // GET ONLINE IDENTDDL LIST
+
+        [HttpGet]
+        [Route("api/deptRegistraionController/{ackno}/identddllist")]
+        public System.Collections.IEnumerable identddllist(int ackno)
+        {
+
+            System.Collections.IEnumerable iddlist;
+           
+
+            iddlist = (from p in db.Set<OnlineIdentifier>()
+                     where p.Ackno == ackno
+                     select new { p.State, p.District, p.SubDivision, p.Village, p.PostOffice, p.PinCode, p.PoliceSt }).AsEnumerable();
+            //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
+
+            return iddlist;
+
+
+          }
+
+       // GET CLAIMANT DDL LIST
+
+        [HttpGet]
+        [Route("api/deptRegistraionController/{ackno}/claimddlist")]
+        public System.Collections.IEnumerable claimddlist(int ackno)
+        {
+
+            System.Collections.IEnumerable cddlist;
+
+
+            cddlist = (from p in db.Set<OnlineClaimant>()
+                       where p.Ackno == ackno
+                       select new { p.State, p.District, p.SubDivision, p.Village, p.PostOffice, p.PinCode, p.PoliceSt }).AsEnumerable();
+            //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
+
+            return cddlist;
+
+
+        }
     }
 }

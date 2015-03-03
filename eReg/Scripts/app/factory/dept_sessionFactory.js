@@ -11,10 +11,15 @@
         var Online = false;
         var execOnline = false;
         var sessionexecutantlist = [];
-        var sessionclaimantlist = [];
-        var sessionidentifierlist = [];
         var sessionexecddlist = [];
+        var sessionclaimantlist = [];
+        var sessionclaimddlist = [];
+        var sessionidentifierlist = [];
+        var sessionidentddlist = [];
+
         var executantlist = [];
+        var claimantlist = [];
+        var identifierlist = [];
 
         service.getLinkVisibility = function () {
             return linkVisibilty;
@@ -93,6 +98,14 @@
             return sessionclaimantlist;
         }
 
+        service.updateOnlineClaimddlModal = function (claimddlist) {
+            sessionclaimddlist = claimddlist;
+        }
+
+        service.getOnlineCalimddlModal = function () {
+            return sessionclaimddlist;
+        }
+
         //Identifier List
 
         service.updateOnlineIdentModal = function (identlist) {
@@ -106,7 +119,13 @@
             return sessionidentifierlist;
         }
 
-        
+        service.updateOnlineIdentddlModal = function (Identddlist) {
+            sessionidentddlist = Identddlist;
+        }
+
+        service.getOnlineIdentddlModal = function () {
+            return sessionidentddlist;
+        }
         
 
         return service;

@@ -8,7 +8,7 @@
 <hr />
 <ng-form class="form-horizontal" role="form" name="identform" data-ng-submit="submit()" novalidate>
     <div class="form-group" ng-hide="slnoddlVisibility">
-        <label class="col-sm-4 control-label pull-left">Select Executant Slno:</label>
+        <label class="col-sm-4 control-label pull-left">Select Identifier Slno:</label>
         <div class="col-sm-2">
             <select name="slno" id="" class="form-control"
                     data-ng-model="Ilist.slNo"
@@ -23,7 +23,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Slno:</label>
         <div class="col-sm-1">
-            <input type="text" data-ng-model="identifier.slno" class="form-control" readonly />
+            <input type="text" data-ng-model="identifier.slNo" class="form-control" readonly />
         </div>
     </div>
     <div class="form-group">
@@ -31,7 +31,7 @@
         <label for="identifier" class="col-sm-2 control-label">Identifier</label>
 
         <div class="col-sm-3">
-            <input type="text" name="ExecSurName" data-ng-model="identifier.ExecSurName" class="form-control" placeholder="Surnanme" required data-ng-maxlength="3">
+            <input type="text" name="ExecSurName" data-ng-model="identifier.identSurName" class="form-control" placeholder="Surnanme" required data-ng-maxlength="3">
             <span style="color:#f00" ng-show="identform.ExecSurName.$dirty && identform.ExecSurName.$invalid">
                 <span data-ng-show="identform.ExecSurName.$error.required">Please input a Surname</span>
                 <span data-ng-show="identform.ExecSurName.$error.maxlength">Your name cannot be longer than 3 characters </span>
@@ -44,14 +44,14 @@
 
 
         <div class="col-sm-3">
-            <input type="text" name="ExecMiddleName" data-ng-model="identifier.ExecMiddleName" class="form-control text-left" placeholder="MiddleName" required>
+            <input type="text" name="ExecMiddleName" data-ng-model="identifier.identMiddleName" class="form-control text-left" placeholder="MiddleName" required>
             <span ng-show="identform.ExecMiddleName.$dirty && identform.ExecMiddleName.$invalid">
                 <span data-ng-show="identform.ExecMiddleName.$error.required">Please input a LastName</span>
                 <!--<span data-ng-show="identform.Surname.$error.maxlength">Your name cannot be longer than 3 characters </span>-->
             </span>
         </div>
         <div class="col-sm-3">
-            <input type="text" name="ExecLastName" data-ng-model="identifier.ExecLastName" class="form-control text-left" placeholder="LastName" required>
+            <input type="text" name="ExecLastName" data-ng-model="identifier.identLastName" class="form-control text-left" placeholder="LastName" required>
             <span ng-show="identform.ExecLastName.$dirty && identform.ExecLastName.$invalid">
                 <span data-ng-show="identform.ExecLastName.$error.required">Please input a LastName</span>
                 <!--<span data-ng-show="identform.Surname.$error.maxlength">Your name cannot be longer than 3 characters </span>-->
@@ -120,7 +120,7 @@
     ========================================================  --->
 
     
-    <div class="container" ng-switch="OnlineStatus">
+    <div class="container" ng-switch="ddlview">
         <!-- Offline DropdownTemplate
     ================================  -->
 
@@ -213,7 +213,7 @@
             <div class="form-group">
                 <label for="" class="control-label col-sm-2">State</label>
                 <div class="col-sm-4">
-                    <input type="text" data-ng-model="execddl.state" class="form-control" />
+                    <input type="text" data-ng-model="ident.state" class="form-control" />
 
                 </div>
 
@@ -221,7 +221,7 @@
             ================================  -->
                 <label for="" class="control-label col-sm-2">District</label>
                 <div class="col-sm-4">
-                    <input type="text" data-ng-model="execddl.district" class="form-control" />
+                    <input type="text" data-ng-model="ident.district" class="form-control" />
 
                 </div>
 
@@ -232,7 +232,7 @@
             <div class="form-group">
                 <label for="" class="control-label col-sm-2">Sub-Division</label>
                 <div class="col-sm-4">
-                    <input type="text" data-ng-model="execddl.subDivision" class="form-control" />
+                    <input type="text" data-ng-model="ident.subDivision" class="form-control" />
 
                 </div>
 
@@ -240,7 +240,7 @@
             ================================  -->
                 <label for="" class="control-label col-sm-2">Village</label>
                 <div class="col-sm-4">
-                    <input type="text" data-ng-model="execddl.village" class="form-control" />
+                    <input type="text" data-ng-model="ident.village" class="form-control" />
                 </div>
             </div>
             <!-- Post Office Dropdown
@@ -248,14 +248,14 @@
             <div class="form-group">
                 <label for="" class="control-label col-sm-2">Post Office</label>
                 <div class="col-sm-4">
-                    <input type="text" data-ng-model="execddl.postOffice" class="form-control" />
+                    <input type="text" data-ng-model="ident.postOffice" class="form-control" />
 
                 </div>
                 <!-- Pincode Dropdown
             ================================  -->
                 <label for="" class="control-label col-sm-2">PinCode</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control text-left" data-ng-model="execddl.pinCode" placeholder="Pincode" />
+                    <input type="text" class="form-control text-left" data-ng-model="ident.pinCode" placeholder="Pincode" />
                 </div>
                 <!--</div> -->
             </div>
@@ -263,12 +263,16 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">PoliceStation</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" data-ng-model="execddl.policeSt" />
+                    <input type="text" class="form-control" data-ng-model="ident.policeSt" />
+                </div>
+                <label class="control-label col-sm-2">Identified By</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" data-ng-model="ident.IdentifiedBy" />
                 </div>
             </div>
 
         </div>
-
+</div>
     <div class="form-group">
         <div class="col-sm-offset-3">
             <button type="submit" ng-disabled="execform.$pristine || execform.$invalid && execform.$dirty  || identform.$pristine || identform.$invalid && identform.$dirty" class="btn btn-primary btn-md " data-ng-click="formsubmit()">Submit</button>
