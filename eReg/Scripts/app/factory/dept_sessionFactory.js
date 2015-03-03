@@ -11,6 +11,8 @@
         var Online = false;
         var execOnline = false;
         var sessionexecutantlist = [];
+        var sessionclaimantlist = [];
+        var sessionidentifierlist = [];
         var sessionexecddlist = [];
         var executantlist = [];
 
@@ -65,18 +67,46 @@
             return sessionexecddlist;
         }
 
-        service.pushExecutant=function(executant){
+        service.pushExecutant = function (executant) {
             executantlist.push(executant);
         }
 
         service.getExecutantlist = function () {
-            console.log(executantlist);
+            //console.log(executantlist);
             return executantlist;
         }
         service.putOnlineExecutantlist = function (onlineExecutantlist) {
             executantlist = [];
             executantlist = onlineExecutantlist;
         }
+
+        // CLAIMANT LIST
+
+        service.updateOnlineClaimModal = function (claimlist) {
+
+            sessionclaimantlist = claimlist;
+            
+        }
+
+        service.getOnlineClaimModallist = function () {
+
+            return sessionclaimantlist;
+        }
+
+        //Identifier List
+
+        service.updateOnlineIdentModal = function (identlist) {
+
+            sessionidentifierlist = identlist;
+            
+        }
+
+        service.getOnlineIdentModallist = function () {
+
+            return sessionidentifierlist;
+        }
+
+        
         
 
         return service;

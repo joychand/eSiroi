@@ -27,7 +27,7 @@
                 village: '',
                 postoffice: '',
                 pinCode: '',
-                policestation: ''
+                policeSt: ''
             },
             // scope for executant dropdownlist
             execddl: {
@@ -40,12 +40,26 @@
                 postOffice:'',
             },
 
-           
-            
+            claimant: {},
+
+            claim: {},
+
+            clFormOnline: {
+                status: '',
+                ddlview: '',
+                slnoddlVisibility: '',
+               },
+            identifier: {},
+            ident: {},
+            idFormOnline:{
+                status:'',
+                ddlview: '',
+                slnoddlVisibility:'',
+            },
             getlist: function() {
                 return executantList;
             }
-    
+            
 
         }
         return model;

@@ -66,9 +66,9 @@
 
     angular
         .module('eRegApp')
-        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory', 'dataFactory', 'dept_dataFactory', dataEntryformController]);
+        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory', 'dataFactory', 'dept_dataFactory', 'deptModalService', dataEntryformController]);
 
-    function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory) {
+    function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory, deptModalService) {
       
         init();
 
@@ -88,7 +88,10 @@
             $scope.online = {};
             $scope.slnoddlVisibility = true;
             $scope.exeslnolist = [];
+            $scope.claimslnolist = [];
+            $scope.identslnolist = [];
             $scope.OnlineStatus = 'offline';
+
          
 
             // *** inject dropdownlist data **//
@@ -158,15 +161,39 @@
                 dept_sessionfactory.updateOnlineExecModal(response.data);
                 $scope.slnoddlVisibility = false;
                 $scope.OnlineStatus = 'online';
+                //deptModalService.clFormOnline.status = true;
+                // get Online execddllist
                 dept_dataFactory.getOnlineExecddlist($scope.online.ackno).then(function (response) {
                     dept_sessionfactory.updateOnlineExecddllModal(response.data);
-                }, function (result) {
+                    // get Online ClaimantList
+                    dept_dataFactory.getOnlineClaimantlist($scope.online.ackno).then(function (response) {
+                        //update claimantlist modal session
+                        dept_sessionfactory.updateOnlineClaimModal(response.data);
+                        deptModalService.clFormOnline.status = true;
+                        deptModalService.clFormOnline.slnoddlVisibility = true;
+                        //deptModalService.clFormOnline.
+                        // get Online Identifer list
+                        dept_dataFactory.getOnlineIdentifierlist($scope.online.ackno).then(function (response) {
+                            //update Identiferlist modal session
+                            dept_sessionfactory.updateOnlineIdentModal(response.data);
+                            deptModalService.idFormOnline.status = true;
+                            deptModalService.idFormOnline.slnoddlVisibility = true;
+                        },
+                        //getOnlineIdentifierList erros
+                        function(result){
+                            console.log('get Identifer list errors: ' + result);
+                        });
+                     }, 
+                    // getclaimant errors
+                    function(result){
+                        cosole.log('get Claimant list errors:' + result);
+                    });
+                 }, function (result) {
                     console.log('getOnlineExecddlist fails' + result);
                 });
-
-            }, function (result) {
+                }, function (result) {
                 console.log('getOnlineExecutantList fails ' + result)
-            });
+               });
             $state.go('department.content.form');
 
         }
@@ -214,8 +241,7 @@
         
         
        
-        //console.log($scope.execddlist);
-        //console.log(executantlist);
+       
         $scope.session.isonline = dept_sessionfactory.getExecOnline();
         $scope.executantlist = dept_sessionfactory.getOnlineExecModallist();
         $scope.execddlist = dept_sessionfactory.getOnlineExecddlModallist();
@@ -303,12 +329,7 @@
                 dept_sessionfactory.putOnlineExecutantlist($scope.executantlist)
             }
             
-            //dept_dataFactory.postdeptexecutantlist($scope.executantlist).then(function (response) {
-            //    console.log('registration successfully data entered');
-            //}, function (result) {
-            //    console.log('registration fails');
-            //})
-
+          
         }
 
     }
@@ -323,9 +344,44 @@
 
     angular
         .module('eRegApp')
-        .controller('deptClaimController', ['$scope', '$state', deptClaimController]);
+        .controller('deptClaimController', ['$scope', '$state', 'dept_sessionfactory', 'deptModalService', 'dept_dataFactory',deptClaimController]);
 
-    function deptClaimController($scope, $state) {
+    function deptClaimController($scope, $state, dept_sessionfactory, deptModalService, dept_dataFactory) {
+
+        $scope.clOnlinestatus='false'
+        $scope.claimant = {};
+        $scope.claim = {};
+        $scope.claimantlist = [];
+        $scope.claimddlist = [];
+        $scope.clist = {}
+        $scope.claimsession = {};
+        // console.log(deptModalService.claimant);
+        $scope.claimantlist = dept_sessionfactory.getOnlineClaimModallist();
+
+        if (deptModalService.clFormOnline.status)
+        {
+            //get claimantlist for online data
+            //$scope.claimantlist = dept_sessionfactory.getOnlineClaimModallist();
+            for (var i = 0; i < $scope.claimantlist.length; i++) {
+
+                $scope.claimslnolist.push($scope.claimantlist[i].slNo);
+            }
+
+            deptModalService.claimant = $scope.claimantlist[0];
+            deptModalService.clFormOnline.status = false;
+            console.log('online');
+        }
+        $scope.claimant = deptModalService.claimant;
+       // $scope.claim = deptModalService.claim;
+
+        $scope.getselectedClaimant = function () {
+            var currSlno = $scope.Clist.slNo;
+            deptModalService.claimant = $scope.claimantlist[currSlno - 1];
+            //deptModalService.execddl = $scope.claimantlist[currSlno - 1];
+            $scope.claimant = deptModalService.claimant;
+           // $scope.claim = deptModalService.execddl;
+        }
+
         
     }
 })();
@@ -343,8 +399,34 @@
 
     function deptIdentController($scope, $state,dept_sessionfactory, deptModalService, dept_dataFactory) {
         $scope.ident = {};
+        $scope.identifier = {};
+        $scope.identifierlist = [];
+        $scope.identddlist = [];
+        $scope.Ilist = {}
 
-        $scope.online = $scope.states[21];
+        $scope.identifierlist = dept_sessionfactory.getOnlineIdentModallist();
+        if (deptModalService.idFormOnline.status) {
+            //get claimantlist for online data
+           
+            for (var i = 0; i < $scope.identifierlist.length; i++) {
+
+                $scope.identslnolist.push($scope.identifierlist[i].slNo);
+            }
+
+            deptModalService.identifier = $scope.identifierlist[0];
+            deptModalService.idFormOnline.status = false;
+            console.log('online');
+        }
+        $scope.identifier = deptModalService.identifier;
+
+        $scope.getselectedIdentifier = function () {
+            var currSlno = $scope.Ilist.slNo;
+            deptModalService.identifier = $scope.identifierlist[currSlno - 1];
+            //deptModalService.execddl = $scope.claimantlist[currSlno - 1];
+            $scope.identifier = deptModalService.identifier;
+            // $scope.claim = deptModalService.execddl;
+        }
+        
         $scope.formsubmit = function () {
             dept_dataFactory.postdeptexecutantlist(dept_sessionfactory.getExecutantlist()).then(function (response) {
                 console.log('registration successfully data entered');

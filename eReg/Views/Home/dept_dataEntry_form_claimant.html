@@ -6,7 +6,21 @@
     
 </div>
 <hr />
-         <form class="form-horizontal" role="form" name="claimantform" novalidate>
+         <ng-form class="form-horizontal" role="form" name="claimantform" novalidate>
+
+             <div class="form-group" ng-hide="slnoddlVisibility">
+                 <label class="col-sm-4 control-label pull-left">Select Claimant Slno:</label>
+                 <div class="col-sm-2">
+                     <select name="slno" id="" class="form-control"
+                             data-ng-model="Clist.slNo"
+                             data-ng-options="slno for slno in claimslnolist"
+                             data-ng-change="getselectedClaimant()">
+                         <option value="">slno</option>
+                     </select>
+                 </div>
+
+             </div>
+
 <div class="form-group">
     <label class="col-sm-2 control-label">Slno:</label>
     <div class="col-sm-1">
@@ -17,13 +31,13 @@
                  <label for="claimant" class="col-sm-2 control-label">Claimant</label>
 
                  <div class="col-sm-3">
-                     <input type="text" name="Surname" data-ng-model="claimant.ExecSurName" class="form-control" placeholder="Surnanme" />
+                     <input type="text" name="Surname" data-ng-model="claimant.claimSurName" class="form-control" placeholder="Surnanme" />
                  </div>
                  <div class="col-sm-3">
-                     <input type="text" name="name" data-ng-model="claimant.ExecMiddleName" class="form-control text-left" placeholder= "MiddleName" />
+                     <input type="text" name="name" data-ng-model="claimant.claimMiddleName" class="form-control text-left" placeholder="MiddleName" />
                  </div>
                  <div class="col-sm-3">
-                     <input type="text" name="name" data-ng-model="claimant.ExecLastName" class="form-control text-left" placeholder="LastName" />
+                     <input type="text" name="name" data-ng-model="claimant.claimLastName" class="form-control text-left" placeholder="LastName" />
                  </div>
 
 
@@ -118,9 +132,9 @@
                  <label for="" class="control-label col-sm-2">Sub-Division</label>
                  <div class="col-sm-4">
                      <select name="subdiv" class="form-control"
-                         data-ng-model="claim.subdiv"
+                         data-ng-model="claim.subDivision"
                          data-ng-options="subdiv.subDivName for subdiv in subdivisions | filter:{distCode:claim.district.distCode} | orderBy:'subDivName'"
-                         data-ng-disabled="!district">
+                         data-ng-disabled="!claim.district">
                          <option value="">--Select Sub-div--</option>
                      </select>
 
@@ -131,9 +145,9 @@
                  <label for="" class="control-label col-sm-2">Village</label>
                  <div class="col-sm-4">
                      <select name="village" id="" class="form-control"
-                         data-ng-model="claim.village"
-                         data-ng-options="village.villName for village in villages | filter:{distCode:claim.district.distCode} | filter:{subDivCode: claim.subdiv.subDivCode} | orderBy: 'villName'"
-                         data-ng-disabled="!subdiv">
+                             data-ng-model="claim.village"
+                             data-ng-options="village.villName for village in villages | filter:{distCode:claim.district.distCode} | filter:{subDivCode: claim.subdiv.subDivCode} | orderBy: 'villName'"
+                             data-ng-disabled="!claim.subDivision">
                          <option value="">--Select Village--</option>
                      </select>
                  </div>
@@ -144,9 +158,9 @@
                  <label for="" class="control-label col-sm-2">Post Office</label>
                  <div class="col-sm-4">
                      <select name="PostOffice" id="" class="form-control"
-                         data-ng-model="claim.postoffice"
+                         data-ng-model="claim.postOffice"
                          data-ng-options="po.postOffice1 for po in postoffices | filter:{distCode:claim.district.distCode}  | orderBy: 'postOffice1'"
-                         data-ng-disabled="!district">
+                         data-ng-disabled="!claim.district">
                                                 
                          <option value="">--select post office --</option>
 
@@ -157,7 +171,7 @@
             ================================  -->
                  <label for="" class="control-label col-sm-2">PinCode</label>
                  <div class="col-sm-4">
-                     <input type="text" class="form-control text-left" data-ng-model="claim.postoffice.pinCode" placeholder="Pincode" />
+                     <input type="text" class="form-control text-left" data-ng-model="claim.postOffice.pinCode" placeholder="Pincode" />
                  </div>
                  <!--</div> -->
              </div>
@@ -178,4 +192,4 @@
         <button data-ng-click="claimantAddmore()"  class ="btn btn-default btn-md pull-right">Add More</button>
     </div>
 </div>
-</form>
+</ng-form>

@@ -31,8 +31,21 @@
                     data: executantlist,
                     url: urlBase2 + 'postexecutant'
                 });
+            },
 
-        }
+            getOnlineClaimantlist: function (ackno) {
+            return $http({
+                method: 'GET',
+                url: urlBase2 + ackno + '/claimantlist '
+            });
+            },
+            getOnlineIdentifierlist: function (ackno) {
+                return $http({
+                    method: 'GET',
+                    url: urlBase2 + ackno + '/identifierlist'
+                })
+            }
+
         };
 
         return service;

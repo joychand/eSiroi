@@ -234,6 +234,7 @@
     <Compile Include="Migrations\Models\CensusSubDivision.cs" />
     <Compile Include="Migrations\Models\CensusVillage.cs" />
     <Compile Include="Migrations\Models\circle.cs" />
+    <Compile Include="Migrations\Models\Claimant.cs" />
     <Compile Include="Migrations\Models\district.cs" />
     <Compile Include="Migrations\Models\eregdbContext.cs" />
     <Compile Include="Migrations\Models\Executant.cs" />

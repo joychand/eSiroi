@@ -54,5 +54,34 @@ namespace eReg.Controllers
             return Ok();
         }
 
+        // Get Online Claimant list 
+
+        [HttpGet]
+        [Route("api/deptRegistraionController/{ackno}/claimantlist")]
+        public IEnumerable<OnlineClaimant> claimantlist(int ackno)
+        {
+
+            //return db.OnlineExecutant 
+            IEnumerable<OnlineClaimant> clist;
+            clist = db.OnlineClaimant
+                  .Where(b => b.Ackno == ackno);
+
+
+            return clist;
+        }
+        // GET ONLINE IDENTIFIER LIST
+        [HttpGet]
+        [Route("api/deptRegistraionController/{ackno}/identifierlist")]
+        public IEnumerable<OnlineIdentifier> identifierlist(int ackno)
+        {
+
+            //return db.OnlineExecutant 
+            IEnumerable<OnlineIdentifier> ilist;
+            ilist = db.OnlineIdentifier
+                  .Where(b => b.Ackno == ackno);
+
+
+            return ilist;
+        }
     }
 }

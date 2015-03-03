@@ -120,7 +120,8 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
 
          .state('department.content.form.claimant', {
              url: '/dataEntryformclaimant',
-             templateUrl: 'Home/dept_dataEntry_form_claimant'
+             templateUrl: 'Home/dept_dataEntry_form_claimant',
+             controller: 'deptClaimController'
          })
 
         .state('department.content.form.identifier', {
