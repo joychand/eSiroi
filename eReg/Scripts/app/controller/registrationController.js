@@ -48,6 +48,7 @@ angular
         $scope.success = false;
         $scope.claimSlno = 1;
         $scope.execSlno = 1;
+        $scope.ident = {};
         // $scope.ident.slno = 1;
         //$scope.postoffice = {};
        
@@ -96,6 +97,7 @@ angular
             $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
             $scope.claimant.slno = 1;
             $scope.ident.slno = 1;
+            $scope.identSlno = 1;
             //$scope.ident.slno = $scope.identSlno;
             
         }
@@ -305,13 +307,14 @@ angular
         }
         //addmore
         $scope.ident.Addmore = function () {
+            console.log($scope.identSlno);
             createIdentifierObject();
             sessionFactory.pushIdentifier($scope.identifier);
             //flush $scope
             $scope.identifier = {};
             $scope.ident = {};
             $scope.ident.slno = $scope.identSlno + 1;
-            $scope.identSlno = $scope.identifier.slno;
+            $scope.identSlno = $scope.ident.slno;
 
         }
         $scope.items = ['item1', 'item2', 'item3'];
@@ -325,9 +328,10 @@ angular
                 dataFactory.postclaimant(sessionFactory.getClaimantList())
                 .then(function (response) {
                     console.log('claimantList inserted');
+                    console.log(sessionFactory.getIdentifierList());
                     dataFactory.postidentifier(sessionFactory.getIdentifierList())
                     .then(function (response) {
-                        console.log('idetifierlist inserted');
+                        console.log('idetifierlist inserted' );
 
                     }, function (result) {
                         console.log('identifierlist insert fails' + result)
@@ -357,7 +361,7 @@ angular
         
 
             $scope.modalInstance.result.then(function (result) {
-                alert('ok');
+                //alert('ok');
                 //$scope.selected = selectedItem;
                $state.go('Home');
             }, function () {
@@ -383,12 +387,12 @@ angular
         $scope.identifier.Village = $scope.ident.village.villName;
         $scope.identifier.PostOffice = $scope.ident.postoffice.postOffice1;
         $scope.identifier.Ackno = sessionFactory.getCurrAckno();
-        $scope.identifier.slno=$scope.identSlno
+        $scope.identifier.slno = $scope.ident.slno;
         $scope.identifier.IdentSurName = $scope.ident.SurName
         $scope.identifier.IdentMiddleName = $scope.ident.MiddleName
         $scope.identifier.IdentLastName = $scope.ident.LastName
         $scope.identifier.Alias = $scope.ident.alias
-        $scope.identifier.Identify = 'Identify';
+        //$scope.identifier.Identify = 'Identify';
         $scope.identifier.Sex = $scope.ident.sex
         $scope.identifier.FatherSurName = $scope.ident.fatherSurname
         $scope.identifier.FatherMiddleName = $scope.ident.fatherMiddleName
