@@ -5,7 +5,7 @@
 </div>
      
          <hr />
-         <form class="form-horizontal" role="form" name="identform"  data-ng-submit="submit()" novalidate>
+         <form class="form-horizontal" role="form" name="identform" novalidate>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Slno:</label>
                     <div class="col-sm-1">
@@ -183,7 +183,7 @@
         <button type="submit" ng-disabled="execform.$pristine || execform.$invalid && execform.$dirty  || identform.$pristine || identform.$invalid && identform.$dirty" class="btn btn-primary btn-md " data-ng-click="formsubmit()">Submit</button>
         <button class="btn btn-success btn-md" type="submit" ><span class="glyphicon glyphicon-floppy-disk"></span>Draft</button>
         <button type="reset" class="btn btn-default btn-md">Reset</button>
-        <button type="submit"  data-ng-click="ident.Addmore()"class ="btn btn-default btn-md pull-right">Add More</button>
+        <button   data-ng-click="identAddmore()"class ="btn btn-default btn-md pull-right">Add More</button>
     </div>
 </div>
 

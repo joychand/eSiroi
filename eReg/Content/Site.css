@@ -167,6 +167,7 @@ padding-top:0;
 }
 #sidebar{
     margin-top:5%;
+    padding:0;
 }
 #topframe{
     margin-top:2%;
@@ -183,3 +184,9 @@ padding-top:0;
   .css-form input.ng-valid.ng-dirty {
     background-color: #9ed172 !important;
   }
+
+  .gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 400px; 
+    height: 300px
+}

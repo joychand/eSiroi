@@ -306,10 +306,10 @@ angular
             $state.go('registration.content.forms.identifier');
         }
         //addmore
-        $scope.ident.Addmore = function () {
+        $scope.identAddmore = function () {
             console.log($scope.identSlno);
             createIdentifierObject();
-            sessionFactory.pushIdentifier($scope.identifier);
+           // sessionFactory.pushIdentifier($scope.identifier);
             //flush $scope
             $scope.identifier = {};
             $scope.ident = {};

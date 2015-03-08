@@ -23,11 +23,13 @@ namespace eReg
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/ng-grid.css",
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                       "~/Scripts/angular.js",
                       "~/Scripts/angular-ui-router.js",
                       "~/Scripts/ct-ui-router-extras.js",
+                     
                       "~/Scripts/app/app.js",
                       "~/Scripts/app/factory/dataFactory.js",
                       "~/Scripts/app/factory/sessionFactory.js",
@@ -36,6 +38,7 @@ namespace eReg
                         "~/Scripts/app/factory/dept_dataFactory.js",
                       "~/Scripts/app/factory/angularModalService.js",
                       "~/Scripts/app/controller/registrationController.js",
+                       //"~/Scripts/ng-grid.debug.js",
                       "~/Scripts/app/controller/dept_regController.js"));
 
             // Set EnableOptimizations to false for debugging. For more information,

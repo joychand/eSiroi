@@ -16,6 +16,7 @@ namespace eReg.Controllers
     public class deptRegistraionController : ApiController
     {
         private eregdbContext db = new eregdbContext();
+        private LPplot lpdb = new LPplot();
 
         // post executantlist
 
@@ -123,5 +124,23 @@ namespace eReg.Controllers
 
 
         }
+        // get plot
+        //[HttpGet]
+        //[Route("api/deptRegistraionController/{plotno}/verfiyplot")]
+        //public System.Collections.IEnumerable claimddlist(int plotno)
+        //{
+            
+        //    System.Collections.IEnumerable cddlist;
+
+
+        //    cddlist = (from p in db.Set<OnlineClaimant>()
+        //               where p.Ackno == ackno
+        //               select new { p.State, p.District, p.SubDivision, p.Village, p.PostOffice, p.PinCode, p.PoliceSt }).AsEnumerable();
+        //    //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
+
+        //    return cddlist;
+
+
+        //}
     }
 }

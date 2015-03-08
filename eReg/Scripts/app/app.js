@@ -4,7 +4,7 @@
 /// <reference path = ~/scripts/angular-ui-router.js>
 /// <reference path = ~/scripts/app/factory/sessionFactory.js>
 
-var app = angular.module('eRegApp', ['ui.router', 'ct.ui.router.extras', 'angularModalService', 'ui.bootstrap']);
+var app = angular.module('eRegApp', ['ui.router', 'ct.ui.router.extras', 'angularModalService', 'ui.bootstrap', 'ngGrid']);
 //var app1 = angular.module('eRegDeptApp', ['ngroute']);
 //app.value = ('maj_code', '');
 app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provide',function ($stateProvider, $locationProvider,$urlRouterProvider,$provide ) {
@@ -59,7 +59,8 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
 
         .state('department.content.home', {
             url: '/home',
-            templateUrl: 'Home/dept_home'
+            templateUrl: 'Home/dept_home',
+            controller: 'deptHomeController'
         })
        
         .state('Search', {
