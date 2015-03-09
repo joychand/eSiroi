@@ -8,134 +8,139 @@
     
 </div>
 <hr />
-<div class="row">
-<div class="form-horizontal">
-        <div class="form-group">
-        <div class="col-sm-2 text-right">
-            <label class="control-label">District:</label>
+<ng-form class="form-horizontal css-form " name="execform" novalidate>
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2 text-right">
+                    <label class="control-label">District:</label>
+                </div>
+                <div class="col-sm-4">
+                    <select name="district" class="form-control"
+                            data-ng-model="property.district"
+                            data-ng-options="district.distName for district in districts  | orderBy:'distName'">
+                        <option value="">--Select District--</option>
+                    </select>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <label class="control-label">Circle:</label>
+                </div>
+                <div class="col-sm-4 ">
+                    <select name="circle" class="form-control"
+                            data-ng-model="property.circle"
+                            data-ng-options="circle.circleName for circle in Circles | filter:{distCode:property.district.distCode}  | orderBy:'circleName'"
+                            data-ng-disabled="!property.district">
+                        <option value="">--Select Circle--</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 text-right">
+                    <label class="control-label">Village:</label>
+                </div>
+                <div class="col-sm-4">
+                    <select name="village" class="form-control"
+                            data-ng-model="property.village"
+                            data-ng-options="village.villName for village in RevVillages | filter:{distCode:property.district.distCode} | filter:{circleCode:property.circle.circleCode} | orderBy:'villName'"
+                            data-ng-disabled="!property.circle">
+                        <option value="">--Select village--</option>
+                    </select>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <label class="control-label">Property in Area:</label>
+                </div>
+                <div class="col-sm-4 ">
+                    <label for="" class="radio-inline">
+                        <input type="radio" name="propertyarea" value="Urban"
+                               data-ng-checked="property.area == 'Urban'"
+                               data-ng-model="property.area" />Urban
+
+                    </label>
+                    <label for="" class="radio-inline">
+                        <input type="radio" name="propertyarea" value="Rural"
+                               data-ng-checked="property.area == 'Rural'"
+                               data-ng-model="property.area" />Rural
+
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 text-right">
+                    <label class="control-label">NewDagNo:</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" data-ng-model="property.plotno" class="form-control " />
+                </div>
+                <div class="col-sm-2 text-right">
+                    <label class="control-label">NewPattaNo:</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" data-ng-model="property.pattano" class="form-control " />
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-md btn-success" data-ng-click="verfyplot()">Verify Plot</button>
+
+                </div>
+                {{landClass}}
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 text-left">
+                    <label class="control-label">Property Address:</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 text-right">
+                    <label class="control-label">Address1:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" data-ng-model="property.address1" type="text" name="Property Address" value=" " />
+                </div>
+                <div class="col-sm-6">
+                    <div class="col-sm-4 text-right">
+                        <label class="control-label">Unit Area:</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" data-ng-model="property.plotarea" type="text" name="Unit Area" value=" " />
+                    </div>
+                    <div class="col-sm-5">
+                        <select name="unittype" id="" class="form-control"
+                                data-ng-model="property.unit">
+
+                            <option value="Hectare" selected="selected">Hectare</option>
+                            <option value="Acre">Acre</option>
+                            <option value="Sq.feet">Sq.feet</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 text-right">
+                    <label class="control-label">Address2:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" data-ng-model="property.address2" type="text" name="Property Address" value=" " />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 text-right">
+                    <label class="control-label">Address3:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" data-ng-model="property.address3" type="text" name="Property Address" value=" " />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-3">
+                    <button type="submit" data-ng-click="nextparty()" class="btn btn-primary btn-md ">next</button>
+                    <button type="submit" data-ng-click="saveproperty()" class="btn btn-primary btn-md "> <span class="glyphicon glyphicon-floppy-disk"> Draft</span></button>
+                    <button type="reset" class="btn btn-default btn-md ">reset</button>
+                </div>
+            </div>
+
         </div>
-        <div class="col-sm-4">
-            <select name="district" class="form-control"
-                         data-ng-model="property.district"
-                         data-ng-options="district.distName for district in districts  | orderBy:'distName'">
-                         <option value="">--Select District--</option>
-                     </select>
-        </div>
-         <div class="col-sm-2 text-right">
-            <label class="control-label">Circle:</label>
-        </div>
-        <div class="col-sm-4 ">
-             <select name="circle" class="form-control"
-                         data-ng-model="property.circle"
-                         data-ng-options="circle.circleName for circle in Circles | filter:{distCode:property.district.distCode}  | orderBy:'circleName'"
-                         data-ng-disabled="!property.district">
-                         <option value="">--Select Circle--</option>
-                     </select>
-        </div>
+
     </div>
-    
-    <div class="form-group">
-        <div class="col-sm-2 text-right">
-            <label class="control-label">Village:</label>
-        </div>
-        <div class="col-sm-4">
-             <select name="village" class="form-control"
-                         data-ng-model="property.village"
-                         data-ng-options="village.villName for village in RevVillages | filter:{distCode:property.district.distCode} | filter:{circleCode:property.circle.circleCode} | orderBy:'villName'"
-                          data-ng-disabled="!property.circle">
-                         <option value="">--Select village--</option>
-                     </select>
-        </div>
-        <div class="col-sm-2 text-right">
-            <label class="control-label">Property in Area:</label>
-        </div>
-        <div class="col-sm-4 ">
-            <label for="" class="radio-inline">
-                <input type="radio" name="propertyarea" value="Urban"
-                    data-ng-checked="property.area == 'Urban'"
-                    data-ng-model="property.area" />Urban
-
-            </label>
-            <label for="" class="radio-inline">
-                <input type="radio" name="propertyarea" value="Rural"
-                    data-ng-checked="property.area == 'Rural'"
-                    data-ng-model="property.area" />Rural
-
-            </label>
-        </div>
-    </div>
-   
-    <div class="form-group">
-        <div class="col-sm-2 text-right">
-            <label class="control-label">NewDagNo:</label>
-        </div>
-        <div class="col-sm-2">
-            <input type="text" data-ng-model="property.plotno" class="form-control " /></div>
-        <div class="col-sm-2 text-right">
-            <label class="control-label">NewPattaNo:</label>
-        </div>
-        <div class="col-sm-2">
-            <input type="text" data-ng-model="property.pattano" class="form-control " /></div>
-         <div class="col-sm-3">
-             <button class="btn btn-md btn-success">Verify Plot</button>
-
-         </div>
-    </div>
-     <div class="form-group">
-        <div class="col-sm-4 text-left">
-            <label class="control-label">Property Address:</label>
-        </div>
-       </div>
-         <div class="form-group">
-             <div class="col-sm-2 text-right">
-                 <label class="control-label">Address1:</label>
-             </div>
-             <div class="col-sm-4">
-                 <input class="form-control" data-ng-model="property.address1" type="text" name="Property Address" value=" " />
-             </div>
-             <div class="col-sm-6">
-                 <div class="col-sm-4 text-right">
-                     <label class="control-label">Unit Area:</label>
-                 </div>
-                 <div class="col-sm-3">
-                     <input class="form-control"  data-ng-model="property.plotarea" type="text" name="Unit Area" value=" " />
-                 </div>
-                 <div class="col-sm-5">
-                     <select name="unittype" id="" class="form-control"
-                         data-ng-model="property.unit" >
-                         
-                         <option value="Hectare" selected="selected">Hectare</option>
-                         <option value="Acre">Acre</option>
-                         <option value="Sq.feet">Sq.feet</option>
-                     </select>
-                 </div>
-             </div>
-     </div>
-    <div class="form-group">
-             <div class="col-sm-2 text-right">
-                 <label class="control-label">Address2:</label>
-             </div>
-             <div class="col-sm-4">
-                 <input class="form-control" data-ng-model="property.address2" type="text" name="Property Address" value=" " />
-             </div>
-     </div>
-      <div class="form-group">
-             <div class="col-sm-2 text-right">
-                 <label class="control-label">Address3:</label>
-             </div>
-             <div class="col-sm-4">
-                 <input class="form-control"  data-ng-model="property.address3" type="text" name="Property Address" value=" " />
-             </div>
-     </div>  
-
-    <div class="form-group">
-        <div class="col-sm-4 col-sm-offset-3">
-            <button type="submit"  data-ng-click="nextparty()" class="btn btn-primary btn-md ">next</button>
-            <button type="submit"  data-ng-click="saveproperty()" class="btn btn-primary btn-md "> <span class ="glyphicon glyphicon-floppy-disk" > Draft</span></button>
-            <button type="reset" class="btn btn-default btn-md ">reset</button>
-        </div>
-    </div>
-    
-  </div>   
-
-</div>
+    </ng-from>

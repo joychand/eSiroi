@@ -109,6 +109,7 @@ namespace eReg.Controllers
 
         [HttpGet]
         [Route("api/deptRegistraionController/{ackno}/claimddlist")]
+
         public System.Collections.IEnumerable claimddlist(int ackno)
         {
 
@@ -124,23 +125,39 @@ namespace eReg.Controllers
 
 
         }
+
+       
         // get plot
-        //[HttpGet]
-        //[Route("api/deptRegistraionController/{plotno}/verfiyplot")]
-        //public System.Collections.IEnumerable claimddlist(int plotno)
-        //{
-            
-        //    System.Collections.IEnumerable cddlist;
+        [HttpGet]
+        [Route("api/deptRegistraionController/{plotno}/{pattano}/verfiyplot")]
 
 
-        //    cddlist = (from p in db.Set<OnlineClaimant>()
-        //               where p.Ackno == ackno
-        //               select new { p.State, p.District, p.SubDivision, p.Village, p.PostOffice, p.PinCode, p.PoliceSt }).AsEnumerable();
-        //    //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
+        public System.Collections.IEnumerable getPlotDetails(string plotno, string pattano)
+        {
 
-        //    return cddlist;
+            System.Collections.IEnumerable plotlist;
 
 
-        //}
+            plotlist = (from p in lpdb.Set<uniplot>()
+                        where p.NewDagNo == plotno && p.NewPattaNo == pattano
+                        select new { p.LocCd, p.LandClass, p.unit }).AsEnumerable();
+            //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
+
+            return plotlist;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+       
     }
 }

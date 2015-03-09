@@ -20,11 +20,11 @@
         .controller('deptHomeController', ['$scope', '$rootScope', deptHomeController]);
 
     function deptHomeController($scope, $rootScope) {
-        $scope.myData = [{ name: "Moroni", age: 50 },
-                    { name: "Tiancum", age: 43 },
-                    { name: "Jacob", age: 27 },
-                    { name: "Nephi", age: 29 },
-                    { name: "Enos", age: 34 }];
+        $scope.myData = [{ Ackno: "Moroni", date: 50 },
+                    { Ackno: "Tiancum", date: 43 },
+                    { Ackno: "Jacob", date: 27 },
+                    { Ackno: "Nephi", date: 29 },
+                    { Ackno: "Enos", date: 34 }];
         $scope.gridOptions = { data: 'myData' };
 
     }
@@ -239,9 +239,20 @@
 
     angular
         .module('eRegApp')
-        .controller('deptPropController', ['$scope', '$state', 'district', deptPropController]);
+        .controller('deptPropController', ['$scope', '$state', 'district','$http', deptPropController]);
 
-    function deptPropController($scope, $state, district) {
+    function deptPropController($scope, $state, district, $http) {
+        $scope.returnValue = {};
+        $scope.verfyplot = function () {
+
+            $http({
+                method: 'GET',
+                url: 'api/deptRegistraionController/' + $scope.property.plotno + '/' + $scope.property.pattano + '/' + 'verfiyplot'
+            }).then(function (response) {
+                $scope.returnValue = response.data[0];
+                $scope.landClass = $scope.returnValue.landClass;
+            });
+        }
        
 
 
