@@ -239,9 +239,9 @@
 
     angular
         .module('eRegApp')
-        .controller('deptPropController', ['$scope', '$state', 'district','$http', deptPropController]);
+        .controller('deptPropController', ['$scope', '$state', 'district', '$http','$modal', deptPropController]);
 
-    function deptPropController($scope, $state, district, $http) {
+    function deptPropController($scope, $state, district, $http, $modal) {
         $scope.returnValue = {};
         $scope.verfyplot = function () {
 
@@ -251,13 +251,49 @@
             }).then(function (response) {
                 $scope.returnValue = response.data[0];
                 $scope.landClass = $scope.returnValue.landClass;
+                $scope.modalInstance = {};
+                $scope.modalInstance = $modal.open({
+                    templateUrl: 'Home/plotVerifyModal',
+                    controller: 'PlotVerifyModalInstanceCtrl',
+                    //scope: $scope,
+                    backdrop: 'static',
+                    //size: size,
+                    resolve: {
+                        plot: function () {
+                            return response.data;
+                        }
+                    }
+                });
             });
+            
+
+
+
         }
-       
-
-
-      
     }
+})();
+
+// **** dept plotverify Controller ******//
+(function () {
+    'use strict';
+    angular
+        .module('eRegApp')
+        .controller('PlotVerifyModalInstanceCtrl', ['$scope', '$modalInstance', 'plot','$modal',
+            function ($scope, $modalInstance, plot,$modal) {
+                $scope.plot1 = plot;
+                //console.log($scope.plot);
+                $scope.mod = {};
+                $scope.gridOptions = { data: 'plot1' };
+                $scope.mod.ok = function () {
+                    $modalInstance.close();
+                }
+
+                $scope.mod.cancel = function () {
+                    $modalInstance.dismiss();
+
+                }
+            }])
+
 })();
 
 // **dept_dataEntry_form_executant controller** //

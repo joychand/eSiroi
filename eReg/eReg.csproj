@@ -403,6 +403,7 @@
     <Content Include="Views\Home\identifier.html" />
     <Content Include="Views\Home\index.cshtml" />
     <None Include="Views\Home\login.cshtml" />
+    <Content Include="Views\Home\plotVerifyModal.html" />
     <Content Include="Views\Home\registrationcontent.html" />
     <Content Include="Views\Home\registrationforms.html" />
     <Content Include="Views\Home\searchReg.html" />

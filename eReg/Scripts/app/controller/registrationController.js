@@ -16,8 +16,8 @@ angular
         //};
 
         $scope.mod.ok = function () {
-            console.log('hello');
-            alert('okctrl');
+            //console.log('hello');
+            //alert('okctrl');
             $modalInstance.close('dfd');
             
         };
