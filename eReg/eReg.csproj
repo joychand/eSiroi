@@ -229,6 +229,14 @@
     <Compile Include="Migrations\201503021054347_executant.Designer.cs">
       <DependentUpon>201503021054347_executant.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503121721234_firstblanck.cs" />
+    <Compile Include="Migrations\201503121721234_firstblanck.Designer.cs">
+      <DependentUpon>201503121721234_firstblanck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503121753529_circledroppk.cs" />
+    <Compile Include="Migrations\201503121753529_circledroppk.Designer.cs">
+      <DependentUpon>201503121753529_circledroppk.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Models\CensusSubDiv.cs" />
     <Compile Include="Migrations\Models\CensusSubDivision.cs" />
@@ -472,6 +480,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503021054347_executant.resx">
       <DependentUpon>201503021054347_executant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503121721234_firstblanck.resx">
+      <DependentUpon>201503121721234_firstblanck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503121753529_circledroppk.resx">
+      <DependentUpon>201503121753529_circledroppk.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
