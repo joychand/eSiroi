@@ -132,7 +132,7 @@ namespace eReg.Controllers
         [Route("api/deptRegistraionController/{plotno}/{pattano}/verfiyplot")]
 
 
-        public System.Collections.IEnumerable getPlotDetails(string plotno, string pattano)
+        public  IHttpActionResult getPlotDetails(string plotno, string pattano)
         {
 
             System.Collections.IEnumerable plotlist;
@@ -142,8 +142,11 @@ namespace eReg.Controllers
                         where p.NewDagNo == plotno && p.NewPattaNo == pattano
                         select new { p.LocCd, p.LandClass, p.unit }).AsEnumerable();
             //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
-
-            return plotlist;
+            if (plotlist.Equals(null))
+            {
+                return NotFound();
+            }
+            return  Ok (plotlist);
 
 
         }

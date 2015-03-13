@@ -1,4 +1,6 @@
 ﻿/// <reference path = ~/scripts/app/factory/dataFactory.js>
+
+//deptcontentController
 (function () {
     'use strict';
 
@@ -12,6 +14,7 @@
     }
 })();
 
+//deptHomeController
 (function () {
     'use strict';
 
@@ -29,6 +32,8 @@
 
     }
 })();
+
+//dept regController
 (function () {
     'use strict';
 
@@ -48,6 +53,7 @@
     }
 })();
 
+//deptmenuController
 (function () {
     'use strict';
 
@@ -62,6 +68,7 @@
     }
 })();
 
+//dept_loginController
 (function () {
     'use strict';
 
@@ -77,8 +84,8 @@
     }
 })();
 
-// dept_dataEntry_from Controller //
 
+// dept_dataEntry_from Controller //
 (function () {
     'use strict';
 
@@ -249,8 +256,8 @@
                 method: 'GET',
                 url: 'api/deptRegistraionController/' + $scope.property.plotno + '/' + $scope.property.pattano + '/' + 'verfiyplot'
             }).then(function (response) {
-                $scope.returnValue = response.data[0];
-                $scope.landClass = $scope.returnValue.landClass;
+                //$scope.returnValue = response.data[0];
+                //$scope.landClass = $scope.returnValue.landClass;
                 $scope.modalInstance = {};
                 $scope.modalInstance = $modal.open({
                     templateUrl: 'Home/plotVerifyModal',
@@ -264,7 +271,8 @@
                         }
                     }
                 });
-            });
+            }, function (result) {
+            console.log('not found' + result)});
             
 
 
@@ -273,17 +281,26 @@
     }
 })();
 
-// **** dept plotverify Controller ******//
+// **** deptModal plotverify Controller ******//
 (function () {
     'use strict';
     angular
         .module('eRegApp')
         .controller('PlotVerifyModalInstanceCtrl', ['$scope', '$modalInstance', 'plot','$modal',
-            function ($scope, $modalInstance, plot,$modal) {
+            function ($scope, $modalInstance, plot, $modal) {
+                $scope.message = false;
+                if (plot.length > 0)
+                {
+                    $scope.visibility = true;
                 $scope.plot1 = plot;
                 //console.log($scope.plot);
                 $scope.mod = {};
                 $scope.gridOptions = { data: 'plot1' };
+                }
+                else
+                {
+                    $scope.message = 'Record not found';
+                }
                 $scope.mod.ok = function () {
                     $modalInstance.close();
                 }
@@ -411,8 +428,6 @@
     }
 })();  //  //***** End of deptExeController ****//
 
-
-
 //dept_dataEntry_form_claimant Controller//
 
 (function () {
@@ -462,8 +477,6 @@
         
     }
 })();
-
-
 
 //dept_dataEntry_form_Identifier Controller//
 
