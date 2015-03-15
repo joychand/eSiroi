@@ -42,15 +42,24 @@
                 <div class="col-sm-4">
                     <select name="village" class="form-control"
                             data-ng-model="property.village"
-                            data-ng-options="village.villName for village in RevVillages | filter:{distCode:property.district.distCode} | filter:{circleCode:property.circle.circleCode} | orderBy:'villName'"
+                            data-ng-options="village.villName for village in revvillages | filter:{distCode:property.district.distCode} | filter:{circleCode:property.circle.circleCode} | orderBy:'villName'"
                             data-ng-disabled="!property.circle">
                         <option value="">--Select village--</option>
                     </select>
                 </div>
                 <div class="col-sm-2 text-right">
-                    <label class="control-label">Property in Area:</label>
+                    <label class="control-label">Street/Locality:</label>
                 </div>
                 <div class="col-sm-4 ">
+                    <input class="form-control" data-ng-model="property.address1" type="text" name="Property Address" value=" " />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                <div class="col-sm-6 pull-left text-left">
+                    <label class="control-label">Property location:</label>
+                </div>
+                <div class="col-sm-6 pull-left form-nopadding">
                     <label for="" class="radio-inline">
                         <input type="radio" name="propertyarea" value="Urban"
                                data-ng-checked="property.area == 'Urban'"
@@ -64,8 +73,44 @@
 
                     </label>
                 </div>
-            </div>
+               </div>
+                <div class="col-sm-3 form-nopadding">
+                <div class="col-sm-6  text-left form-nopadding">
+                 <label class="control-label ">Jurisdiction:</label>
+                </div>
+                    <div class="col-sm-6 text-left form-nopadding ">
+                        <label for="" class="radio-inline">
+                        <input type="radio" name="jusrisdiction" value="yes"
+                               data-ng-checked="property.jurisdiction == 'yes'"
+                               data-ng-model="property.jurisdiction" />Yes
 
+                    </label>
+                    <label for="" class="radio-inline">
+                        <input type="radio" name="jurisdiction" value="no"
+                               data-ng-checked="property.jurisdiction == 'no'"
+                               data-ng-model="property.jurisdiction" />No
+
+                    </label>
+                    </div>
+                    </div>
+                <div class="col-sm-5 form-nopadding">
+                    <div class="col-sm-3 text-left form-nopadding">
+                        <label class="control-label ">Unit Area:</label>
+                    </div>
+                    <div class="col-sm-3 form-nopadding pull-left">
+                        <input class="form-control" data-ng-model="property.plotarea" type="text" name="Unit Area" value=" " />
+                    </div>
+                    <div class="col-sm-6 form-nopadding">
+                        <select name="unittype" id="" class="form-control"
+                                data-ng-model="property.unit"
+                                data-ng-options="unit for unit in unit">
+                            <option >-select unit-</option>
+                            
+                        </select>
+                    </div>
+                </div>
+               
+            </div>
             <div class="form-group">
                 <div class="col-sm-2 text-right">
                     <label class="control-label">NewDagNo:</label>
@@ -83,54 +128,15 @@
                     <button class="btn btn-md btn-success" data-ng-click="verfyplot()">Verify Plot</button>
 
                 </div>
-                {{landClass}}
+               
             </div>
             <div class="form-group">
-                <div class="col-sm-4 text-left">
-                    <label class="control-label">Property Address:</label>
-                </div>
+               
+                
+                
             </div>
-            <div class="form-group">
-                <div class="col-sm-2 text-right">
-                    <label class="control-label">Address1:</label>
-                </div>
-                <div class="col-sm-4">
-                    <input class="form-control" data-ng-model="property.address1" type="text" name="Property Address" value=" " />
-                </div>
-                <div class="col-sm-6">
-                    <div class="col-sm-4 text-right">
-                        <label class="control-label">Unit Area:</label>
-                    </div>
-                    <div class="col-sm-3">
-                        <input class="form-control" data-ng-model="property.plotarea" type="text" name="Unit Area" value=" " />
-                    </div>
-                    <div class="col-sm-5">
-                        <select name="unittype" id="" class="form-control"
-                                data-ng-model="property.unit">
-
-                            <option value="Hectare" selected="selected">Hectare</option>
-                            <option value="Acre">Acre</option>
-                            <option value="Sq.feet">Sq.feet</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-2 text-right">
-                    <label class="control-label">Address2:</label>
-                </div>
-                <div class="col-sm-4">
-                    <input class="form-control" data-ng-model="property.address2" type="text" name="Property Address" value=" " />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-2 text-right">
-                    <label class="control-label">Address3:</label>
-                </div>
-                <div class="col-sm-4">
-                    <input class="form-control" data-ng-model="property.address3" type="text" name="Property Address" value=" " />
-                </div>
-            </div>
+            
+            
 
             <div class="form-group">
                 <div class="col-sm-4 col-sm-offset-3">

@@ -135,19 +135,19 @@ namespace eReg.Controllers
         public  IHttpActionResult getPlotDetails(string plotno, string pattano)
         {
 
-            System.Collections.IEnumerable plotlist;
+        //IQueryable plotlist;
 
 
-            plotlist = (from p in lpdb.Set<uniplot>()
+           var plotlist = (from p in lpdb.Set<uniplot>()
                         where p.NewDagNo == plotno && p.NewPattaNo == pattano
-                        select new { p.LocCd, p.LandClass, p.unit }).AsEnumerable();
+                        select new { p.LocCd, p.LandClass, p.unit });
             //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
-            if (plotlist.Equals(null))
+            if (plotlist.Any())
             {
-                return NotFound();
+                return Ok(plotlist); 
             }
-            return  Ok (plotlist);
 
+            return NotFound();
 
         }
 

@@ -125,8 +125,11 @@
             getStates();
            // getPoliceStations();
             getPostOffices();
+            getCircles();
             getVillages();
+            getRevVillages();
             $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
+            $scope.unit = ['Hectare', 'Acre', 'SqFeet'];
 
            
 
@@ -157,6 +160,16 @@
         function getVillages() {
             dataFactory.getVillages().then(function (villages) {
                 $scope.villages = villages;
+            });
+        }
+        function getRevVillages() {
+            dataFactory.getRevVillage().then(function (RevVillages) {
+                $scope.revvillages = RevVillages;
+            });
+        }
+        function getCircles() {
+            dataFactory.getCircle().then(function (Circles) {
+                $scope.Circles = Circles;
             });
         }
         //function getPoliceStations() {
@@ -249,30 +262,52 @@
         .controller('deptPropController', ['$scope', '$state', 'district', '$http','$modal', deptPropController]);
 
     function deptPropController($scope, $state, district, $http, $modal) {
-        $scope.returnValue = {};
+        $scope.property = {};
+        //console.log('happu:' + $scope.unit[0]);
+        $scope.property.unit = $scope.unit[0];
+        $scope.PlotDetails = [];
+
+        $scope.BlankPlot = [];
+        $scope.IsPlotFound = false;
         $scope.verfyplot = function () {
 
             $http({
                 method: 'GET',
                 url: 'api/deptRegistraionController/' + $scope.property.plotno + '/' + $scope.property.pattano + '/' + 'verfiyplot'
             }).then(function (response) {
-                //$scope.returnValue = response.data[0];
-                //$scope.landClass = $scope.returnValue.landClass;
-                $scope.modalInstance = {};
-                $scope.modalInstance = $modal.open({
-                    templateUrl: 'Home/plotVerifyModal',
-                    controller: 'PlotVerifyModalInstanceCtrl',
-                    //scope: $scope,
-                    backdrop: 'static',
-                    //size: size,
-                    resolve: {
-                        plot: function () {
-                            return response.data;
-                        }
-                    }
-                });
+                $scope.PlotDetails = response.data;
+                $scope.IsPlotFound = true;
             }, function (result) {
-            console.log('not found' + result)});
+                console.log('not found' + result);
+                $scope.IsPlotFound = false;})
+                .finally(function () {
+                    console.log('finally');
+                    $scope.modalInstance = {};
+                    $scope.modalInstance = $modal.open({
+                        templateUrl: 'Home/plotVerifyModal',
+                        controller: 'PlotVerifyModalInstanceCtrl',
+                        //scope: $scope,
+                        backdrop: 'static',
+                        //size: size,
+                        resolve: {
+                            IsPlotFound: function(){
+                                return $scope.IsPlotFound ;
+                            },
+
+                            plot: function () {
+                                return $scope.PlotDetails;
+                                //return (($scope.IsPlotFound)?$scope.PlotDetails:$scope.BlankPlot);
+                            }
+                        }
+                    });
+                    $scope.modalInstance.result.then(function (result) {
+                        
+                       alert('Ok return to page')
+                    }, function () {
+                       
+                       alert('cancel pressed');
+                    });
+                });
             
 
 
@@ -286,15 +321,16 @@
     'use strict';
     angular
         .module('eRegApp')
-        .controller('PlotVerifyModalInstanceCtrl', ['$scope', '$modalInstance', 'plot','$modal',
-            function ($scope, $modalInstance, plot, $modal) {
-                $scope.message = false;
-                if (plot.length > 0)
+        .controller('PlotVerifyModalInstanceCtrl', ['$scope', '$modalInstance', 'plot', 'IsPlotFound', '$modal',
+            function ($scope, $modalInstance,plot,IsPlotFound ,$modal) {
+                $scope.visibility = false;
+                $scope.mod = {};
+                if (IsPlotFound)
                 {
                     $scope.visibility = true;
                 $scope.plot1 = plot;
                 //console.log($scope.plot);
-                $scope.mod = {};
+               
                 $scope.gridOptions = { data: 'plot1' };
                 }
                 else
