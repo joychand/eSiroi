@@ -134,7 +134,10 @@ namespace eReg.Controllers
          {
              return File("/Views/Home/plotVerifyModal.html", "text/html");
          }
-       
+        public ActionResult ModalTemp()
+        {
+            return File("/Views/Home/ModalTemp.html", "text/html");
+        }
          //public ActionResult modal()
          //{
          //    return File("/Views/Home/modal.html", "text/html");

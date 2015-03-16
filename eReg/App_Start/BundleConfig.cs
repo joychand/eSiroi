@@ -38,8 +38,9 @@ namespace eReg
                         "~/Scripts/app/factory/dept_dataFactory.js",
                       "~/Scripts/app/factory/angularModalService.js",
                       "~/Scripts/app/controller/registrationController.js",
-                       //"~/Scripts/ng-grid.debug.js",
-                      "~/Scripts/app/controller/dept_regController.js"));
+                       "~/Scripts/app/controller/dept_regController.js",
+                       "~/Scripts/app/service/ModalService.js"
+                      ));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

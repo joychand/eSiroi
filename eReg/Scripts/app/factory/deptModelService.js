@@ -58,8 +58,13 @@
             },
             getlist: function() {
                 return executantList;
+            },
+
+            property: {
+            },
+
+            propertyddl: {
             }
-            
 
         }
         return model;

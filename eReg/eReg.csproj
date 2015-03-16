@@ -331,6 +331,7 @@
     <Content Include="Scripts\app\factory\dept_dataFactory.js" />
     <Content Include="Scripts\app\factory\dept_sessionFactory.js" />
     <Content Include="Scripts\app\factory\sessionFactory.js" />
+    <Content Include="Scripts\app\service\ModalService.js" />
     <Content Include="Scripts\ng-grid.debug.js" />
     <Content Include="Scripts\ng-grid.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.12.0.js" />
@@ -411,6 +412,7 @@
     <Content Include="Views\Home\identifier.html" />
     <Content Include="Views\Home\index.cshtml" />
     <None Include="Views\Home\login.cshtml" />
+    <Content Include="Views\Home\ModalTemp.html" />
     <Content Include="Views\Home\plotVerifyModal.html" />
     <Content Include="Views\Home\registrationcontent.html" />
     <Content Include="Views\Home\registrationforms.html" />

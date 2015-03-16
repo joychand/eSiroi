@@ -1,4 +1,5 @@
 ﻿/// <reference path = ~/scripts/app/factory/dataFactory.js>
+///<reference path =~/scripts/app/*.js>
 
 //deptcontentController
 (function () {
@@ -259,16 +260,18 @@
 
     angular
         .module('eRegApp')
-        .controller('deptPropController', ['$scope', '$state', 'district', '$http','$modal', deptPropController]);
+        .controller('deptPropController', ['$scope', '$state', 'district', '$http', '$modal', 'deptModalService', 'modalService', deptPropController]);
 
-    function deptPropController($scope, $state, district, $http, $modal) {
+    function deptPropController($scope, $state, district, $http, $modal, deptModalService, modalService) {
         $scope.property = {};
-        //console.log('happu:' + $scope.unit[0]);
+        
         $scope.property.unit = $scope.unit[0];
         $scope.PlotDetails = [];
 
-        $scope.BlankPlot = [];
+       // $scope.BlankPlot = [];
         $scope.IsPlotFound = false;
+
+        //VERIFY PLOT FUNCTION
         $scope.verfyplot = function () {
 
             $http({
@@ -313,10 +316,26 @@
 
 
         }
+
+        $scope.property = deptModalService.property;
+
+        $scope.saveproperty = function () {
+
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Save Property Detaisl?',
+                bodyText: 'Are you sure you want to save the propertyDetails?'
+            };
+        }
+
+        modalService.showModal({}, modalOptions).then(function (result) {
+            
+        });
     }
 })();
 
-// **** deptModal plotverify Controller ******//
+// **** deptplotverify Modal Controller ******//
 (function () {
     'use strict';
     angular
