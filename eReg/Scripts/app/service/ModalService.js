@@ -1,14 +1,13 @@
 ﻿(function () {
-   // 'use strict';
-    angular.module('eRegApp')
-        .service('modalService', ['$modal',modalService]);
-    function modalService ($modal) {
+    // 'use strict';
+    angular.module('eRegApp').service('modalService', ['$modal', modalService]);
+    function modalService($modal) {
 
         var modalDefaults = {
             backdrop: true,
             keyboard: true,
             modalFade: true,
-            templateUrl: 'Views/Home/ModalTemp'
+            templateUrl: 'Home/ModalTemp'
         };
 
         var modalOptions = {
@@ -51,4 +50,4 @@
         };
 
     };
-})
+}());

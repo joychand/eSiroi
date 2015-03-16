@@ -264,13 +264,23 @@
 
     function deptPropController($scope, $state, district, $http, $modal, deptModalService, modalService) {
         $scope.property = {};
-        
+        $scope.property = deptModalService.property;
         $scope.property.unit = $scope.unit[0];
         $scope.PlotDetails = [];
 
        // $scope.BlankPlot = [];
         $scope.IsPlotFound = false;
+        $scope.nextparty = function () {
+            var modaloptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Confirmation',
+                bodyText: 'Do you want to submit the property details'
+            };
+            modalService.showModal({}, modaloptions).then(function (result) {
 
+            });
+        }
         //VERIFY PLOT FUNCTION
         $scope.verfyplot = function () {
 
@@ -285,30 +295,62 @@
                 $scope.IsPlotFound = false;})
                 .finally(function () {
                     console.log('finally');
-                    $scope.modalInstance = {};
-                    $scope.modalInstance = $modal.open({
-                        templateUrl: 'Home/plotVerifyModal',
-                        controller: 'PlotVerifyModalInstanceCtrl',
-                        //scope: $scope,
-                        backdrop: 'static',
-                        //size: size,
-                        resolve: {
-                            IsPlotFound: function(){
-                                return $scope.IsPlotFound ;
-                            },
 
-                            plot: function () {
-                                return $scope.PlotDetails;
-                                //return (($scope.IsPlotFound)?$scope.PlotDetails:$scope.BlankPlot);
+                    //$scope.modalInstance = {};
+                    //$scope.modalInstance = $modal.open({
+                    //    templateUrl: 'Home/plotVerifyModal',
+                    //    controller: 'PlotVerifyModalInstanceCtrl',
+                    //    //scope: $scope,
+                    //    backdrop: 'static',
+                    //    //size: size,
+                    //    resolve: {
+                    //        IsPlotFound: function(){
+                    //            return $scope.IsPlotFound ;
+                    //        },
+
+                    //        plot: function () {
+                    //            return $scope.PlotDetails;
+                    //            //return (($scope.IsPlotFound)?$scope.PlotDetails:$scope.BlankPlot);
+                    //        }
+                    //    }
+                    //});
+
+                    var modalOptions = {
+                        closeButtonText: 'Cancel',
+                        actionButtonText: 'Ok',
+                        headerText: 'PlotDetails',
+                        bodyText: ''
+                    };
+
+                    var modalDefault = {
+                        templateUrl: 'Home/plotVerifyModal',
+                            controller: 'PlotVerifyModalInstanceCtrl',
+                            //scope: $scope,
+                            backdrop: 'static',
+                            //size: size,
+                            resolve: {
+                                IsPlotFound: function(){
+                                    return $scope.IsPlotFound ;
+                                },
+
+                                plot: function () {
+                                    return $scope.PlotDetails;
+                                    //return (($scope.IsPlotFound)?$scope.PlotDetails:$scope.BlankPlot);
+                                }
                             }
-                        }
-                    });
-                    $scope.modalInstance.result.then(function (result) {
+
+                    };
+                    //$scope.modalInstance.result.then(function (result) {
                         
-                       alert('Ok return to page')
-                    }, function () {
+                    //   alert('Ok return to page')
+                    //}, function () {
                        
-                       alert('cancel pressed');
+                    //   alert('cancel pressed');
+                    //});
+
+                    modalService.showModal(modalDefault, modalOptions).then(function (result) {
+                        alert('modalservice working');
+
                     });
                 });
             
@@ -317,7 +359,7 @@
 
         }
 
-        $scope.property = deptModalService.property;
+       
 
         $scope.saveproperty = function () {
 
@@ -327,11 +369,13 @@
                 headerText: 'Save Property Detaisl?',
                 bodyText: 'Are you sure you want to save the propertyDetails?'
             };
+
+            modalService.showModal({}, modalOptions).then(function (result) {
+
+            });
         }
 
-        modalService.showModal({}, modalOptions).then(function (result) {
-            
-        });
+        
     }
 })();
 
