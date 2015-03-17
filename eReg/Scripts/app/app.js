@@ -86,16 +86,11 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
             controller: 'dataEntryformController',
             
         })
-           //.state('department.content.form.online', {
-           //    url: '/getonline',
-           //    views:{
-           //        'online@department.content.form':{
-           //            templateUrl: 'Home/deptOnlineData'
-           //           // controller: ''
-           //        }
-           //    }
-               
-           //})
+           .state('department.content.form.deed', {
+               url: '/dataEntryformDeed',
+               templateUrl: 'Home/dept_dataEntry_form_deed',
+               controller: 'deptDeedController'
+           })
         .state('department.content.form.property', {
             url: '/dataEntryformProperty',
             templateUrl: 'Home/dept_dataEntry_form_property',
