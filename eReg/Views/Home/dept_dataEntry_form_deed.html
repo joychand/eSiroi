@@ -5,40 +5,60 @@
 
 </div>
 <hr />
-
-<ng-form class="form-horizontal">
-    <div class="form-group ">
-        <div class="col-sm-2 hidden-xs ">
-            <label class="control-label hidden-xs ">RegnNo:</label>
-        </div>
-        <div class="col-sm-4  ">
-            <input type="text" value="" class="form-control" placeholder="Regno" />
-        </div>
-        <div class="col-sm-2  hidden-xs  text-right">
-            <label class="control-label">RegYear:</label>
-        </div>
-        <div class="col-sm-4 ">
-            <input type="text" value="" class="form-control" placeholder="RegYear" />
-        </div>
-        <div class="col-sm-2  hidden-xs text-right ">
-            <label class="control-label ">RegDate:</label>
-        </div>
-        <div class="col-sm-4 "><input class="form-control" type="text" placeholder="Regdate" /></div>
-        <div class="col-sm-2  hidden-xs ">
-            <label class="control-label">DateofExecution:</label>
-        </div>
-        <div class="col-sm-4">
-            <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="DateOfExec"/>
-                <span class="input-group-addon">dd/mm/yyyy</span>
+<div class="container-fluid">
+    <ng-form class="form-horizontal ">
+        <div class="form-group  ">
+            <div class="col-sm-2 hidden-xs ">
+                <label class="control-label hidden-xs ">RegnNo:</label>
             </div>
+            <div class="col-sm-4  ">
+                <input type="text" value="" class="form-control" placeholder="Regno" />
+            </div>
+            <div class="col-sm-2  hidden-xs  text-right">
+                <label class="control-label">RegYear:</label>
+            </div>
+            <div class="col-sm-4 ">
+                <input type="text" value="" class="form-control" placeholder="RegYear" />
+            </div>
+            <div class="col-sm-2  hidden-xs text-right ">
+                <label class="control-label ">RegDate:</label>
+            </div>
+            <div class="col-sm-4 "><input class="form-control" type="text" placeholder="Regdate" /></div>
+            <div class="col-sm-2  hidden-xs ">
+                <label class="control-label">DateofExecution:</label>
+            </div>
+            <div class="col-sm-4">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="DateOfExec" />
+                    <span class="input-group-addon">dd/mm/yyyy</span>
+                </div>
 
+            </div>
         </div>
-    </div>
-    <div class="form-group ">
-        
-        
-            <div class="col-sm-6 col-sm-push-3 form-nopadding " style="background-color:ActiveCaption">
+        <div class="form-group">
+            <div class="col-sm-2 hidden-xs">
+                <label class="control-form">DateofPresentant:</label>
+            </div>
+            <div class="col-sm-4">
+                <div class="input-group input-group-sm">
+                    <input class="form-control" type="text" placeholder="DateofPresentant" />
+                    <span class="input-group-addon">dd/mm/yyyy</span>
+                </div>
+            </div>
+            <div class="col-sm-2 hidden-xs text-right">
+                <label class="control-form">Time:</label>
+            </div>
+            <div class="col-sm-4">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="Time" />
+                    <span class="input-group-addon">hh:mm</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+
+
+            <div class="col-sm-5 col-sm-push-1 form-nopadding " style="background-color:ActiveCaption">
                 <div class=" input-group input-group-md  ">
                     <span class="input-group-addon">
                         Municiple:
@@ -54,9 +74,9 @@
 
 
                 </div>
-            </div> 
-            
-            <div class="col-sm-6  form-nopadding " style="background-color:ActiveCaption">
+            </div>
+
+            <div class="col-sm-5  col-sm-push-1 form-nopadding " style="background-color:ActiveCaption">
                 <div class=" input-group input-group-md ">
                     <span class="input-group-addon">
                         OutJuri:
@@ -74,7 +94,66 @@
                 </div>
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-push-1 form-nopadding " style=" background-color:activecaption">
+                <div class="input-group input-group-md">
+                    <span class="input-group-addon">Visit Commission?</span>
+                    <input type="radio" name="visitComm" data-checked="deed.vistcomm=='Y'" data-ng-model="deed.visitcomm" />Yes
+                    <input type="radio" name="visitComm" data-ng-checked=" deed.vistcomm=='N'" data-ng-model="deed.vistComm" />No
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 hidden-xs text-right">
+                <label class="control-label">Consolidation Value:</label>
+            </div>
+            <div class="col-sm-6">
+                <input type="text" value="" class="form-control" placeholder="Consolidation Value" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 hidden-xs text-right">
 
+                <label class="control-label">Stamp Payable Value:</label>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Stamp Payable Value" />
+                    <span class="input-group-addon">
+                        <input type="checkbox" name="SFeeExmp"
+                               data-ng-checked="deed.SFeeExmp == 'Y'"
+                               data-ng-model="deed.SFeeExmp" />StampFeeExmp
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 hidden-xs ">
+
+                <label class="control-label">Stamp Value Paid:</label>
+            </div>
+
+            <div class="col-sm-6"><input type="text" value="" class="form-control" placeholder="Stamp Value Paid" /></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3">
+                <label class="control-label">Fee to be Exempted?</label></div>
+            <div class="col-sm-2">
+                <input type="radio" name="feeExem" 
+                       data-ng-checked="deed.feeExem=='Y'"
+                       data-ng-model="deed.feeExem" />Yes
+
+                <input type="radio" name="feeExem" 
+                       data-ng-checked="deed.feeExem=='N'"
+                       data-ng-model="deed.feeExem" />No
+            </div>
+            <div class="col-sm-2">
+                <label class="control-label">If yes reason:</label>
+            </div>
+            <div class="col-sm-3"><input type="text" class="from-control" /></div>
+            </div>
+            
         
-    
-</ng-form>
+    </ng-form>
+</div>
