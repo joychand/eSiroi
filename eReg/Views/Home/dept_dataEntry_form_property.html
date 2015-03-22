@@ -16,11 +16,13 @@
                     <label class="control-label">District:</label>
                 </div>
                 <div class="col-sm-4">
+                   
                     <select name="district" class="form-control"
                             data-ng-model="property.district"
                             data-ng-options="district.distName for district in districts  | orderBy:'distName'">
                         <option value="">--Select District--</option>
                     </select>
+                    
                 </div>
                 <div class="col-sm-2 text-right">
                     <label class="control-label">Circle:</label>
@@ -117,6 +119,7 @@
                 </div>
                 <div class="col-sm-2">
                     <input type="text" data-ng-model="property.plotno" class="form-control " />
+                    
                 </div>
                 <div class="col-sm-2 text-right">
                     <label class="control-label">NewPattaNo:</label>
@@ -132,7 +135,7 @@
             </div>
             <div class="form-group">
                
-                
+              
                 
             </div>
             
