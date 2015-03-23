@@ -24,6 +24,7 @@ angular.module('eRegApp')
                 method: 'GET',
                 url: urlBase3 + maj_code + '/trans_name'
             }).then(function (results) {
+               
                 return results.data;
             });
         }

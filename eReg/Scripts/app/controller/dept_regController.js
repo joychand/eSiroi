@@ -260,7 +260,7 @@
 
     angular
         .module('eRegApp')
-        .controller('deptPropController', ['$scope', '$state', 'district', '$http', '$modal', 'deptModalService', 'modalService', deptPropController]);
+        .controller('deptPropController', ['$scope', '$state', 'district', '$http', '$modal', 'deptModalService', 'modalService',  deptPropController]);
 
     function deptPropController($scope, $state, district, $http, $modal, deptModalService, modalService) {
         $scope.property = {};
@@ -288,6 +288,7 @@
                 method: 'GET',
                 url: 'api/deptRegistraionController/' + $scope.property.plotno + '/' + $scope.property.pattano + '/' + 'verfiyplot'
             }).then(function (response) {
+                
                 $scope.PlotDetails = response.data;
                 $scope.IsPlotFound = true;
             }, function (result) {

@@ -331,6 +331,7 @@
     <Content Include="Scripts\app\factory\dept_dataFactory.js" />
     <Content Include="Scripts\app\factory\dept_sessionFactory.js" />
     <Content Include="Scripts\app\factory\sessionFactory.js" />
+    <Content Include="Scripts\app\factory\timestampMarker.js" />
     <Content Include="Scripts\app\service\ModalService.js" />
     <Content Include="Scripts\ng-grid.debug.js" />
     <Content Include="Scripts\ng-grid.js" />

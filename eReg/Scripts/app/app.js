@@ -74,7 +74,10 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
             controller: 'dept_regController',
             resolve: {
                 majortrans: function (dataFactory) {
-                    return dataFactory.getMajortransaction();
+                    return dataFactory.getMajortransaction().then(function (results) {
+                        var time = results.config.responseTimestamp - results.config.requestTimestamp;
+                        console.log('The request took ' + (time / 1000) + ' seconds.');
+                        return results;});
                 }
             }
         })
