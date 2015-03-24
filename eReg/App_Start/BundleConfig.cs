@@ -29,7 +29,7 @@ namespace eReg
                       "~/Scripts/angular.js",
                       "~/Scripts/angular-ui-router.js",
                       "~/Scripts/ct-ui-router-extras.js",
-                     
+                      "~/Scripts/angular-sanitize.js",
                       "~/Scripts/app/app.js",
                       "~/Scripts/app/factory/dataFactory.js",
                       "~/Scripts/app/factory/sessionFactory.js",
