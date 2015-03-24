@@ -143,9 +143,9 @@ namespace eReg.Controllers
             return File("/Views/Home/dept_dataEntry_form_deed.html", "text/html");
         }
 
-         //public ActionResult modal()
-         //{
-         //    return File("/Views/Home/modal.html", "text/html");
-         //}
+        public ActionResult loginPage()
+        {
+            return File("/Views/Home/loginPage.html", "text/html");
+        }
     }
 }

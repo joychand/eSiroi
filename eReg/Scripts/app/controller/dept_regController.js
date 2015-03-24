@@ -1,6 +1,4 @@
-﻿/// <reference path = ~/scripts/app/factory/dataFactory.js>
-///<reference path =~/scripts/app/*.js>
-
+﻿
 //deptcontentController
 (function () {
     'use strict';
@@ -29,7 +27,11 @@
                     { Ackno: "Jacob", date: 27 },
                     { Ackno: "Nephi", date: 29 },
                     { Ackno: "Enos", date: 34 }];
-        $scope.gridOptions = { data: 'myData' };
+        $scope.gridOptions = {
+            data: 'myData',
+            columnDefs: [{ field: 'Ackno', displayName: 'Ackno' }, { field: 'date', displayName: 'AppliedOn' }],
+            jqueryUITheme: true
+        };
 
     }
 })();
@@ -75,17 +77,55 @@
 
     angular
         .module('eRegApp')
-        .controller('deptloginController', ['$scope', '$state',deptloginController]);
+        .controller('deptloginController', ['$scope', '$state','modalService',deptloginController]);
 
-    function deptloginController($scope, $state) {
-        
-     
+    function deptloginController($scope, $state, modalService) {
+        $scope.login = {};
+        //alert('haaaa');
+        //var modalOptions = {
+        //    closeButtonText: 'Cancel',
+        //    actionButtonText: 'Login',
+        //    headerText: 'Login',
+        //    bodyText: ''
+        //};
+
+        //var modalDefault = {
+        //    templateUrl: 'Home/loginPage',
+        //    controller: 'loginMocalCtrl',
+        //    backdrop: 'static'
+        //};
+
+        //modalService.showModal(modalDefault, modalOptions).then(function (result) {
+        //    alert('login successful');
+        //}, function (error) {
+        //    alert('login Fail'); 
+        //});
 
         
     }
+    
 })();
 
+//LoginModalController
+(function () {
+    angular.module('eRegApp')
+    .controller('loginModalCtrl', ['$scope', '$modalInstance', loginModalCtrl]);
+    function loginModalCtrl($scope, $modalInstance) {
+        $scope.login = {};
+        // USER CLICK LOGIN EVENT
+        $scope.login.login = function () {
+            //TO DO GET USER CREDENTIALS VERIFY WITH THE BACKEND API
 
+            $modalInstance.close();
+        }
+
+        // USER CLICK CANCEL EVENT
+        $scope.login.cancel = function () {
+            $modalInstance.dismiss();
+        }
+    }
+
+})();
 // dept_dataEntry_from Controller //
 (function () {
     'use strict';
@@ -393,7 +433,8 @@
                 {
                     $scope.visibility = true;
                 $scope.plot1 = plot;
-                //console.log($scope.plot);
+                    //console.log($scope.plot);
+
                
                 $scope.gridOptions = { data: 'plot1' };
                 }

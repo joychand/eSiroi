@@ -48,13 +48,33 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
         .state('department.content.login',
         {
             url: '/login',
-            views: {
-                '@department.content':{
-                    templateUrl: 'Home/login',
-                    controller: 'deptloginController'
-                }
-                
-            }
+            templateUrl: 'Home/login',
+            controller: 'deptloginController',
+            resolve:{
+                modalService: 'modalService',
+                $state: '$state'
+            },
+            onEnter: function (modalService,$state,$rootScope) {
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Login',
+                    headerText: 'Login',
+                    bodyText: ''
+                };
+
+                var modalDefault = {
+                    templateUrl: 'Home/loginPage',
+                    controller: 'loginModalCtrl',
+                    backdrop: 'static',
+                    size: 'lg'
+                };
+
+                modalService.showModal(modalDefault, modalOptions).then(function (result) {
+                    $state.go('department.content.home');
+                }, function (error) {
+                    $state.go($rootScope.previousState);
+                });
+    }
         })
 
         .state('department.content.home', {
@@ -212,40 +232,51 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
       
          
     //$locationProvider.html5Mode(true).hashPrefix("!");
-    app.run(function ($rootScope, $state, $window, $timeout, $stateParams) {
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            console.log('hahahahah');
-            if (toState.resolve) {
-                $rootScope.page.loading = true;
-            }
-        });
+    //app.run(function ($rootScope, $state, $window, $timeout, $stateParams) {
+    //    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    //        console.log('hahahahah');
+    //        if (toState.resolve) {
+    //            $rootScope.page.loading = true;
+    //        }
+    //    });
 
-        $rootScope.addError = function (error) {
-            $rootScope.message = error.message;
-            $rootScope.reason = error.reason;
-            $rootScope.page.loading = true;
-            //$rootScope.values = 'jhgkjhkj';
-        }
-        $rootScope.$state = $state;
-       
-        $rootScope.$stateParams = $stateParams;
-        $rootScope.$on("$stateChangeSuccess", function () {
-            console.log('success');
-            if (toState.resolve) {
-                $rootScope.page.loading = false;
-            }
-            $timeout(function () {
-                $window.ga('send', 'pageview', $window.location.pathname + $window.location.hash);
-            });
-        });
+    //    $rootScope.addError = function (error) {
+    //        $rootScope.message = error.message;
+    //        $rootScope.reason = error.reason;
+    //        $rootScope.page.loading = true;
+    //        //$rootScope.values = 'jhgkjhkj';
+    //    }
+    //    $rootScope.$state = $state;
+    //    $rootScope.previouState;
+    //    $rootScope.currentState;
+    //    $rootScope.$stateParams = $stateParams;
+    //    $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+    //        $rootScope.previousState = from.name;
+    //        $rootScope.currentState = to.name;
+    //        console.log('Previous state:' + $rootScope.previousState)
+    //        console.log('Current state:' + $rootScope.currentState)
+    //    });
+    //    //$rootScope.$on("$stateChangeSuccess", function (ev, to, toParams, from, fromParams) {
+    //    //    console.log('success');
+    //    //    $rootScope.previousState = from.name;
+    //    //    $rootScope.currentState = to.name;
+    //    //    console.log('Previous state:' + $rootScope.previousState)
+    //    //    console.log('Current state:' + $rootScope.currentState)
+    //    //    if (toState.resolve) {
+    //    //        $rootScope.page.loading = false;
+    //    //    }
+    //    //    $timeout(function () {
+    //    //        $window.ga('send', 'pageview', $window.location.pathname + $window.location.hash);
+    //    //    });
+    //    //});
 
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            console.log('hahahahah');
-            if (toState.resolve) {
-                $rootScope.page.loading = true;
-            }
-        });
-    });
+    //    //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    //    //    console.log('hahahahah');
+    //    //    if (toState.resolve) {
+    //    //        $rootScope.page.loading = true;
+    //    //    }
+    //    //});
+    //});
     
 
     //$rootScope.$on("$routeChangeStart", function (event, next, current) {
@@ -262,7 +293,25 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
     //});
 }]);
 
+app.run(['$rootScope', '$state', '$window', '$timeout', '$stateParams',
 
+    function ($rootScope, $state, $window, $timeout, $stateParams) {
+        $rootScope.$state = $state;
+           $rootScope.previouState;
+           $rootScope.currentState;
+          $rootScope.$stateParams = $stateParams;
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        console.log('statechangestart');
+       
+    });
+    $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+                $rootScope.previousState = from.name;
+                $rootScope.currentState = to.name;
+                console.log('Previous state:' + $rootScope.previousState)
+                console.log('Current state:' + $rootScope.currentState)
+            });
+
+}]);
 
 app.controller('simpleController', ['$scope','$state', 'dataFactory', 'sessionFactory',
         function ($scope, $state, dataFactory,sessionFactory) {
