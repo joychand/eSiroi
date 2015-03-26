@@ -27,19 +27,17 @@ namespace eReg.Controllers
         {
             return db.Districts;
         }
-        //api/subdivisions
+         // Get  Revenue subdivisions
         [HttpGet]
-        [Route("api/ApplyRegistrationController/{DistCode}/subdivisions")]
-        public IEnumerable<SubDivision> SubDivisions(String distcode)
+        [Route("api/ApplyRegistrationController/Revsubdivision")]
+        public IEnumerable<SubDivision> Revsubdivision()
         {
-            //String distcd = Convert.ToString(distcode);
-            //Console.Write(distcd);
-            return from s in db.SubDivision
-                   where s.DistCode == distcode
-                   select s;
+            
+            return  db.SubDivision;
+                   
 
         }
-        //GET subdivision
+        //GET censusSubdivision
         [HttpGet]
         [Route("api/ApplyRegistrationController/subdivisions")]
         public IEnumerable<CensusSubDivision> CensusSubDivision()
@@ -48,7 +46,7 @@ namespace eReg.Controllers
             return db.CensusSubDivisions;
 
         }
-//        //GET POSTOFFICE
+//        //GET censusVillage
         [HttpGet]
         [Route("api/ApplyRegistrationController/villages")]
         public IEnumerable<censusvillage> villages ()

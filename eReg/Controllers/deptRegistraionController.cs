@@ -151,9 +151,40 @@ namespace eReg.Controllers
 
         }
 
+        //Get LandType 
 
+        [HttpGet]
+        [Route("api/deptRegistraionController/landtype")]
+        public IHttpActionResult getlandtype()
+        {
 
+                     
+            var landtype =  db.LandType;
+          
+            if (landtype.Any())
+            {
+                return Ok(landtype);
+            }
 
+            return NotFound();
+
+        }
+
+        // Get LandClass
+        [HttpGet]
+
+        [Route("api/deptRegistraionController/landclass")]
+
+        public IHttpActionResult getlandclass()
+        {
+            var landclass = db.Class;
+            if (landclass.Any())
+            {
+                return Ok(landclass);
+
+            }
+            return NotFound();
+        }
 
 
 

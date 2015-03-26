@@ -147,12 +147,22 @@
             $scope.states = {};
             $scope.districts = {};
             $scope.subdivisions = {};
+            $scope.revsubdivisions = {};
             $scope.villages = {};
             $scope.revvillages = {};
             $scope.postoffices = {};
             $scope.circles = {};
+            $scope.landclass = {};
+            $scope.landtype = {};
+           // $scope.deed = {};
+           // $scope.property = {};
             $scope.online = {};
-            $scope.slnoddlVisibility = true;
+           $scope.sess ={}
+            $scope.sess.exFormIsOnline = false;
+            $scope.sess.clFormIsOnline = false;
+            $scope.sess.idFormIsOnline = false;
+           
+            $scope.slnoddlVisibility = false;
             $scope.exeslnolist = [];
             $scope.claimslnolist = [];
             $scope.identslnolist = [];
@@ -161,14 +171,18 @@
          
 
             // *** inject dropdownlist data **//
+            getStates();
             getDistricts();
             getSubDivisions();
-            getStates();
-           // getPoliceStations();
-            getPostOffices();
+            getRevSubdivions();
             getCircles();
             getVillages();
             getRevVillages();
+           // getPoliceStations();
+            getPostOffices();
+           
+            getlandclass();
+            getlandtype();
             $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
             $scope.unit = ['Hectare', 'Acre', 'SqFeet'];
 
@@ -198,6 +212,12 @@
                 $scope.subdivisions = subdivisions;
             });
         }
+
+        function getRevSubdivions() {
+            dataFactory.getRevSubDivisions().then(function (revsubdiv) {
+                $scope.revsubdivisions = revsubdiv;
+            })
+        }
         function getVillages() {
             dataFactory.getVillages().then(function (villages) {
                 $scope.villages = villages;
@@ -224,6 +244,17 @@
                 $scope.postoffices = postoffices;
             });
         }
+
+        function getlandclass() {
+            dept_dataFactory.getLandClass().then(function (response) {
+                $scope.landclass = response.data;
+            })
+        }
+        function getlandtype() {
+            dept_dataFactory.getLandType().then(function (response) {
+                $scope.landtype = response.data;
+            })
+        }
       
         $scope.getOnline = function () {
             $scope.visibility = false;
@@ -234,12 +265,14 @@
             $scope.click = false;
         }
         $scope.onlineData = function () {
-            dept_sessionfactory.putOnline();
+            
             dept_dataFactory.getOnlineExecutantList($scope.online.ackno).then(function (response) {
-                //console.log(response.data);
+               
+                $scope.sess.exFormIsOnline = true;
+               // $scope.OnlineStatus = 'online;
                 dept_sessionfactory.updateOnlineExecModal(response.data);
-                $scope.slnoddlVisibility = false;
-                $scope.OnlineStatus = 'online';
+                $scope.slnoddlVisibility = true; // flag used to display slno ddlist
+                $scope.OnlineStatus = 'online'; // Online status flag to toggle ddl online and offline
                 
                 // get Online execddllist
                 dept_dataFactory.getOnlineExecddlist($scope.online.ackno).then(function (response) {
@@ -303,10 +336,19 @@
         .controller('deptPropController', ['$scope', '$state', 'district', '$http', '$modal', 'deptModalService', 'modalService',  deptPropController]);
 
     function deptPropController($scope, $state, district, $http, $modal, deptModalService, modalService) {
+        
         $scope.property = {};
+        $scope.propertyddl = {};
         $scope.property = deptModalService.property;
-        $scope.property.unit = $scope.unit[0];
+        $scope.propertyddl = deptModalService.propertyddl;
+        //if (!$scope.poperty.firstVisit)
+        //{
+        //    $scope.property.unit = $scope.unit[0];
+        //    $scope.property.firstVisit = true;
+        //}
+       
         $scope.PlotDetails = [];
+       
 
        // $scope.BlankPlot = [];
         $scope.IsPlotFound = false;
@@ -337,24 +379,7 @@
                 .finally(function () {
                     console.log('finally');
 
-                    //$scope.modalInstance = {};
-                    //$scope.modalInstance = $modal.open({
-                    //    templateUrl: 'Home/plotVerifyModal',
-                    //    controller: 'PlotVerifyModalInstanceCtrl',
-                    //    //scope: $scope,
-                    //    backdrop: 'static',
-                    //    //size: size,
-                    //    resolve: {
-                    //        IsPlotFound: function(){
-                    //            return $scope.IsPlotFound ;
-                    //        },
-
-                    //        plot: function () {
-                    //            return $scope.PlotDetails;
-                    //            //return (($scope.IsPlotFound)?$scope.PlotDetails:$scope.BlankPlot);
-                    //        }
-                    //    }
-                    //});
+                    
 
                     var modalOptions = {
                         closeButtonText: 'Cancel',
@@ -381,13 +406,7 @@
                             }
 
                     };
-                    //$scope.modalInstance.result.then(function (result) {
-                        
-                    //   alert('Ok return to page')
-                    //}, function () {
-                       
-                    //   alert('cancel pressed');
-                    //});
+                   
 
                     modalService.showModal(modalDefault, modalOptions).then(function (result) {
                         alert('modalservice working');
@@ -395,12 +414,11 @@
                     });
                 });
             
-
-
-
+                       
         }
 
-       
+        
+
 
         $scope.saveproperty = function () {
 
@@ -474,15 +492,16 @@
         $scope.session = {};
         
         
-       
+        console.log($scope.sess.exFormIsOnline);
        
         $scope.session.isonline = dept_sessionfactory.getExecOnline();
-        $scope.executantlist = dept_sessionfactory.getOnlineExecModallist();
-        $scope.execddlist = dept_sessionfactory.getOnlineExecddlModallist();
+       
         // ***To get online data ***
-        if ($scope.online === true) {
-            if ($scope.session.isonline) {
-
+        $scope.executantlist = angular.copy(dept_sessionfactory.getOnlineExecModallist());
+        $scope.execddlist = angular.copy(dept_sessionfactory.getOnlineExecddlModallist());
+        if ($scope.sess.exFormIsOnline) {
+           
+           
                // $scope.exeslnolist = [];
               
                 //  *** To be done *** Get Online Executantlist for first time
@@ -495,11 +514,11 @@
                 deptModalService.executant = $scope.executantlist[0];
                 deptModalService.execddl = $scope.execddlist[0];
                 // update the online status
-                dept_sessionfactory.updateExecOnline();
+                $scope.sess.exFormIsOnline = false;
 
             }
-        }
-        //console.log($scope.exeslnolist);
+       
+        
 
         // Injecting executant from Modal Service
         $scope.executant = deptModalService.executant;
@@ -507,11 +526,7 @@
         
             $scope.execddl = deptModalService.execddl;
 
-            //else {
-        //    $scope.execddl = deptModalService.execOfflineddl;
-        //}
-        
-        //console.log($scope.execddl.state);
+           
        
        // initialize dropdownlist       
         init();
@@ -538,18 +553,19 @@
         $scope.onexsubmit = function () {
 
             if ($scope.OnlineStatus === 'offline') {
+                $scope.executant = angular.extend($scope.execddl);
 
-                $scope.executant.tsno = $scope.tsyear.ts;
-                $scope.executant.tsyear = $scope.tsyear.tyear;
-                $scope.executant.state = $scope.execddl.state.stateName;
-                $scope.executant.district = $scope.execddl.district.distName;
-                $scope.executant.subDivison = $scope.execddl.subDivison.subDivName;
-                $scope.executant.village = $scope.execddl.village.villName;
-                $scope.executant.postOffice = $scope.execddl.postOffice.postOffice1;
-                $scope.executant.pinCode = $scope.execddl.postOffice.pinCode;
-                $scope.executant.enterby = 'radha'
-                dept_sessionfactory.pushExecutant($scope.executant);
-
+                //$scope.executant.tsno = $scope.tsyear.ts;
+                //$scope.executant.tsyear = $scope.tsyear.tyear;
+                //$scope.executant.state = $scope.execddl.state.stateName;
+                //$scope.executant.district = $scope.execddl.district.distName;
+                //$scope.executant.subDivison = $scope.execddl.subDivison.subDivName;
+                //$scope.executant.village = $scope.execddl.village.villName;
+                //$scope.executant.postOffice = $scope.execddl.postOffice.postOffice1;
+                //$scope.executant.pinCode = $scope.execddl.postOffice.pinCode;
+                //$scope.executant.enterby = 'radha'
+                //dept_sessionfactory.pushExecutant($scope.executant);
+                console.log($scope.executant);
                               
             }
             else {
@@ -567,7 +583,7 @@
         }
 
     }
-})();  //  //***** End of deptExeController ****//
+})();   //***** End of deptExeController ****//
 
 //dept_dataEntry_form_claimant Controller//
 
@@ -649,7 +665,7 @@
             deptModalService.identifier = $scope.identifierlist[0];
             deptModalService.ident = $scope.identddlist[0];
             deptModalService.idFormOnline.status = false;
-            console.log('online');
+            //console.log('online');
         }
         $scope.identifier = deptModalService.identifier;
         $scope.ident = deptModalService.ident;
