@@ -64,23 +64,7 @@
                 method: 'GET',
                 url: urlBase2 + ackno + '/identddllist'
             })
-            },
-            // get landclass api
-            getLandClass: function () {
-                return $http({
-                    method: 'GET',
-                    url: urlBase2 + '/landclass',
-                    cache: true
-                })
-            },
-
-            getLandType: function () {
-                return $http({
-                    method: 'GET',
-                    url: urlBase2 + '/landtype',
-                    cache: true
-                })
-            }
+        }
 
         };
 
