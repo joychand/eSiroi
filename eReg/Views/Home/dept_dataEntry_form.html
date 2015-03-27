@@ -53,8 +53,9 @@
                 </ul>
             </div>
         </div>
-
-        <div ui-view></div>
+        <div ng-if="loadDone">
+            <div ui-view></div>
+        </div>
     </form>
 
     

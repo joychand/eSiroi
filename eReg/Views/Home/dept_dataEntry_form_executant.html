@@ -5,11 +5,11 @@
     <div class=" col-sm-2 pull-right"><span class="text-danger">#<em>optional</em></span></div>
 </div>
 <hr />
-<div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
+<!--<div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>You have successfully added the Executant
-</div>
+</div>-->
 <ng-form class="form-horizontal css-form " name="execform" novalidate>
-    <div class="form-group" ng-show="slnoddlVisibility">
+    <div class="form-group" ng-show="session.slnoddlVisibility">
         <label class="col-sm-4 control-label pull-left">Select Executant Slno:</label>
         <div class="col-sm-2">
             <select name="slno" id="" class="form-control"
@@ -110,7 +110,7 @@
     </div>
     <!-- ***** DropDownList Template ********
     ========================================================  --->
-    <div class="container" ng-switch="OnlineStatus">
+    <div class="container" ng-switch="session.OnlineStatus">
         <!-- ========== DropDownlist Template for Offline Data Entry =========  -->
         <div class="container" ng-switch-when="offline">
             <div class="form-group">
@@ -118,7 +118,7 @@
                 <div class="col-sm-4">
                     <select name="state" id="" class="form-control"
                             data-ng-model="execddl.state"
-                            data-ng-options="state.stateName for state in states  ">
+                            data-ng-options="state.stateName for state in states  track by state.stateName">
                         <option value="">-Select State-</option>
 
                     </select>

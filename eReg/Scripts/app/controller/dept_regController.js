@@ -128,46 +128,52 @@
 })();
 // dept_dataEntry_from Controller //
 (function () {
-    'use strict';
+    //'use strict';
 
     angular
         .module('eRegApp')
         .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory', 'dataFactory', 'dept_dataFactory', 'deptModalService', dataEntryformController]);
 
     function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory, deptModalService) {
-      
-        init();
+        $scope.tsyear = {};
+        $scope.visibility = true;
+        $scope.click = false;
+        $scope.states = {};
+        $scope.districts = {};
+        $scope.subdivisions = {};
+        $scope.revsubdivisions = {};
+        $scope.villages = {};
+        $scope.revvillages = {};
+        $scope.postoffices = {};
+        $scope.circles = {};
+        $scope.landclass = {};
+        $scope.landtype = {};
+        $scope.loadDone = false;
+        $scope.online = {};
+        $scope.session = {};
+        angular.extend($scope.session, {
+            exFormIsOnline: false,
+            clFormIsOnline: false,
+            idFormIsOnline: false,
+            OnlineStatus: 'offline',
+            slnoddlVisibility: false,
+            exFormFirstVisit: true,
+            clFormFistVisit: true,
+            idFormFirstVisit: true
+        })
+
+        $scope.exeslnolist = [];
+        $scope.claimslnolist = [];
+        $scope.identslnolist = [];
+
+        deptModalService.idFormOnline.ddlview = 'offline';
+
+       // init();
 
         //initialize $scope properties
 
-        function init() {
-            $scope.tsyear = {};
-            $scope.visibility = true;
-            $scope.click = false;
-            $scope.states = {};
-            $scope.districts = {};
-            $scope.subdivisions = {};
-            $scope.revsubdivisions = {};
-            $scope.villages = {};
-            $scope.revvillages = {};
-            $scope.postoffices = {};
-            $scope.circles = {};
-            $scope.landclass = {};
-            $scope.landtype = {};
-           // $scope.deed = {};
-           // $scope.property = {};
-            $scope.online = {};
-           $scope.sess ={}
-            $scope.sess.exFormIsOnline = false;
-            $scope.sess.clFormIsOnline = false;
-            $scope.sess.idFormIsOnline = false;
+       // function init() {
            
-            $scope.slnoddlVisibility = false;
-            $scope.exeslnolist = [];
-            $scope.claimslnolist = [];
-            $scope.identslnolist = [];
-            $scope.OnlineStatus = 'offline';
-            deptModalService.idFormOnline.ddlview = 'offline';
          
 
             // *** inject dropdownlist data **//
@@ -188,13 +194,15 @@
 
            
 
-            }
+           // }
        
         //*****  function call to inject dropdownlist data from dataFactory *****//  
 
         function getStates() {
             dataFactory.getStates().then(function (states) {
                 $scope.states = states;
+                console.log('getStates' + $scope.states[21].stateName);
+                $scope.loadDone = true;
                // $scope.execddl.state = $scope.states[21];
             });
 
@@ -203,6 +211,7 @@
         function getDistricts() {
             dataFactory.getDistricts().then(function (districts) {
                 $scope.districts = districts;
+                
             });
         }
 
@@ -264,16 +273,15 @@
             $scope.visibility = true;
             $scope.click = false;
         }
+        //console.log($scope.states);
         $scope.onlineData = function () {
             
             dept_dataFactory.getOnlineExecutantList($scope.online.ackno).then(function (response) {
                
-                $scope.sess.exFormIsOnline = true;
-               // $scope.OnlineStatus = 'online;
                 dept_sessionfactory.updateOnlineExecModal(response.data);
-                $scope.slnoddlVisibility = true; // flag used to display slno ddlist
-                $scope.OnlineStatus = 'online'; // Online status flag to toggle ddl online and offline
-                
+                $scope.session.slnoddlVisibility = true; // flag used to display slno ddlist
+                $scope.session.OnlineStatus = 'online'; // Online status flag to toggle ddl online and offline
+                $scope.session.exFormIsOnline = true;   // flag to populate online data to forms fields
                 // get Online execddllist
                 dept_dataFactory.getOnlineExecddlist($scope.online.ackno).then(function (response) {
                     dept_sessionfactory.updateOnlineExecddllModal(response.data);
@@ -479,9 +487,9 @@
 
     angular
         .module('eRegApp')
-        .controller('deptExeController', ['$scope', '$state', 'dataFactory', 'online', 'dept_sessionfactory', 'deptModalService', 'dept_dataFactory', deptExeController]);
+        .controller('deptExeController', ['$scope', '$state', 'dataFactory', 'online', 'dept_sessionfactory', 'deptModalService', 'dept_dataFactory','$timeout', deptExeController]);
 
-    function deptExeController($scope, $state, dataFactory, online, dept_sessionfactory, deptModalService, dept_dataFactory) {
+    function deptExeController($scope, $state, dataFactory, online, dept_sessionfactory, deptModalService, dept_dataFactory, $timeout) {
 
         $scope.online = online;
         $scope.executant = {};
@@ -489,20 +497,21 @@
         $scope.executantlist = [];
         $scope.execddlist = [];
         $scope.Elist = {}
-        $scope.session = {};
+        $scope.exForm = {};
+        $scope.exForm.currSlno = 0;
+      
+        console.log($scope.session.OnlineStatus);
         
-        
-        console.log($scope.sess.exFormIsOnline);
+          
        
-        $scope.session.isonline = dept_sessionfactory.getExecOnline();
        
         // ***To get online data ***
         $scope.executantlist = angular.copy(dept_sessionfactory.getOnlineExecModallist());
         $scope.execddlist = angular.copy(dept_sessionfactory.getOnlineExecddlModallist());
-        if ($scope.sess.exFormIsOnline) {
+        if ($scope.session.exFormIsOnline) {
            
            
-               // $scope.exeslnolist = [];
+            
               
                 //  *** To be done *** Get Online Executantlist for first time
                
@@ -514,18 +523,24 @@
                 deptModalService.executant = $scope.executantlist[0];
                 deptModalService.execddl = $scope.execddlist[0];
                 // update the online status
-                $scope.sess.exFormIsOnline = false;
+                $scope.session.exFormIsOnline = false;
 
             }
-       
-        
+            
 
         // Injecting executant from Modal Service
-        $scope.executant = deptModalService.executant;
-        
-        
+            $scope.executant = deptModalService.executant;             
             $scope.execddl = deptModalService.execddl;
-
+        // Set default values of the form fields
+          
+            if (!$scope.session.exFormIsonline && $scope.session.exFormFirstVisit)
+            {
+               
+                $scope.execddl.state = $scope.states[21];
+                $scope.executant.slNo = $scope.exForm.currSlno + 1;
+                $scope.exForm.currSlno = $scope.executant.slNo;
+                $scope.session.exFormFirstVisit = false;
+            }
            
        
        // initialize dropdownlist       
@@ -553,19 +568,21 @@
         $scope.onexsubmit = function () {
 
             if ($scope.OnlineStatus === 'offline') {
-                $scope.executant = angular.extend($scope.execddl);
+                angular.extend($scope.executant, {
+                    tsno: $scope.tsyear.ts,
+                    tsyear: $scope.tsyear.tyear,
+                    state: $scope.execddl.state.stateName,
+                    district: $scope.execddl.district.distName,
+                    subDivison: $scope.execddl.subDivision.subDivName,
+                    village: $scope.execddl.village.villName,
+                    postOffice: $scope.execddl.postOffice.postOffice1,
+                    pinCode: $scope.execddl.postOffice.pinCode,
+                    enterby: 'radha' 
+                });
 
-                //$scope.executant.tsno = $scope.tsyear.ts;
-                //$scope.executant.tsyear = $scope.tsyear.tyear;
-                //$scope.executant.state = $scope.execddl.state.stateName;
-                //$scope.executant.district = $scope.execddl.district.distName;
-                //$scope.executant.subDivison = $scope.execddl.subDivison.subDivName;
-                //$scope.executant.village = $scope.execddl.village.villName;
-                //$scope.executant.postOffice = $scope.execddl.postOffice.postOffice1;
-                //$scope.executant.pinCode = $scope.execddl.postOffice.pinCode;
-                //$scope.executant.enterby = 'radha'
-                //dept_sessionfactory.pushExecutant($scope.executant);
-                console.log($scope.executant);
+                
+                dept_sessionfactory.pushExecutant($scope.executant);
+               
                               
             }
             else {
@@ -603,13 +620,16 @@
         $scope.claimddlist = [];
         $scope.clist = {}
         $scope.claimsession = {};
+        $scope.clForm = {};
+        $scope.clForm.currSlno = 0;
+
         // console.log(deptModalService.claimant);
         $scope.claimantlist = dept_sessionfactory.getOnlineClaimModallist();
         $scope.claimddlist = dept_sessionfactory.getOnlineCalimddlModal();
-        if (deptModalService.clFormOnline.status)
+        if ($scope.session.clFormIsOnline)
         {
             //get claimantlist for online data
-            //$scope.claimantlist = dept_sessionfactory.getOnlineClaimModallist();
+            
             for (var i = 0; i < $scope.claimantlist.length; i++) {
 
                 $scope.claimslnolist.push($scope.claimantlist[i].slNo);
@@ -617,12 +637,22 @@
 
             deptModalService.claimant = $scope.claimantlist[0];
             deptModalService.claim = $scope.claimddlist[0];
-            deptModalService.clFormOnline.status = false;
-            console.log('online');
+            $scope.session.clFormIsOnline = false;
+            
         }
         $scope.claimant = deptModalService.claimant;
        $scope.claim = deptModalService.claim;
+     
+        // inject default value of forms fields
+       if (!$scope.session.clFormIsOnline && $scope.session.clFormFistVisit)
+       {
+           $scope.claim.state = $scope.states[21];
+           $scope.claimant.slNo = $scope.clForm.currSlno + 1;
+           $scope.clForm.currSlno = $scope.claimant.slNo;
+           $scope.session.clFormFistVisit = false;
+       }
 
+        // Claimant Online Slno change function
         $scope.getselectedClaimant = function () {
             var currSlno = $scope.Clist.slNo;
             deptModalService.claimant = $scope.claimantlist[currSlno - 1];

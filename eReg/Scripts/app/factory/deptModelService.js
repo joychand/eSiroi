@@ -10,34 +10,34 @@
         var model = {
             // executant Model
             executant: {
-                slNo: '',
-                execLastName: '',
-                execMiddleName: '',
-                execSurName: '',
-                alias:'',
-                Aadhaar:'',
-                fatherSurName: '',
-                fatherMiddleName: '',
-                fatherLastName: '',
-                sex: '',
-                occupation: '',
-                state: '',
-                district: '',
-                subdivision: '',
-                village: '',
-                postoffice: '',
-                pinCode: '',
-                policeSt: ''
+                //slNo: '',
+                //execLastName: '',
+                //execMiddleName: '',
+                //execSurName: '',
+                //alias:'',
+                //Aadhaar:'',
+                //fatherSurName: '',
+                //fatherMiddleName: '',
+                //fatherLastName: '',
+                //sex: '',
+                //occupation: '',
+                //state: '',
+                //district: '',
+                //subdivision: '',
+                //village: '',
+                //postoffice: '',
+                //pinCode: '',
+                //policeSt: ''
             },
             // scope for executant dropdownlist
             execddl: {
-                state:'',
-                district: '',
-                subDivision: '',
-                village: '',
-                policeSt: '',
-                pinCode: '',
-                postOffice:'',
+                //state:'',
+                //district: '',
+                //subDivision: '',
+                //village: '',
+                //policeSt: '',
+                //pinCode: '',
+                //postOffice:'',
             },
 
             claimant: {},
@@ -65,6 +65,8 @@
 
             propertyddl: {
             }
+
+           
 
         }
         return model;
