@@ -127,7 +127,14 @@
             return sessionidentddlist;
         }
         
-
+        service.clearModelList = function () {
+             sessionexecutantlist = [];
+             sessionexecddlist = [];
+             sessionclaimantlist = [];
+             sessionclaimddlist = [];
+             sessionidentifierlist = [];
+             sessionidentddlist = [];
+        }
         return service;
 
         //function getData() { }

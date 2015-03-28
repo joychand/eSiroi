@@ -132,9 +132,9 @@
 
     angular
         .module('eRegApp')
-        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory', 'dataFactory', 'dept_dataFactory', 'deptModalService', dataEntryformController]);
+        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory', 'dataFactory', 'dept_dataFactory', 'deptModalService', 'modalService', dataEntryformController]);
 
-    function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory, deptModalService) {
+    function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory, deptModalService, modalService) {
         $scope.tsyear = {};
         $scope.visibility = true;
         $scope.click = false;
@@ -151,6 +151,7 @@
         $scope.loadDone = false;
         $scope.online = {};
         $scope.session = {};
+        $scope.onlinedata = 'onlinecancel';
         angular.extend($scope.session, {
             exFormIsOnline: false,
             clFormIsOnline: false,
@@ -260,6 +261,7 @@
         }
       
         $scope.getOnline = function () {
+            $scope.onlinedata = 'getonline';
             $scope.visibility = false;
             $scope.click = true;
         }
@@ -267,15 +269,13 @@
             $scope.visibility = true;
             $scope.click = false;
         }
-        //console.log($scope.states);
+        //get Online Data click
         $scope.onlineData = function () {
             
             dept_dataFactory.getOnlineExecutantList($scope.online.ackno).then(function (response) {
                
                 dept_sessionfactory.updateOnlineExecModal(response.data);
-                $scope.session.slnoddlVisibility = true; // flag used to display slno ddlist
-                $scope.session.OnlineStatus = 'online'; // Online status flag to toggle ddl online and offline
-                $scope.session.exFormIsOnline = true;   // flag to populate online data to forms fields
+               
                 // get Online execddllist
                 dept_dataFactory.getOnlineExecddlist($scope.online.ackno).then(function (response) {
                     dept_sessionfactory.updateOnlineExecddllModal(response.data);
@@ -283,10 +283,10 @@
                     dept_dataFactory.getOnlineClaimantlist($scope.online.ackno).then(function (response) {
                         //update claimantlist modal session
                         dept_sessionfactory.updateOnlineClaimModal(response.data);
-                        deptModalService.clFormOnline.status = true;
-                        deptModalService.clFormOnline.slnoddlVisibility = true;
+                        
                         dept_dataFactory.getclaimddlist($scope.online.ackno).then(function (response) {
                             dept_sessionfactory.updateOnlineClaimddlModal(response.data);
+                           
                         // get Online Identifer list
                         dept_dataFactory.getOnlineIdentifierlist($scope.online.ackno).then(function (response) {
                             //update Identiferlist modal session
@@ -296,6 +296,9 @@
                             deptModalService.idFormOnline.ddlview = 'online';
                             dept_dataFactory.getOnlineIdentddlist($scope.online.ackno).then(function (response) {
                                 dept_sessionfactory.updateOnlineIdentddlModal(response.data);
+                                //get Online Property Details
+
+
                             }, function (result) {
                             console.log('getidentddlist fails' + result )});
                         },
@@ -313,7 +316,12 @@
                     function(result){
                         cosole.log('get Claimant list errors:' + result);
                     });
-                 }, function (result) {
+                    $scope.session.slnoddlVisibility = true; // flag used to display slno ddlist
+                    $scope.session.OnlineStatus = 'online'; // Online status flag to toggle ddl online and offline
+                    $scope.session.exFormIsOnline = true;   // ***********************************************
+                    $scope.session.clFormIsOnline = true;  //   flag to populate online data to forms fields
+                    $scope.session.idFormIsOnline = true;  // ************************************************
+                }, function (result) {
                     console.log('getOnlineExecddlist fails' + result);
                 });
                 }, function (result) {
@@ -323,7 +331,39 @@
 
         }
 
+        // cancel online data click
+        $scope.cancel = function () {
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'WARNING',
+                bodyText: 'Are you sure you want to cancel online data entry?'
+            };
 
+            modalService.showModal({}, modalOptions).then(function (result) {
+                $scope.session.exFormIsOnline = false,
+               $scope.session.clFormIsOnline = false,
+               $scope.session.idFormIsOnline = false,
+               $scope.session.OnlineStatus = 'offline',
+                $scope.session.slnoddlVisibility = false,
+                $scope.session.exFormFirstVisit = true,
+                $scope.session.clFormFistVisit = true,
+                $scope.session.idFormFirstVisit = true
+                dept_sessionfactory.clearModelList();
+                deptModalService.modelClear();
+                $scope.exeslnolist = [];
+                $scope.claimslnolist = [];
+                $scope.identslnolist = [];
+                //deptModalService.claimant = {};
+                //deptModalService.claim = {};
+                //console.log('Pristine' + $scope.deptRegform.execform.$pristine);
+                $scope.onlinedata = 'onlinecancel';
+                //$scope.deptRegform.execform.$setPristine();
+                $state.go('department.content.form');
+            });
+           
+           
+        }
        
     }
 })();
@@ -346,9 +386,6 @@
        
        
         $scope.PlotDetails = [];
-       
-
-       // $scope.BlankPlot = [];
         $scope.IsPlotFound = false;
         $scope.nextparty = function () {
             var modaloptions = {
@@ -377,7 +414,7 @@
                 .finally(function () {
                     console.log('finally');
 
-                    
+
 
                     var modalOptions = {
                         closeButtonText: 'Cancel',
@@ -530,9 +567,10 @@
                 $scope.executant.slNo = $scope.exForm.currSlno + 1;
                 $scope.exForm.currSlno = $scope.executant.slNo;
                 $scope.session.exFormFirstVisit = false;
+                //
             }
            
-       
+            
        // initialize dropdownlist       
         init();
         function init() {
@@ -540,7 +578,7 @@
             
             
         }
-
+        
             
         //******* ONLINE SELECT EXECUTANT LIST **********/
         $scope.getselectedExecutant = function () {
@@ -608,7 +646,7 @@
         $scope.claim = {};
         $scope.claimantlist = [];
         $scope.claimddlist = [];
-        $scope.clist = {}
+        $scope.Clist = {}
         $scope.claimsession = {};
         $scope.clForm = {};
         $scope.clForm.currSlno = 0;
@@ -616,6 +654,7 @@
         // console.log(deptModalService.claimant);
         $scope.claimantlist = dept_sessionfactory.getOnlineClaimModallist();
         $scope.claimddlist = dept_sessionfactory.getOnlineCalimddlModal();
+        console.log($scope.session.clFormIsOnline);
         if ($scope.session.clFormIsOnline)
         {
             //get claimantlist for online data
@@ -624,7 +663,7 @@
 
                 $scope.claimslnolist.push($scope.claimantlist[i].slNo);
             }
-
+            
             deptModalService.claimant = $scope.claimantlist[0];
             deptModalService.claim = $scope.claimddlist[0];
             $scope.session.clFormIsOnline = false;
@@ -640,6 +679,7 @@
            $scope.claimant.slNo = $scope.clForm.currSlno + 1;
            $scope.clForm.currSlno = $scope.claimant.slNo;
            $scope.session.clFormFistVisit = false;
+           
        }
 
         // Claimant Online Slno change function
@@ -670,11 +710,13 @@
         $scope.identifierlist = [];
         $scope.identddlist = [];
         $scope.Ilist = {};
+        $scope.idForm = {};
+        $scope.idForm.currSlno = 0;
         $scope.ddlview = deptModalService.idFormOnline.ddlview;
 
         $scope.identifierlist = dept_sessionfactory.getOnlineIdentModallist();
         $scope.identddlist = dept_sessionfactory.getOnlineIdentModallist();
-        if (deptModalService.idFormOnline.status) {
+        if ( $scope.session.idFormIsOnline) {
             //get claimantlist for online data
            
             for (var i = 0; i < $scope.identifierlist.length; i++) {
@@ -684,11 +726,20 @@
 
             deptModalService.identifier = $scope.identifierlist[0];
             deptModalService.ident = $scope.identddlist[0];
-            deptModalService.idFormOnline.status = false;
-            //console.log('online');
+            $scope.session.idFormIsOnline = false;
+           
         }
         $scope.identifier = deptModalService.identifier;
         $scope.ident = deptModalService.ident;
+
+        // inject default value
+        if (!$scope.session.idFormIsOnline && $scope.session.idFormFirstVisit)
+        {
+            $scope.identifier.slNo = $scope.idForm.currSlno + 1;
+            $scope.idForm.currSlno = $scope.identifier.slNo;
+            $scope.ident.state = $scope.states[21];
+        }
+
         $scope.getselectedIdentifier = function () {
             var currSlno = $scope.Ilist.slNo;
             deptModalService.identifier = $scope.identifierlist[currSlno - 1];

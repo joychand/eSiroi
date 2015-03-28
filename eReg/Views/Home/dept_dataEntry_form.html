@@ -1,36 +1,35 @@
 ﻿
-<div class="container">
-    <div class="row" id="topframe">
-        <div class="col-sm-12">
-            <div class="col-sm-8">
+<div class="container-fluid">
+    <form class="form-horizontal " name="deptRegform" ng-novalidate="true">
+        <div class="row" id="topframe">
+            <div class="col-sm-12">
                 <h1>DataEntryForm</h1>
             </div>
-           
-            <div class="col-sm-4" ng-show="visibility">
-                <button type="button" class="btn btn-default" data-ng-click="getOnline()">OnlineData</button>
-            </div>
-        </div>
-    </div>
-    <div class="row" ng-show="click">
-        <div class="container-fluid">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Ackno:</label>
-                    <div class="col-sm-2">
+            <div class="form-group text-center" ng-switch="onlinedata">
+                <div class="col-sm-6 col-sm-push-3" ng-switch-when="getonline">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                            Ackno:
+                        </span>
+
                         <input type="text" class="form-control" ng-model="online.ackno" />
+
+                        <span class="input-group-addon ">
+                            <button class="btn btn-success btn-xs" data-ng-click="onlineData()">GetData</button>
+                            <button class="btn btn-default btn-xs" data-ng-click="cancel()">cancel</button>
+                        </span>
+
                     </div>
-                    <div class="col-sm-7 col-xs-7 col-md-8 ">
-                         <button class="btn btn-success btn-sm" data-ng-click="onlineData()">GetData</button>
-                         <button class="btn btn-default btn-sm" data-ng-click="cancel()">cancel</button>
-                    </div>
-                   
                 </div>
-                
-            </form>
+                <div class="col-sm-4 col-sm-push-8" ng-switch-when="onlinecancel">
+                    <button type="button" class="btn btn-default" data-ng-click="getOnline()">OnlineData</button>
+                </div>
+            </div>
+
         </div>
-    </div>
-     <hr />
-    <form class="form-horizontal " name="deptRegform" novalidate>
+
+        <hr />
+
         <div class="form-group">
             <label for="TS" class="col-sm-2 control-label ">TS</label>
             <div class="col-sm-3">

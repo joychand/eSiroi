@@ -20,7 +20,6 @@ namespace eReg.Controllers
 
 
         ////Get LandType 
-
         [HttpGet]
         [Route("api/deptRegistraionController/landtype")]
         public IHttpActionResult getlandtype()
@@ -37,12 +36,9 @@ namespace eReg.Controllers
             return NotFound();
 
         }
-
         // Get LandClass
         [HttpGet]
-
         [Route("api/deptRegistraionController/landclass")]
-
         public IHttpActionResult getlandclass()
         {
             var landclass = db.Class;
@@ -53,10 +49,37 @@ namespace eReg.Controllers
             }
             return NotFound();
         }
+        //Get Property Details
+        [HttpGet]
+        [Route("api/deptRegistraionController/{ackno}/property")]
+        public IHttpActionResult getOnlineProperty(int ackno)
+        {
+            var plotdetail = db.onlinePlot
+                           .Where(p => p.ackno == ackno);
+            if (plotdetail.Any())
+            {
+                return Ok(plotdetail);
+            }
+            else
+                return NotFound();
+        }
 
+        // Get property ddl list
+        [Route("api/deptRegistraionController/{ackno}/propertyddl")]
+        public IHttpActionResult getOnlinePropertyddl(int ackno)
+        {
+            var plotdetail = db.onlinePlot
+                           .Where(p => p.ackno == ackno)
+                           .Select(list => new { list.ackno, list.State, list.District, list.Subdivision, list.Circle, list.Village });
+            if (plotdetail.Any())
+            {
+                return Ok(plotdetail);
+            }
+            else
+                return NotFound();
+        }
 
         // post executantlist
-
         [HttpPost]
         [Route("api/deptRegistraionController/postexecutant")]
         public async Task<IHttpActionResult> postexecutant([FromBody] IEnumerable<Executant> executantlist)
@@ -91,9 +114,7 @@ namespace eReg.Controllers
             // return CreatedAtRoute("DefaultApi", new { controller = "postexecutant", id = executantlist[0].ackno }, executantlist);
             return Ok();
         }
-
         // Get Online Claimant list 
-
         [HttpGet]
         [Route("api/deptRegistraionController/{ackno}/claimantlist")]
         public IEnumerable<OnlineClaimant> claimantlist(int ackno)
@@ -121,9 +142,7 @@ namespace eReg.Controllers
 
             return ilist;
         }
-
         // GET ONLINE IDENTDDL LIST
-
         [HttpGet]
         [Route("api/deptRegistraionController/{ackno}/identddllist")]
         public System.Collections.IEnumerable identddllist(int ackno)
@@ -141,9 +160,7 @@ namespace eReg.Controllers
 
 
           }
-
-       // GET CLAIMANT DDL LIST
-
+        // GET CLAIMANT DDL LIST
         [HttpGet]
         [Route("api/deptRegistraionController/{ackno}/claimddlist")]
 
@@ -162,12 +179,9 @@ namespace eReg.Controllers
 
 
         }
-
-       
         // get plot
         [HttpGet]
         [Route("api/deptRegistraionController/{plotno}/{pattano}/verfiyplot")]
-        
         public  IHttpActionResult getPlotDetails(string plotno, string pattano)
         {
 

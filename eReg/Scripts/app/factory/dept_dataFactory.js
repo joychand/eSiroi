@@ -9,6 +9,13 @@
         var urlBase = 'api/ApplyRegistrationController/';
         var urlBase2 = 'api/deptRegistraionController/';
         var service = {
+            // PROPERTY FORM DATA FACTORY
+            getPropertyDetail: function(ackno){
+                return $http({
+                    method: 'GET',
+                    url: urlBase2 + ackno + '/property'
+                });
+            },
 
             // get landclass api
             getLandClass: function () {
@@ -27,6 +34,8 @@
                 })
             },
 
+
+            // EXECUTANT FORM DATA FACTORY
             getOnlineExecutantList: function (ackno) {
                 return $http({
                     method: 'GET',
