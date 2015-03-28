@@ -11,23 +11,34 @@ angular.module('eRegApp')
         var urlBase4 = 'api/OnlineExecutants';
         var dataFactory = {};
         var ackno = 0
-        
-        dataFactory.getStates = function () {
+
+        dataFactory.postonlineapplication = function (onlineapplication) {
+            return $http({
+                method: 'POST',
+                url: urlBase3 + 'postapplication',
+                data: onlineapplication
+            });//.then(function (results) { return results.data; });
+        }
+        dataFactory.getTransName = function (maj_code) {
             return $http({
                 method: 'GET',
-                url: urlBase3 + 'state',
-                cache: true
+                url: urlBase3 + maj_code + '/trans_name'
             }).then(function (results) {
+               
                 return results.data;
-
             });
-        };
+        }
+
         dataFactory.getDistricts = function () {
             return $http.get(urlBase).then(function (results) {
                 return results.data;
             });
         };
-        // get CensusSubdivision
+        dataFactory.getAckno = function () {
+            ackno = ackno + 1;
+            return ackno;
+
+        }
         dataFactory.getSubDivisions = function () {
             return $http({
                 method: 'GET',
@@ -38,44 +49,11 @@ angular.module('eRegApp')
 
             });
         };
-        // get RevSubdivision
-        dataFactory.getRevSubDivisions = function () {
-            return $http({
-                method: 'GET',
-                url: urlBase3 + 'Revsubdivision',
-                cache: true
-            }).then(function (results) {
-                return results.data;
 
-            });
-        };
-        //get Circle
-        dataFactory.getCircle = function () {
+        dataFactory.getStates = function () {
             return $http({
                 method: 'GET',
-                url: urlBase3 + 'Circle',
-                cache: true
-            }).then(function (results) {
-                return results.data;
-
-            });
-        };
-        //get Census Village
-        dataFactory.getVillages = function () {
-            return $http({
-                method: 'GET',
-                url: urlBase3 + 'villages',
-                cache: true
-            }).then(function (results) {
-                return results.data;
-
-            });
-        };
-        // get Rev Village
-        dataFactory.getRevVillage = function () {
-            return $http({
-                method: 'GET',
-                url: urlBase3 + 'RevVillage',
+                url: urlBase3 + 'state',
                 cache: true
             }).then(function (results) {
                 return results.data;
@@ -105,7 +83,17 @@ angular.module('eRegApp')
             });
         };
 
-       
+        dataFactory.getVillages = function () {
+            return $http({
+                method: 'GET',
+                url: urlBase3 + 'villages',
+                cache: true
+            }).then(function (results) {
+                return results.data;
+
+            });
+        };
+
         //post executant
 
         dataFactory.postexecutant = function (executantList) {
@@ -143,7 +131,27 @@ angular.module('eRegApp')
                 cache: true
             });
         };
-        
+        dataFactory.getCircle = function () {
+            return $http({
+                method: 'GET',
+                url: urlBase3 + 'Circle',
+                cache: true
+            }).then(function (results) {
+                return results.data;
+
+            });
+        };
+
+        dataFactory.getRevVillage = function () {
+            return $http({
+                method: 'GET',
+                url: urlBase3 + 'RevVillage',
+                cache: true
+            }).then(function (results) {
+                return results.data;
+
+            });
+        };
         //post property
         dataFactory.postProperty = function (plot) {
             return $http({
@@ -151,30 +159,6 @@ angular.module('eRegApp')
                 url: 'api/ApplyRegistraionController/postplot',
                 data:plot
             })
-        }
-
-        dataFactory.postonlineapplication = function (onlineapplication) {
-            return $http({
-                method: 'POST',
-                url: urlBase3 + 'postapplication',
-                data: onlineapplication
-            });//.then(function (results) { return results.data; });
-        }
-        dataFactory.getTransName = function (maj_code) {
-            return $http({
-                method: 'GET',
-                url: urlBase3 + maj_code + '/trans_name'
-            }).then(function (results) {
-
-                return results.data;
-            });
-        }
-
-
-        dataFactory.getAckno = function () {
-            ackno = ackno + 1;
-            return ackno;
-
         }
 
         return dataFactory;
