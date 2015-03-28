@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using eReg.Models;
+using eReg.Migrations.Models;
 using eReg.Repository;
 using System.Web.Http.Description;
 using System.Threading.Tasks;
@@ -20,6 +21,13 @@ namespace eReg.Controllers
         private eregdbContext db = new eregdbContext();
 
 
+        // Get States
+        [HttpGet]
+        [Route("api/ApplyRegistrationController/state")]
+        public IEnumerable<State> states()
+        {
+            return db.State;
+        }
         // api/disricts
         [HttpGet]
         [Route("api/ApplyRegistrationController/{DistCode:int}/districts")]
@@ -27,19 +35,18 @@ namespace eReg.Controllers
         {
             return db.Districts;
         }
-        //api/subdivisions
+        
+        // Get  Revenue subdivisions
         [HttpGet]
-        [Route("api/ApplyRegistrationController/{DistCode}/subdivisions")]
-        public IEnumerable<SubDivision> SubDivisions(String distcode)
+        [Route("api/ApplyRegistrationController/Revsubdivision")]
+        public IEnumerable<SubDivision> Revsubdivision()
         {
-            //String distcd = Convert.ToString(distcode);
-            //Console.Write(distcd);
-            return from s in db.SubDivision
-                   where s.DistCode == distcode
-                   select s;
+
+            return db.SubDivision;
+
 
         }
-        //GET subdivision
+        //GET census subdivision
         [HttpGet]
         [Route("api/ApplyRegistrationController/subdivisions")]
         public IEnumerable<CensusSubDivision> CensusSubDivision()
@@ -48,7 +55,7 @@ namespace eReg.Controllers
             return db.CensusSubDivisions;
 
         }
-//        //GET POSTOFFICE
+//        //GET census village
         [HttpGet]
         [Route("api/ApplyRegistrationController/villages")]
         public IEnumerable<censusvillage> villages ()
@@ -65,13 +72,7 @@ namespace eReg.Controllers
             {
                 return db.PostOffice;
             }
-        // Get States
-        [HttpGet]
-        [Route("api/ApplyRegistrationController/state")]
-        public IEnumerable<State> states ()
-            {
-               return db.State;
-            }
+       
         //Get MajorTrans_code
         [HttpGet]
         [Route("api/ApplyRegistrationController/MajorTrans_code")]

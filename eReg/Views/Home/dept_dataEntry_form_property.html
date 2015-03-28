@@ -59,10 +59,12 @@
                         <label class="control-label hidden-xs text-right">LandType:</label>
                     </div>
                     <div class="col-md-8">
-                        <select class="form-control"
-                                data-ng-options=""
-                                data-ng-model="">
-                            <option>-select landType-</option>
+                        <select name="landtype" class="form-control"
+                                data-ng-model="property.landtype"
+                                data-ng-options="lt.landTypeCode as lt.landTypeName for lt in landtype"
+                                data-ng-change="showlandtype()">
+
+                            <option value="">-select landType-</option>
                         </select>
                     </div>
                 </div>
@@ -72,9 +74,9 @@
                     </div>
                     <div class="col-md-8">
                         <select class="form-control"
-                                data-ng-model=""
-                                data-ng-options="">
-                            <option>-selectLandClass-</option>
+                                data-ng-model="property.landclass"
+                                data-ng-options="lc.classCode as lc.className for lc in landclass">
+                            <option value="">-selectLandClass-</option>
                         </select>
                     </div>
                 </div>
@@ -90,7 +92,7 @@
                     <div class="col-md-8">
 
                         <select name="district" class="form-control"
-                                data-ng-model="property.district"
+                                data-ng-model="propertyddl.district"
                                 data-ng-options="district.distName for district in districts  | orderBy:'distName'">
                             <option value="">--Select District--</option>
                         </select>
@@ -103,9 +105,10 @@
                     </div>
                     <div class="col-md-8 ">
                         <select class="form-control"
-                                data-ng-model="property.subdivsion"
-                                data-ng-options="subdivsion for subdivision in subdivisions">
-                            <option>-subdivsion-</option>
+                                data-ng-model="propertyddl.subdivsion"
+                                data-ng-options="subdiv.subDivName for subdiv in revsubdivisions |  filter:{distCode:propertyddl.district.distCode} | orderBy: 'subDivName'"
+                                data-ng-disabled="!propertyddl.district">
+                            <option value="">-subdivsion-</option>
 
                         </select>
                     </div>
@@ -116,9 +119,9 @@
                     </div>
                     <div class="col-md-8 ">
                         <select name="circle" class="form-control"
-                                data-ng-model="property.circle"
-                                data-ng-options="circle.circleName for circle in Circles | filter:{distCode:property.district.distCode}  | orderBy:'circleName'"
-                                data-ng-disabled="!property.district">
+                                data-ng-model="propertyddl.circle"
+                                data-ng-options="circle.circleName for circle in Circles | filter:{distCode:propertyddlddl.district.distCode}  | filter:{subDivCode:propertyddl.subdivsion.subDivCode} | orderBy:'circleName'"
+                                data-ng-disabled="!propertyddl.subdivsion">
                             <option value="">--Select Circle--</option>
                         </select>
                     </div>
@@ -129,9 +132,9 @@
                     </div>
                     <div class="col-md-8">
                         <select name="village" class="form-control"
-                                data-ng-model="property.village"
-                                data-ng-options="village.villName for village in revvillages | filter:{distCode:property.district.distCode} | filter:{circleCode:property.circle.circleCode} | orderBy:'villName'"
-                                data-ng-disabled="!property.circle">
+                                data-ng-model="propertyddl.village"
+                                data-ng-options="village.villName for village in revvillages | filter:{distCode:propertyddl.district.distCode} | filter:{subDivCode:propertyddl.subdivsion.subDivCode} |filter:{circleCode:propertyddl.circle.circleCode} | orderBy:'villName'"
+                                data-ng-disabled="!propertyddl.circle">
                             <option value="">--Select village--</option>
                         </select>
                     </div>

@@ -168,13 +168,7 @@
 
         deptModalService.idFormOnline.ddlview = 'offline';
 
-       // init();
-
-        //initialize $scope properties
-
-       // function init() {
-           
-         
+     
 
             // *** inject dropdownlist data **//
             getStates();
@@ -349,11 +343,7 @@
         $scope.propertyddl = {};
         $scope.property = deptModalService.property;
         $scope.propertyddl = deptModalService.propertyddl;
-        //if (!$scope.poperty.firstVisit)
-        //{
-        //    $scope.property.unit = $scope.unit[0];
-        //    $scope.property.firstVisit = true;
-        //}
+       
        
         $scope.PlotDetails = [];
        

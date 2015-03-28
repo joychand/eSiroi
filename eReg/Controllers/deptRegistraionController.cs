@@ -18,6 +18,43 @@ namespace eReg.Controllers
         private eregdbContext db = new eregdbContext();
         private LPplot lpdb = new LPplot();
 
+
+        ////Get LandType 
+
+        [HttpGet]
+        [Route("api/deptRegistraionController/landtype")]
+        public IHttpActionResult getlandtype()
+        {
+
+
+            var landtype = db.LandType;
+
+            if (landtype.Any())
+            {
+                return Ok(landtype);
+            }
+
+            return NotFound();
+
+        }
+
+        // Get LandClass
+        [HttpGet]
+
+        [Route("api/deptRegistraionController/landclass")]
+
+        public IHttpActionResult getlandclass()
+        {
+            var landclass = db.Class;
+            if (landclass.Any())
+            {
+                return Ok(landclass);
+
+            }
+            return NotFound();
+        }
+
+
         // post executantlist
 
         [HttpPost]
@@ -130,8 +167,7 @@ namespace eReg.Controllers
         // get plot
         [HttpGet]
         [Route("api/deptRegistraionController/{plotno}/{pattano}/verfiyplot")]
-
-
+        
         public  IHttpActionResult getPlotDetails(string plotno, string pattano)
         {
 
@@ -152,9 +188,7 @@ namespace eReg.Controllers
         }
 
 
-
-
-
+     
 
 
 

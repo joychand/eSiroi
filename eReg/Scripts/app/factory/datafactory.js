@@ -49,6 +49,15 @@ angular.module('eRegApp')
 
             });
         };
+        dataFactory.getRevSubDivisions = function () {
+            return $http({
+                method: 'GET',
+                url: urlBase3 + 'Revsubdivision',
+                cache: true
+            }).then(function (result) {
+                return result.data;
+            });
+        }
 
         dataFactory.getStates = function () {
             return $http({

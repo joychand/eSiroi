@@ -28,7 +28,7 @@ namespace eReg.Models
         public System.Data.Entity.DbSet<eReg.Models.State> State { get; set; }
         public System.Data.Entity.DbSet<eReg.Models.CensusSubDivision> CensusSubDivisions { get; set; }
         public System.Data.Entity.DbSet<eReg.Models.MajorTrans_code> MajorTrans_code { get; set; }
-        public System.Data.Entity.DbSet<eReg.Models.Circle> Circle { get; set; }
+        public System.Data.Entity.DbSet<eReg.Migrations.Models.Circle> Circle { get; set; }
         public System.Data.Entity.DbSet<eReg.Models.RevVillage> RevVillage { get; set; }
         public System.Data.Entity.DbSet<eReg.Models.onlineapplication> onlineapplication { get; set; }
         public System.Data.Entity.DbSet<eReg.Models.onlinePlot> onlinePlot { get; set; }
@@ -36,6 +36,8 @@ namespace eReg.Models
         public System.Data.Entity.DbSet<eReg.Models.OnlineClaimant> OnlineClaimant { get; set; }
         public System.Data.Entity.DbSet<eReg.Migrations.Models.Executant> Executant { get; set; }
         public System.Data.Entity.DbSet<eReg.Migrations.Models.Claimant> Claimant { get; set; }
+        public System.Data.Entity.DbSet<eReg.Migrations.Models.LandType> LandType { get; set; }
+        public System.Data.Entity.DbSet<eReg.Migrations.Models.Class> Class { get; set; }
        // public System.Data.Entity.DbSet<eReg.MiModels.Identifier> Identifier { get; set; }
         // public System.Data.Entity.DbSet<eReg.Models.OnlineExecutantList> OnlineExecutantList { get; set; }
     }

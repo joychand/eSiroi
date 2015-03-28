@@ -243,9 +243,11 @@
     <Compile Include="Migrations\Models\CensusVillage.cs" />
     <Compile Include="Migrations\Models\circle.cs" />
     <Compile Include="Migrations\Models\Claimant.cs" />
+    <Compile Include="Migrations\Models\Class.cs" />
     <Compile Include="Migrations\Models\district.cs" />
     <Compile Include="Migrations\Models\eregdbContext.cs" />
     <Compile Include="Migrations\Models\Executant.cs" />
+    <Compile Include="Migrations\Models\LandType.cs" />
     <Compile Include="Migrations\Models\LPplot.cs" />
     <Compile Include="Migrations\Models\MajorTrans_code.cs" />
     <Compile Include="Migrations\Models\onlineapplication.cs" />

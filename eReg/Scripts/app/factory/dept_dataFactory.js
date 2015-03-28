@@ -10,6 +10,23 @@
         var urlBase2 = 'api/deptRegistraionController/';
         var service = {
 
+            // get landclass api
+            getLandClass: function () {
+                return $http({
+                    method: 'GET',
+                    url: urlBase2 + '/landclass',
+                    cache: true
+                })
+            },
+            // get LandType api
+            getLandType: function () {
+                return $http({
+                    method: 'GET',
+                    url: urlBase2 + '/landtype',
+                    cache: true
+                })
+            },
+
             getOnlineExecutantList: function (ackno) {
                 return $http({
                     method: 'GET',

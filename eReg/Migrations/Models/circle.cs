@@ -1,4 +1,4 @@
-namespace eReg.Models
+namespace eReg.Migrations.Models
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace eReg.Models
         [StringLength(3)]
         public string CircleCode { get; set; }
 
-       [Key]
+        [Key]
         [Column(Order = 1)]
         [StringLength(40)]
         public string CircleName { get; set; }
