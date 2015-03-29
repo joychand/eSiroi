@@ -17,6 +17,13 @@
                 });
             },
 
+            getPropertyddl: function(ackno){
+                return $http({
+                    method:'GET',
+                    url: urlBase2 + ackno + '/propertyddl'
+                });
+            },
+
             // get landclass api
             getLandClass: function () {
                 return $http({

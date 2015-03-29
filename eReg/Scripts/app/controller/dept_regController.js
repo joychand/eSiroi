@@ -156,16 +156,20 @@
             exFormIsOnline: false,
             clFormIsOnline: false,
             idFormIsOnline: false,
+            propFormIsOnline: false,
             OnlineStatus: 'offline',
             slnoddlVisibility: false,
             exFormFirstVisit: true,
             clFormFistVisit: true,
-            idFormFirstVisit: true
+            idFormFirstVisit: true,
+            propFormFistVisit: true,
+            
         })
 
         $scope.exeslnolist = [];
         $scope.claimslnolist = [];
         $scope.identslnolist = [];
+        $scope.propslnolist = [];
 
         deptModalService.idFormOnline.ddlview = 'offline';
 
@@ -262,13 +266,10 @@
       
         $scope.getOnline = function () {
             $scope.onlinedata = 'getonline';
-            $scope.visibility = false;
-            $scope.click = true;
+            //$scope.visibility = false;
+            //$scope.click = true;
         }
-        $scope.cancel = function () {
-            $scope.visibility = true;
-            $scope.click = false;
-        }
+       
         //get Online Data click
         $scope.onlineData = function () {
             
@@ -291,13 +292,20 @@
                         dept_dataFactory.getOnlineIdentifierlist($scope.online.ackno).then(function (response) {
                             //update Identiferlist modal session
                             dept_sessionfactory.updateOnlineIdentModal(response.data);
-                            deptModalService.idFormOnline.status = true;
-                            deptModalService.idFormOnline.slnoddlVisibility = true;
-                            deptModalService.idFormOnline.ddlview = 'online';
+                            //deptModalService.idFormOnline.status = true;
+                            //deptModalService.idFormOnline.slnoddlVisibility = true;
+                            //deptModalService.idFormOnline.ddlview = 'online';
                             dept_dataFactory.getOnlineIdentddlist($scope.online.ackno).then(function (response) {
                                 dept_sessionfactory.updateOnlineIdentddlModal(response.data);
                                 //get Online Property Details
+                                dept_dataFactory.getPropertyDetail($scope.online.ackno).then(function (response) {
+                                    dept_sessionfactory.updateOnlinePropModel(response.data);
+                                    dept_dataFactory.getPropertyddl($scope.online.ackno).then(function (response) {
+                                        dept_sessionfactory.updateOnlinePropddlModel(response.data);
 
+                                    }, function (result) { console.log('propertyddl fail'); });
+
+                                }, function (result) { console.log('getpropertydetail fails' + result) });
 
                             }, function (result) {
                             console.log('getidentddlist fails' + result )});
@@ -320,7 +328,9 @@
                     $scope.session.OnlineStatus = 'online'; // Online status flag to toggle ddl online and offline
                     $scope.session.exFormIsOnline = true;   // ***********************************************
                     $scope.session.clFormIsOnline = true;  //   flag to populate online data to forms fields
-                    $scope.session.idFormIsOnline = true;  // ************************************************
+                    $scope.session.idFormIsOnline = true;  // 
+                    $scope.session.propFormIsOnline = true;//************************************************
+                    
                 }, function (result) {
                     console.log('getOnlineExecddlist fails' + result);
                 });
@@ -375,24 +385,58 @@
 
     angular
         .module('eRegApp')
-        .controller('deptPropController', ['$scope', '$state', 'district', '$http', '$modal', 'deptModalService', 'modalService',  deptPropController]);
+        .controller('deptPropController', ['$scope', '$state', 'district', '$http', '$modal', 'deptModalService', 'modalService','dept_sessionfactory',  deptPropController]);
 
-    function deptPropController($scope, $state, district, $http, $modal, deptModalService, modalService) {
+    function deptPropController($scope, $state, district, $http, $modal, deptModalService, modalService, dept_sessionfactory) {
         
         $scope.property = {};
         $scope.propertyddl = {};
-        $scope.property = deptModalService.property;
-        $scope.propertyddl = deptModalService.propertyddl;
-       
-       
+        $scope.propertyList = [];
+        $scope.propertyDdlList = [];
         $scope.PlotDetails = [];
         $scope.IsPlotFound = false;
+        $scope.propertyList = dept_sessionfactory.getOnlinePropModel();
+        $scope.propertyDdlList = dept_sessionfactory.getOnlinePropddlModel();
+        if ($scope.session.propFormIsOnline)
+        {
+            //****** for multiple property******
+
+            //for (var i = 0; i < $scope.propertyList.length; i++) {
+            //    $scope.propslnolist.push($scope.propertyList[i].slNo);
+
+            //********************************
+
+            deptModalService.property = $scope.propertyList[0];
+            deptModalService.propertyddl = $scope.propertyDdlList[0];
+            $scope.session.propFormIsonline = false;
+            $scope.$on('$viewContentLoaded', function () {
+                
+                $scope.deptPropForm.$setDirty();
+               // $scope.deptPropForm.$setValidity('required', true);
+               // $scope.deptPropForm.$setValidity('error', true);
+                console.log('propertyform: ' + $scope.deptPropForm.$dirty);
+            });
+        }
+
+       
+
+        $scope.property = deptModalService.property;
+        $scope.propertyddl = deptModalService.propertyddl;
+
+       // inject default values for first time visit
+        if (!$scope.session.propFormIsonline && $scope.session.propFormFistVisit) {
+            $scope.property.unit = $scope.unit[0];
+            $scope.session.propFormFistVisit = false;
+
+        }
+       
+        
         $scope.nextparty = function () {
             var modaloptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
                 headerText: 'Confirmation',
-                bodyText: 'Do you want to submit the property details'
+                bodyText: 'Do you want to submit the property details ?'
             };
             modalService.showModal({}, modaloptions).then(function (result) {
 
@@ -403,7 +447,7 @@
 
             $http({
                 method: 'GET',
-                url: 'api/deptRegistraionController/' + $scope.property.plotno + '/' + $scope.property.pattano + '/' + 'verfiyplot'
+                url: 'api/deptRegistraionController/' + $scope.property.dagNo + '/' + $scope.property.pattaNo + '/' + 'verfiyplot'
             }).then(function (response) {
                 
                 $scope.PlotDetails = response.data;
@@ -527,7 +571,7 @@
         $scope.exForm = {};
         $scope.exForm.currSlno = 0;
       
-        console.log($scope.session.OnlineStatus);
+        //console.log($scope.session.OnlineStatus);
         
           
        
@@ -551,7 +595,7 @@
                 deptModalService.execddl = $scope.execddlist[0];
                 // update the online status
                 $scope.session.exFormIsOnline = false;
-
+               
             }
             
 
@@ -570,7 +614,14 @@
                 //
             }
            
-            
+            $scope.$on('$viewContentLoaded', function () {
+                $scope.execform.$setDirty();
+                $scope.execform.$dirty = true;
+                $scope.execform.$pristine = false;
+                $scope.execform.$setValidity('required', true);
+                $scope.execform.$setValidity('error', true);
+                console.log('execform: ' + $scope.execform.$dirty);
+                });
        // initialize dropdownlist       
         init();
         function init() {

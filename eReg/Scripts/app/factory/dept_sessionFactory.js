@@ -10,6 +10,8 @@
         var linksVisibility;
         var Online = false;
         var execOnline = false;
+        var sessionpropertylist = [];
+        var sessionpropertyddl = [];
         var sessionexecutantlist = [];
         var sessionexecddlist = [];
         var sessionclaimantlist = [];
@@ -51,6 +53,23 @@
         service.updateExecOnline = function () {
             execOnline = false;
         }
+
+        // PROPERTY SESSION MODEL LIST
+
+        service.updateOnlinePropModel = function (property) {
+            sessionpropertylist = property;
+        }
+        service.getOnlinePropModel = function () {
+            return sessionpropertylist;
+        }
+        service.updateOnlinePropddlModel = function (propertyddl) {
+            sessionpropertyddl = propertyddl;
+        }
+        service.getOnlinePropddlModel = function () {
+            return sessionpropertyddl;
+        }
+
+        // EXECUTANT SESSION MODEL LIST
         
         service.updateOnlineExecModal = function (executantlist) {
             

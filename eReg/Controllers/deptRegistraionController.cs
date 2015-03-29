@@ -55,7 +55,8 @@ namespace eReg.Controllers
         public IHttpActionResult getOnlineProperty(int ackno)
         {
             var plotdetail = db.onlinePlot
-                           .Where(p => p.ackno == ackno);
+                           .Where(p => p.ackno == ackno)
+                           .Select(list => new { list.ackno,list.DagNo,list.PattaNo,list.TransactedArea,list.LandType,list.Class});
             if (plotdetail.Any())
             {
                 return Ok(plotdetail);
@@ -68,12 +69,12 @@ namespace eReg.Controllers
         [Route("api/deptRegistraionController/{ackno}/propertyddl")]
         public IHttpActionResult getOnlinePropertyddl(int ackno)
         {
-            var plotdetail = db.onlinePlot
+            var plotddl = db.onlinePlot
                            .Where(p => p.ackno == ackno)
                            .Select(list => new { list.ackno, list.State, list.District, list.Subdivision, list.Circle, list.Village });
-            if (plotdetail.Any())
+            if (plotddl.Any())
             {
-                return Ok(plotdetail);
+                return Ok(plotddl);
             }
             else
                 return NotFound();
