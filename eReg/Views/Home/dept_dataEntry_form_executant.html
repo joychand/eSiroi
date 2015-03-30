@@ -1,14 +1,15 @@
-﻿<div class="row">
-    <div class="col-sm-6">
-        <h3>ExecutantDetailForm</h3>
+﻿<ng-form class="form-horizontal " ng-class="{cssinput:$parent.Form.execform.$dirty}" name="$parent.Form.execform" novalidate>
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>ExecutantDetailForm</h3>
+        </div>
+        <div class=" col-sm-2 pull-right"><span class="text-danger">#<em>optional</em></span></div>
     </div>
-    <div class=" col-sm-2 pull-right"><span class="text-danger">#<em>optional</em></span></div>
-</div>
-<hr />
-<!--<div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
-    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>You have successfully added the Executant
-</div>-->
-<ng-form class="form-horizontal css-form " name="execform" novalidate>
+    <hr />
+    <!--<div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>You have successfully added the Executant
+    </div>-->
+
     <div class="form-group" ng-show="session.slnoddlVisibility">
         <label class="col-sm-4 control-label pull-left">Select Executant Slno:</label>
         <div class="col-sm-2">
@@ -34,21 +35,22 @@
         <label for="executant" class="col-sm-2 control-label">Executant</label>
 
         <div class="col-sm-3">
-            <input type="text" name="ExecSurName" data-ng-model="executant.execSurName" class="form-control" placeholder="Surnanme" data-ng-required="true">
-            <span style="color:#ff0000" data-ng-show="execform.ExecSurName.$dirty && execform.ExecSurName.$invalid">
-                <span data-ng-show="execform.ExecSurName.$error.required">Plz input a surname</span>
-            </span>
+            {{$parent.Form.execform.ExecSurName.$valid}}
+            <input type="text" ng-class="{cssform:$parent.Form.execform.ExecSurName.$dirty}" name="ExecSurName" data-ng-model="executant.execSurName" class="form-control" placeholder="Surnanme" data-ng-required="true">
+            <!--<span style="color:#ff0000" data-ng-show="$parent.Form.execform.ExecSurName.$dirty && $parent.Form.execform.ExecSurName.$invalid">-->
+            <span data-ng-show="$parent.Form.execform.ExecSurName.$error.required && $parent.Form.execform.$dirty">Plz input a surname</span>
+            <!--</span>-->
         </div>
         <div class="col-sm-3">
             <input type="text" name="ExecMiddleName" data-ng-model="executant.execMiddleName" class="form-control text-left css-form" placeholder="MiddleName" required>
-            <span style="color:#ff0000" data-ng-show="execform.ExecMiddleName.$dirty && execform.ExecMiddleName.$invalid">
-                <span data-ng-show="execform.ExecMiddleName.$error.required">Plz input a MiddleName</span>
+            <span style="color:#ff0000" data-ng-show="$parent.execform.ExecMiddleName.$dirty && $parent.execform.ExecMiddleName.$invalid">
+                <span data-ng-show="$parent.execform.ExecMiddleName.$error.required">Plz input a MiddleName</span>
             </span>
         </div>
         <div class="col-sm-3">
             <input type="text" name="ExecLastName" data-ng-model="executant.execLastName" class="form-control text-left" placeholder="LastName" required>
-            <span style="color:#ff0000" data-ng-show="execform.ExecLastName.$dirty && execform.ExecLastName.$invalid">
-                <span data-ng-show="execform.ExecLastName.$error.required">Plz input a LastName</span>
+            <span style="color:#ff0000" data-ng-show="$parent.execform.ExecLastName.$dirty && $parent.execform.ExecLastName.$invalid">
+                <span data-ng-show="$parent.execform.ExecLastName.$error.required">Plz input a LastName</span>
             </span>
         </div>
 

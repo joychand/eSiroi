@@ -151,6 +151,8 @@
         $scope.loadDone = false;
         $scope.online = {};
         $scope.session = {};
+        $scope.Form = {};
+
         $scope.onlinedata = 'onlinecancel';
         angular.extend($scope.session, {
             exFormIsOnline: false,
@@ -330,10 +332,14 @@
                     $scope.session.clFormIsOnline = true;  //   flag to populate online data to forms fields
                     $scope.session.idFormIsOnline = true;  // 
                     $scope.session.propFormIsOnline = true;//************************************************
-                    
+                    $scope.Form.deptRegform.$setDirty();
+                   
+                       
+                   
                 }, function (result) {
                     console.log('getOnlineExecddlist fails' + result);
                 });
+
                 }, function (result) {
                 console.log('getOnlineExecutantList fails ' + result)
                });
@@ -570,8 +576,9 @@
         $scope.Elist = {}
         $scope.exForm = {};
         $scope.exForm.currSlno = 0;
-      
-        //console.log($scope.session.OnlineStatus);
+        //$scope.Form.deptRegform.ExecSurName.$setViewValue($scope.Form.deptRegform.ExecSurName.$viewValue);
+        //console.log('execsurname ' + $scope.Form.deptRegform.ExecSurName.$dirty);
+        //console.log('execsurname ' + $scope.Form.deptRegform.ExecSurName.$pristine);
         
           
        
@@ -595,6 +602,18 @@
                 deptModalService.execddl = $scope.execddlist[0];
                 // update the online status
                 $scope.session.exFormIsOnline = false;
+            // $scope.Form.execform.$setDirty();
+                $scope.$on('$viewContentLoaded', function () {
+                    console.log($scope.Form.execform);
+                    //$scope.Form.execform.ExecSurName.$dirty = true;
+                    $scope.Form.execform.$setDirty();
+                    $scope.Form.execform.ExecSurName.$dirty = true;
+                    $scope.Form.execform.ExecSurName.$valid = true;
+                   $scope.Form.execform.$setValidity('required', true);
+                   
+
+                    console.log($scope.Form.execform.ExecSurName.$valid);
+                });
                
             }
             
@@ -614,14 +633,7 @@
                 //
             }
            
-            $scope.$on('$viewContentLoaded', function () {
-                $scope.execform.$setDirty();
-                $scope.execform.$dirty = true;
-                $scope.execform.$pristine = false;
-                $scope.execform.$setValidity('required', true);
-                $scope.execform.$setValidity('error', true);
-                console.log('execform: ' + $scope.execform.$dirty);
-                });
+            
        // initialize dropdownlist       
         init();
         function init() {
