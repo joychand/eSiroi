@@ -127,7 +127,6 @@
     <Folder Include="Areas\Public_User\Controllers\" />
     <Folder Include="Areas\Public_User\Models\" />
     <Folder Include="Areas\Public_User\Views\Shared\" />
-    <Folder Include="Scripts\app\directive\" />
     <Folder Include="Scripts\app\filters\" />
     <Folder Include="Scripts\app\Partials\SRO\" />
   </ItemGroup>
@@ -170,6 +169,8 @@
     <Compile Include="Controllers\ApplyRegController.cs" />
     <Compile Include="Controllers\ApplyRegistrationController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DeptController.cs" />
+    <Compile Include="Controllers\deptRegistraionController.cs" />
     <Compile Include="Controllers\DistrictsController.cs" />
     <Compile Include="Areas\Public_User\Public_UserAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -223,25 +224,45 @@
     <Compile Include="Migrations\201502161658049_updateonlineclaimant.Designer.cs">
       <DependentUpon>201502161658049_updateonlineclaimant.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503021054347_executant.cs" />
+    <Compile Include="Migrations\201503021054347_executant.Designer.cs">
+      <DependentUpon>201503021054347_executant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503121721234_firstblanck.cs" />
+    <Compile Include="Migrations\201503121721234_firstblanck.Designer.cs">
+      <DependentUpon>201503121721234_firstblanck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503121753529_circledroppk.cs" />
+    <Compile Include="Migrations\201503121753529_circledroppk.Designer.cs">
+      <DependentUpon>201503121753529_circledroppk.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\CensusSubDiv.cs" />
-    <Compile Include="Models\CensusSubDivision.cs" />
-    <Compile Include="Models\CensusVillage.cs" />
-    <Compile Include="Models\circle.cs" />
-    <Compile Include="Models\district.cs" />
-    <Compile Include="Models\eregdbContext.cs" />
-    <Compile Include="Models\MajorTrans_code.cs" />
-    <Compile Include="Models\onlineapplication.cs" />
-    <Compile Include="Models\OnlineClaimant.cs" />
-    <Compile Include="Models\OnlineExecutant.cs" />
-    <Compile Include="Models\OnlineExecutantList.cs" />
-    <Compile Include="Models\OnlineIdentifier.cs" />
-    <Compile Include="Models\onlinePlot.cs" />
-    <Compile Include="Models\PoliceStation.cs" />
-    <Compile Include="Models\PostOffice.cs" />
-    <Compile Include="Models\RevVillage.cs" />
-    <Compile Include="Models\State.cs" />
-    <Compile Include="Models\subDivision.cs" />
+    <Compile Include="Migrations\Models\CensusSubDiv.cs" />
+    <Compile Include="Migrations\Models\CensusSubDivision.cs" />
+    <Compile Include="Migrations\Models\CensusVillage.cs" />
+    <Compile Include="Migrations\Models\circle.cs" />
+    <Compile Include="Migrations\Models\Claimant.cs" />
+    <Compile Include="Migrations\Models\Class.cs" />
+    <Compile Include="Migrations\Models\district.cs" />
+    <Compile Include="Migrations\Models\eregdbContext.cs" />
+    <Compile Include="Migrations\Models\Executant.cs" />
+    <Compile Include="Migrations\Models\Exempt_Reason.cs" />
+    <Compile Include="Migrations\Models\LandType.cs" />
+    <Compile Include="Migrations\Models\LPplot.cs" />
+    <Compile Include="Migrations\Models\MajorTrans_code.cs" />
+    <Compile Include="Migrations\Models\onlineapplication.cs" />
+    <Compile Include="Migrations\Models\OnlineClaimant.cs" />
+    <Compile Include="Migrations\Models\OnlineExecutant.cs" />
+    <Compile Include="Migrations\Models\OnlineExecutantList.cs" />
+    <Compile Include="Migrations\Models\OnlineIdentifier.cs" />
+    <Compile Include="Migrations\Models\onlinePlot.cs" />
+    <Compile Include="Migrations\Models\PoliceStation.cs" />
+    <Compile Include="Migrations\Models\PostOffice.cs" />
+    <Compile Include="Migrations\Models\RevVillage.cs" />
+    <Compile Include="Migrations\Models\State.cs" />
+    <Compile Include="Migrations\Models\subDivision.cs" />
+    <Compile Include="Migrations\Models\uniowner.cs" />
+    <Compile Include="Migrations\Models\uniplot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\executantRepository.cs" />
   </ItemGroup>
@@ -253,6 +274,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\ng-grid.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -289,8 +311,11 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-sanitize.js" />
+    <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.js" />
@@ -304,13 +329,25 @@
     <Content Include="Scripts\app\controller\regApplyController.js" />
     <Content Include="Scripts\app\controller\registrationController.js" />
     <Content Include="Scripts\app\controller\VapplController.js" />
+    <Content Include="Scripts\app\directive\loadingWidget.js" />
     <Content Include="Scripts\app\factory\angularModalService.js" />
     <Content Include="Scripts\app\factory\dataCommonFactory.js" />
     <Content Include="Scripts\app\factory\datafactory.js" />
+    <Content Include="Scripts\app\factory\deptModelService.js" />
     <Content Include="Scripts\app\factory\dept_dataFactory.js" />
     <Content Include="Scripts\app\factory\dept_sessionFactory.js" />
+    <Content Include="Scripts\app\factory\requestNotificationChannel.js" />
     <Content Include="Scripts\app\factory\sessionFactory.js" />
+    <Content Include="Scripts\app\factory\timestampMarker.js" />
+    <Content Include="Scripts\app\service\ModalService.js" />
+    <Content Include="Scripts\ng-grid.debug.js" />
+    <Content Include="Scripts\ng-grid.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.12.0.js" />
+    <Content Include="spinning.gif" />
+    <Content Include="Scripts\ui-grid.js" />
+    <Content Include="Views\Home\depthome.html" />
+    <Content Include="Views\Home\dept_dataEntry_form_deed.html" />
+    <Content Include="Views\Home\loginPage.html" />
     <Content Include="Views\Home\modal.html" />
     <Content Include="Views\Home\deptOnlineData.html" />
     <Content Include="Scripts\app\Partials\dept_claimant.html" />
@@ -353,6 +390,8 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-sanitize.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ct-ui-router-extras.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -385,6 +424,8 @@
     <Content Include="Views\Home\identifier.html" />
     <Content Include="Views\Home\index.cshtml" />
     <None Include="Views\Home\login.cshtml" />
+    <Content Include="Views\Home\ModalTemp.html" />
+    <Content Include="Views\Home\plotVerifyModal.html" />
     <Content Include="Views\Home\registrationcontent.html" />
     <Content Include="Views\Home\registrationforms.html" />
     <Content Include="Views\Home\searchReg.html" />
@@ -450,6 +491,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502161658049_updateonlineclaimant.resx">
       <DependentUpon>201502161658049_updateonlineclaimant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503021054347_executant.resx">
+      <DependentUpon>201503021054347_executant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503121721234_firstblanck.resx">
+      <DependentUpon>201503121721234_firstblanck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503121753529_circledroppk.resx">
+      <DependentUpon>201503121753529_circledroppk.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

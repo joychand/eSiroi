@@ -4,7 +4,7 @@
 /// <reference path = ~/scripts/angular-ui-router.js>
 /// <reference path = ~/scripts/app/factory/sessionFactory.js>
 
-var app = angular.module('eRegApp', ['ui.router', 'ct.ui.router.extras', 'angularModalService', 'ui.bootstrap']);
+var app = angular.module('eRegApp', ['ui.router', 'ct.ui.router.extras', 'angularModalService', 'ui.bootstrap', 'ngGrid', 'ngSanitize']);
 //var app1 = angular.module('eRegDeptApp', ['ngroute']);
 //app.value = ('maj_code', '');
 app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provide',function ($stateProvider, $locationProvider,$urlRouterProvider,$provide ) {
@@ -14,8 +14,8 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
     $stateProvider
         .state('Home', {
             url: "/",
-            templateUrl: 'Home/home'
-            // controller:  "simpleController"
+            templateUrl: 'Home/home',
+            controller: "HomeController"
         })
          .state('login', {
              url: "/login",
@@ -48,18 +48,39 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
         .state('department.content.login',
         {
             url: '/login',
-            views: {
-                '@department.content':{
-                    templateUrl: 'Home/login',
-                    controller: 'deptloginController'
-                }
-                
-            }
+            templateUrl: 'Home/login',
+            controller: 'deptloginController',
+            resolve:{
+                modalService: 'modalService',
+                $state: '$state'
+            },
+            onEnter: function (modalService,$state,$rootScope) {
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Login',
+                    headerText: 'Login',
+                    bodyText: ''
+                };
+
+                var modalDefault = {
+                    templateUrl: 'Home/loginPage',
+                    controller: 'loginModalCtrl',
+                    backdrop: 'static',
+                    size: 'lg'
+                };
+
+                modalService.showModal(modalDefault, modalOptions).then(function (result) {
+                    $state.go('department.content.home');
+                }, function (error) {
+                    $state.go($rootScope.previousState);
+                });
+    }
         })
 
         .state('department.content.home', {
             url: '/home',
-            templateUrl: 'Home/dept_home'
+            templateUrl: 'Home/dept_home',
+            controller: 'deptHomeController'
         })
        
         .state('Search', {
@@ -73,7 +94,10 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
             controller: 'dept_regController',
             resolve: {
                 majortrans: function (dataFactory) {
-                    return dataFactory.getMajortransaction();
+                    return dataFactory.getMajortransaction().then(function (results) {
+                        //var time = results.config.responseTimestamp - results.config.requestTimestamp;
+                        //console.log('The request took ' + (time / 1000) + ' seconds.');
+                        return results;});
                 }
             }
         })
@@ -85,16 +109,11 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
             controller: 'dataEntryformController',
             
         })
-           //.state('department.content.form.online', {
-           //    url: '/getonline',
-           //    views:{
-           //        'online@department.content.form':{
-           //            templateUrl: 'Home/deptOnlineData'
-           //           // controller: ''
-           //        }
-           //    }
-               
-           //})
+           .state('department.content.form.deed', {
+               url: '/dataEntryformDeed',
+               templateUrl: 'Home/dept_dataEntry_form_deed',
+               controller: 'deptDeedController'
+           })
         .state('department.content.form.property', {
             url: '/dataEntryformProperty',
             templateUrl: 'Home/dept_dataEntry_form_property',
@@ -110,17 +129,24 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
         .state('department.content.form.executant', {
             url: '/dataEntryformexecutant',
             templateUrl: 'Home/dept_dataEntry_form_executant',
-            controller: 'deptExeController'
+            controller: 'deptExeController',
+            resolve: {
+                online: function (dept_sessionfactory) {
+                    return dept_sessionfactory.getOnline();
+                }
+            }
         })
 
          .state('department.content.form.claimant', {
              url: '/dataEntryformclaimant',
-             templateUrl: 'Home/dept_dataEntry_form_claimant'
+             templateUrl: 'Home/dept_dataEntry_form_claimant',
+             controller: 'deptClaimController'
          })
 
         .state('department.content.form.identifier', {
             url: '/dataEntryformidentifier',
-            templateUrl: 'Home/dept_dataEntry_form_identifier'
+            templateUrl: 'Home/dept_dataEntry_form_identifier',
+            controller: 'deptIdentController'
         })
 
         // APPLY REGISTRATION ROUTING
@@ -206,21 +232,52 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
       
          
     //$locationProvider.html5Mode(true).hashPrefix("!");
-    app.run(function ($rootScope, $state, $window, $timeout, $stateParams) {
-        $rootScope.addError = function (error) {
-            $rootScope.message = error.message;
-            $rootScope.reason = error.reason;
-            //$rootScope.values = 'jhgkjhkj';
-        }
-        $rootScope.$state = $state;
-       
-        $rootScope.$stateParams = $stateParams;
-        $rootScope.$on("$stateChangeSuccess", function () {
-            $timeout(function () {
-                $window.ga('send', 'pageview', $window.location.pathname + $window.location.hash);
-            });
-        });
-    });
+    //app.run(function ($rootScope, $state, $window, $timeout, $stateParams) {
+    //    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    //        console.log('hahahahah');
+    //        if (toState.resolve) {
+    //            $rootScope.page.loading = true;
+    //        }
+    //    });
+
+    //    $rootScope.addError = function (error) {
+    //        $rootScope.message = error.message;
+    //        $rootScope.reason = error.reason;
+    //        $rootScope.page.loading = true;
+    //        //$rootScope.values = 'jhgkjhkj';
+    //    }
+    //    $rootScope.$state = $state;
+    //    $rootScope.previouState;
+    //    $rootScope.currentState;
+    //    $rootScope.$stateParams = $stateParams;
+    //    $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+    //        $rootScope.previousState = from.name;
+    //        $rootScope.currentState = to.name;
+    //        console.log('Previous state:' + $rootScope.previousState)
+    //        console.log('Current state:' + $rootScope.currentState)
+    //    });
+    //    //$rootScope.$on("$stateChangeSuccess", function (ev, to, toParams, from, fromParams) {
+    //    //    console.log('success');
+    //    //    $rootScope.previousState = from.name;
+    //    //    $rootScope.currentState = to.name;
+    //    //    console.log('Previous state:' + $rootScope.previousState)
+    //    //    console.log('Current state:' + $rootScope.currentState)
+    //    //    if (toState.resolve) {
+    //    //        $rootScope.page.loading = false;
+    //    //    }
+    //    //    $timeout(function () {
+    //    //        $window.ga('send', 'pageview', $window.location.pathname + $window.location.hash);
+    //    //    });
+    //    //});
+
+    //    //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    //    //    console.log('hahahahah');
+    //    //    if (toState.resolve) {
+    //    //        $rootScope.page.loading = true;
+    //    //    }
+    //    //});
+    //});
+    
 
     //$rootScope.$on("$routeChangeStart", function (event, next, current) {
     //    if (sessionStorage.restorestate == "true") {
@@ -234,9 +291,47 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
     //    $rootScope.$broadcast('savestate');
     //};
     //});
+
 }]);
 
+app.run(['$rootScope', '$state', '$window', '$timeout', '$stateParams',
 
+    function ($rootScope, $state, $window, $timeout, $stateParams) {
+        $rootScope.$state = $state;
+           $rootScope.previouState;
+           $rootScope.currentState;
+          $rootScope.$stateParams = $stateParams;
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        console.log('statechangestart');
+       
+    });
+    $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+                $rootScope.previousState = from.name;
+                $rootScope.currentState = to.name;
+                console.log('Previous state:' + $rootScope.previousState)
+                console.log('Current state:' + $rootScope.currentState)
+    });
+
+   
+
+    }]);
+
+// HOME CONTROLLER
+
+app.controller('HomeController', ['$state', '$window',
+    function ($state, $window) {
+        window.onbeforeunload = function (event) {
+            var message = 'All data will be lost?';
+            if (typeof event == 'undefined') {
+                event = window.event;
+            }
+            if (event) {
+                event.returnValue = message;
+            }
+            return message;
+        }
+    }
+])
 
 app.controller('simpleController', ['$scope','$state', 'dataFactory', 'sessionFactory',
         function ($scope, $state, dataFactory,sessionFactory) {
@@ -253,6 +348,7 @@ app.controller('simpleController2', ['$scope', '$state', 'dataFactory', '$rootSc
     $scope.currAckno = [];
     $scope.ackno = [];
     function init() {
+        $scope.loading = true;
         getMajortransaction();
         //getsession();
 
@@ -260,8 +356,12 @@ app.controller('simpleController2', ['$scope', '$state', 'dataFactory', '$rootSc
 
     
     function getMajortransaction() {
-        dataFactory.getMajortransaction().then(function (transaction) {
-            $scope.transactions = transaction;
+        dataFactory.getMajortransaction().then(function (response) {
+            $scope.transactions = response.data;
+        },
+        function (result) { })
+        .finally(function () {
+            $scope.loading = false;
         });
 
     }

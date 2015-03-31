@@ -24,6 +24,7 @@ angular.module('eRegApp')
                 method: 'GET',
                 url: urlBase3 + maj_code + '/trans_name'
             }).then(function (results) {
+               
                 return results.data;
             });
         }
@@ -48,6 +49,15 @@ angular.module('eRegApp')
 
             });
         };
+        dataFactory.getRevSubDivisions = function () {
+            return $http({
+                method: 'GET',
+                url: urlBase3 + 'Revsubdivision',
+                cache: true
+            }).then(function (result) {
+                return result.data;
+            });
+        }
 
         dataFactory.getStates = function () {
             return $http({
@@ -128,9 +138,6 @@ angular.module('eRegApp')
                 method: 'GET',
                 url: urlBase3 + 'MajorTrans_code',
                 cache: true
-            }).then(function (results) {
-                return results.data;
-
             });
         };
         dataFactory.getCircle = function () {
