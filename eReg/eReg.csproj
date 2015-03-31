@@ -127,7 +127,6 @@
     <Folder Include="Areas\Public_User\Controllers\" />
     <Folder Include="Areas\Public_User\Models\" />
     <Folder Include="Areas\Public_User\Views\Shared\" />
-    <Folder Include="Scripts\app\directive\" />
     <Folder Include="Scripts\app\filters\" />
     <Folder Include="Scripts\app\Partials\SRO\" />
   </ItemGroup>
@@ -247,6 +246,7 @@
     <Compile Include="Migrations\Models\district.cs" />
     <Compile Include="Migrations\Models\eregdbContext.cs" />
     <Compile Include="Migrations\Models\Executant.cs" />
+    <Compile Include="Migrations\Models\Exempt_Reason.cs" />
     <Compile Include="Migrations\Models\LandType.cs" />
     <Compile Include="Migrations\Models\LPplot.cs" />
     <Compile Include="Migrations\Models\MajorTrans_code.cs" />
@@ -329,12 +329,14 @@
     <Content Include="Scripts\app\controller\regApplyController.js" />
     <Content Include="Scripts\app\controller\registrationController.js" />
     <Content Include="Scripts\app\controller\VapplController.js" />
+    <Content Include="Scripts\app\directive\loadingWidget.js" />
     <Content Include="Scripts\app\factory\angularModalService.js" />
     <Content Include="Scripts\app\factory\dataCommonFactory.js" />
     <Content Include="Scripts\app\factory\datafactory.js" />
     <Content Include="Scripts\app\factory\deptModelService.js" />
     <Content Include="Scripts\app\factory\dept_dataFactory.js" />
     <Content Include="Scripts\app\factory\dept_sessionFactory.js" />
+    <Content Include="Scripts\app\factory\requestNotificationChannel.js" />
     <Content Include="Scripts\app\factory\sessionFactory.js" />
     <Content Include="Scripts\app\factory\timestampMarker.js" />
     <Content Include="Scripts\app\service\ModalService.js" />

@@ -38,9 +38,12 @@ namespace eReg
                         "~/Scripts/app/factory/dept_dataFactory.js",
                         "~/Scripts/app/factory/timestampMarker.js",
                       "~/Scripts/app/factory/angularModalService.js",
+                       "~/Scripts/app/factory/requestNotificationChannel.js",
+                       "~/Scripts/app/directive/loadingWidget.js",
                       "~/Scripts/app/controller/registrationController.js",
                        "~/Scripts/app/controller/dept_regController.js",
                        "~/Scripts/app/service/ModalService.js"
+
                       ));
 
             // Set EnableOptimizations to false for debugging. For more information,

@@ -52,9 +52,13 @@
                 </ul>
             </div>
         </div>
-        <div ng-if="loadDone">
-            <div ui-view></div>
+        <div loading-Widget>
+            <img id="mySpinner" src="../../spinning.gif" ng-show="loading" />
         </div>
+        <!--<div ng-if="loadDone">-->
+            
+            <div ui-view></div>
+        <!--</div>-->
     </div>
 </form>
 

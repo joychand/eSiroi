@@ -9,6 +9,16 @@
         var urlBase = 'api/ApplyRegistrationController/';
         var urlBase2 = 'api/deptRegistraionController/';
         var service = {
+
+            /// GET EXEMPT REASON LIST
+            getExempReason: function(){
+                return $http({
+                    method: 'GET',
+                    url: urlBase2 + '/ExemptReason',
+                    cache: true
+                });
+            },
+
             // PROPERTY FORM DATA FACTORY
             getPropertyDetail: function(ackno){
                 return $http({

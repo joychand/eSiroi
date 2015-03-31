@@ -179,11 +179,13 @@ padding-top:0;
 }
 
  .css-form input.ng-invalid.ng-dirty {
-    background-color: #ffd800 !important;
+    /*background-color: #ffd800 !important;*/
+    border-color: #ff0000 !important;
   }
 
-  .cssform  {
-    background-color: #9ed172 !important;
+  .css-form input.ng-valid.ng-dirty {
+    /*background-color: #9ed172 !important;*/
+    border-color: #9ed172 !important;
   }
 
   .gridStyle {

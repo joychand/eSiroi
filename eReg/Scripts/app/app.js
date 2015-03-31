@@ -14,8 +14,8 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
     $stateProvider
         .state('Home', {
             url: "/",
-            templateUrl: 'Home/home'
-            // controller:  "simpleController"
+            templateUrl: 'Home/home',
+            controller: "HomeController"
         })
          .state('login', {
              url: "/login",
@@ -95,8 +95,8 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
             resolve: {
                 majortrans: function (dataFactory) {
                     return dataFactory.getMajortransaction().then(function (results) {
-                        var time = results.config.responseTimestamp - results.config.requestTimestamp;
-                        console.log('The request took ' + (time / 1000) + ' seconds.');
+                        //var time = results.config.responseTimestamp - results.config.requestTimestamp;
+                        //console.log('The request took ' + (time / 1000) + ' seconds.');
                         return results;});
                 }
             }
@@ -291,6 +291,7 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
     //    $rootScope.$broadcast('savestate');
     //};
     //});
+
 }]);
 
 app.run(['$rootScope', '$state', '$window', '$timeout', '$stateParams',
@@ -309,9 +310,28 @@ app.run(['$rootScope', '$state', '$window', '$timeout', '$stateParams',
                 $rootScope.currentState = to.name;
                 console.log('Previous state:' + $rootScope.previousState)
                 console.log('Current state:' + $rootScope.currentState)
-            });
+    });
 
-}]);
+   
+
+    }]);
+
+// HOME CONTROLLER
+
+app.controller('HomeController', ['$state', '$window',
+    function ($state, $window) {
+        window.onbeforeunload = function (event) {
+            var message = 'All data will be lost?';
+            if (typeof event == 'undefined') {
+                event = window.event;
+            }
+            if (event) {
+                event.returnValue = message;
+            }
+            return message;
+        }
+    }
+])
 
 app.controller('simpleController', ['$scope','$state', 'dataFactory', 'sessionFactory',
         function ($scope, $state, dataFactory,sessionFactory) {

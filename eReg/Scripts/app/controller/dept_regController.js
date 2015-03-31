@@ -10,7 +10,9 @@
     function deptcontentController($scope,$rootScope) {
         console.log($rootScope.value);
         
+        
     }
+  
 })();
 
 //deptHomeController
@@ -32,7 +34,7 @@
             columnDefs: [{ field: 'Ackno', displayName: 'Ackno' }, { field: 'date', displayName: 'AppliedOn' }],
             jqueryUITheme: true
         };
-
+       
     }
 })();
 
@@ -138,6 +140,8 @@
         $scope.tsyear = {};
         $scope.visibility = true;
         $scope.click = false;
+
+        //dropdown object declaration
         $scope.states = {};
         $scope.districts = {};
         $scope.subdivisions = {};
@@ -148,6 +152,9 @@
         $scope.circles = {};
         $scope.landclass = {};
         $scope.landtype = {};
+        $scope.exreason = {};
+        //end dropdown declaration
+
         $scope.loadDone = false;
         $scope.online = {};
         $scope.session = {};
@@ -187,7 +194,7 @@
             getRevVillages();
            // getPoliceStations();
             getPostOffices();
-           
+            getExemReason();
             getlandclass();
             getlandtype();
             $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
@@ -265,7 +272,13 @@
                 $scope.landtype = response.data;
             })
         }
-      
+        
+        function getExemReason() {
+            dept_dataFactory.getExempReason().then(function (response) {
+                $scope.exreason = response.data;
+            })
+        }
+
         $scope.getOnline = function () {
             $scope.onlinedata = 'getonline';
             //$scope.visibility = false;
@@ -332,7 +345,7 @@
                     $scope.session.clFormIsOnline = true;  //   flag to populate online data to forms fields
                     $scope.session.idFormIsOnline = true;  // 
                     $scope.session.propFormIsOnline = true;//************************************************
-                    $scope.Form.deptRegform.$setDirty();
+                    //$scope.Form.deptRegform.$setDirty();
                    
                        
                    
@@ -382,6 +395,25 @@
         }
        
     }
+})();
+
+// dept_dataEntry_from_deep controller //
+(function () {
+    angular.module('eRegApp')
+    .controller('deptDeedController', ['$scope', '$state', 'dept_sessionfactory', 'dataFactory', 'dept_dataFactory', 'deptModalService', 'modalService', deptDeedController])
+
+    function deptDeedController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory, deptModalService, modalService) {
+
+        $scope.deed = {};
+
+        /// Fee exempt reason radion button action
+        $scope.isExemptYes = function (yes) {
+            
+            return yes===$scope.deed.feeExem
+        }
+        
+    }
+
 })();
 
 //dept_dataEntry_form_property Controller //
@@ -603,17 +635,17 @@
                 // update the online status
                 $scope.session.exFormIsOnline = false;
             // $scope.Form.execform.$setDirty();
-                $scope.$on('$viewContentLoaded', function () {
-                    console.log($scope.Form.execform);
-                    //$scope.Form.execform.ExecSurName.$dirty = true;
-                    $scope.Form.execform.$setDirty();
-                    $scope.Form.execform.ExecSurName.$dirty = true;
-                    $scope.Form.execform.ExecSurName.$valid = true;
-                   $scope.Form.execform.$setValidity('required', true);
+                //$scope.$on('$viewContentLoaded', function () {
+                //    console.log($scope.Form.execform);
+                //    //$scope.Form.execform.ExecSurName.$dirty = true;
+                //    $scope.Form.execform.$setDirty();
+                //    $scope.Form.execform.ExecSurName.$dirty = true;
+                //    $scope.Form.execform.ExecSurName.$valid = true;
+                //   $scope.Form.execform.$setValidity('required', true);
                    
 
-                    console.log($scope.Form.execform.ExecSurName.$valid);
-                });
+                //    console.log($scope.Form.execform.ExecSurName.$valid);
+                //});
                
             }
             
@@ -822,6 +854,16 @@
             console.log('identifier district modal' + $scope.ident.district.distName)
         }
        
+        //window.onbeforeunload = function (event) {
+        //    var message = 'Sure you want to leave?';
+        //    if (typeof event == 'undefined') {
+        //        event = window.event;
+        //    }
+        //    if (event) {
+        //        event.returnValue = message;
+        //    }
+        //    return message;
+        //}
     }
 })();
 

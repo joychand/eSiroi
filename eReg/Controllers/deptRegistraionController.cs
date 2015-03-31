@@ -18,6 +18,20 @@ namespace eReg.Controllers
         private eregdbContext db = new eregdbContext();
         private LPplot lpdb = new LPplot();
 
+        // COMMON DATA SERVICE API
+
+        // get Exempt reason
+        [HttpGet]
+        [Route("api/deptRegistraionController/ExemptReason")]
+        public IHttpActionResult getReason()
+        {
+            var reason= db.Exempt_Reason;
+            if(reason.Any())
+            {
+                return Ok(reason);
+            }
+            return NotFound();
+        }
 
         ////Get LandType 
         [HttpGet]

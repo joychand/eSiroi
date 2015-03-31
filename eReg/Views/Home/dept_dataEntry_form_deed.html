@@ -7,7 +7,7 @@
 <hr />
 
 <div class="container-fluid">
-    <ng-form class="form-horizontal ">
+    <ng-form class="form-horizontal " name="From.deedform">
         <div class="form-group  ">
             <div class="col-sm-6">
                 <div class="col-md-4 hidden-xs  text-right">
@@ -199,12 +199,12 @@
 
                 <div class="col-md-3">
                     <input type="radio" name="feeExem"
-                           data-ng-checked="deed.feeExem=='Y'"
+                           value="Y"
                            data-ng-model="deed.feeExem" />Yes
                 </div>
                 <div class="col-md-3">
                     <input type="radio" name="feeExem"
-                           data-ng-checked="deed.feeExem=='N'"
+                           value="N"
                            data-ng-model="deed.feeExem" />No
                 </div>
             </div>
@@ -213,13 +213,22 @@
                     <label class="control-label">If yes reason:</label>
                 </div>
                 <div class="col-md-6">
-                    <select class="form-control" 
-                            data-ng-model="deed.reason" 
-                            data-ng-options="reason for reason in reasons">
-                        <option>-select reason-</option>
+                    <select class="form-control"
+                            data-ng-model="deed.reason"
+                            data-ng-options="reason.p_desc for reason in exreason | orderBy: 'p_desc'"
+                            data-ng-disabled="!isExemptYes('Y')">
+                        <option value="">-select reason-</option>
                     </select>
                 </div>
             </div>
+        </div>
+        <div class="form-group text-center">
+            <div class="btn-group">
+                <button type="submit" data-ng-submit="deedSubmit()" class="btn btn-primary btn-md " ng-disabled="From.deedform.$pristine || From.deedform.$invalid && From.deedform.$dirty">Next</button>
+                <button class="btn btn-success btn-md" data-ng-click=""><span class="glyphicon glyphicon-floppy-disk"></span> Draft</button>
+                <button type="reset" class="btn btn-default btn-md">Reset</button>
+            </div>
+
         </div>
 
     </ng-form>
