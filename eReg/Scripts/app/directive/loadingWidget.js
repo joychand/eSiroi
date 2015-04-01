@@ -1,7 +1,7 @@
 ﻿
 'use strict';
 angular.module('eRegApp')
-    .directive('loading-Widget', ['requestNotificationChannel', function (requestNotificationChannel) {
+    .directive('loadingWidget', ['requestNotificationChannel', function (requestNotificationChannel) {
     return {
         restrict: "A",
         link: function (scope, element) {

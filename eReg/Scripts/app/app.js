@@ -347,13 +347,20 @@ app.controller('simpleController2', ['$scope', '$state', 'dataFactory', '$rootSc
     $scope.transaction = {};
     $scope.currAckno = [];
     $scope.ackno = [];
+    $scope.sro = {};
     function init() {
         $scope.loading = true;
         getMajortransaction();
+        getsro();
         //getsession();
 
     }
 
+    function getsro() {
+        dataFactory.getSRO().then(function (response) {
+            $scope.sro = response.data;
+        })
+    }
     
     function getMajortransaction() {
         dataFactory.getMajortransaction().then(function (response) {

@@ -12,13 +12,13 @@ angular.module('eRegApp')
         var dataFactory = {};
         var ackno = 0
 
-        dataFactory.postonlineapplication = function (onlineapplication) {
+        dataFactory.getSRO = function () {
             return $http({
-                method: 'POST',
-                url: urlBase3 + 'postapplication',
-                data: onlineapplication
-            });//.then(function (results) { return results.data; });
-        }
+                method: 'GET',
+                url: urlBase3 + '/getSRO',
+                cache: true
+            })
+        },
         dataFactory.getTransName = function (maj_code) {
             return $http({
                 method: 'GET',
@@ -102,6 +102,43 @@ angular.module('eRegApp')
 
             });
         };
+        dataFactory.getMajortransaction = function () {
+            return $http({
+                method: 'GET',
+                url: urlBase3 + 'MajorTrans_code',
+                cache: true
+            });
+        };
+        dataFactory.getCircle = function () {
+            return $http({
+                method: 'GET',
+                url: urlBase3 + 'Circle',
+                cache: true
+            }).then(function (results) {
+                return results.data;
+
+            });
+        };
+
+        dataFactory.getRevVillage = function () {
+            return $http({
+                method: 'GET',
+                url: urlBase3 + 'RevVillage',
+                cache: true
+            }).then(function (results) {
+                return results.data;
+
+            });
+        };
+
+        // post onlineApplication
+        dataFactory.postonlineapplication = function (onlineapplication) {
+            return $http({
+                method: 'POST',
+                url: urlBase3 + 'postapplication',
+                data: onlineapplication
+            });//.then(function (results) { return results.data; });
+        }
 
         //post executant
 
@@ -133,34 +170,9 @@ angular.module('eRegApp')
             
         };
 
-        dataFactory.getMajortransaction = function () {
-            return $http({
-                method: 'GET',
-                url: urlBase3 + 'MajorTrans_code',
-                cache: true
-            });
-        };
-        dataFactory.getCircle = function () {
-            return $http({
-                method: 'GET',
-                url: urlBase3 + 'Circle',
-                cache: true
-            }).then(function (results) {
-                return results.data;
 
-            });
-        };
 
-        dataFactory.getRevVillage = function () {
-            return $http({
-                method: 'GET',
-                url: urlBase3 + 'RevVillage',
-                cache: true
-            }).then(function (results) {
-                return results.data;
-
-            });
-        };
+      
         //post property
         dataFactory.postProperty = function (plot) {
             return $http({

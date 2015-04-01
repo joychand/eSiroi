@@ -25,23 +25,21 @@
             <label for="" class="col-sm-4 control-label">Transaction type: </label>
             <div class="col-sm-7  ">
                 <select name="transaction" class="form-control "
-                    data-ng-model="transaction"
-                    data-ng-options="trans.tran_name for trans in transactions | orderBy:'tran_name'">
+                        data-ng-model="transaction"
+                        data-ng-options="trans.tran_name for trans in transactions | orderBy:'tran_name'">
                     <option value="">--select Transaction --</option>
                 </select>
             </div>
-            <div class="col-sm-1"><img id="mySpinner" src="../../spinning.gif" ng-show="loading" /></div>
+            <div class="col-sm-1" loading-widget><img id="mySpinner" src="../../spinning.gif" /></div>
         </div>
         <div class="form-group">
             <label for="" class="col-sm-4 control-label">Sub Registrar: </label>
             <div class="col-sm-8 pull-left ">
                 <select name="sr" class="form-control "
-                    data-ng-model="transaction.sro" >
+                        data-ng-model="transaction.sro"
+                        data-ng-options="sr.regOfficeName for sr in sro">
                     <option value="">--select --</option>
-                     <option value="SROLamphel">SRO Lamphel</option>
-                     <option value="SROPorompat">SRO Porompat</option>
-                     <option value="SROBishenpur">SRO Bishenpur</option>
-                    <option value="SROThoubal">SRO Thoubal</option>
+
                 </select>
             </div>
         </div>
@@ -49,7 +47,7 @@
         <div class="form-group">
             <label class="col-sm-4 control-label">Password:</label>
             <div class="col-sm-8 pull-left">
-                <input data-ng-model="transaction.passwd" class="form-control"  type="password" name="name" value="" />
+                <input data-ng-model="transaction.passwd" class="form-control" type="password" name="name" value="" />
             </div>
         </div>
         <div class="form-group">
@@ -60,7 +58,8 @@
         </div>
         <div class="form-group">
             <label class="col-sm-4 control-label">Mobile:</label>
-            <div class="col-sm-8 pull-left">
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon">+91</span>
                 <input data-ng-model="transaction.mobile" class="form-control" type="text" value="" />
             </div>
         </div>

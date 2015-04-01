@@ -80,13 +80,15 @@ angular
 
         function init() {
            
+
+
             //property details
             getDistricts();
             getCircles()
             getRevVillages()
             getTransName()
             getSro()
-           // $scope.loading = false;
+          
            
             //party details
             getSubDivisions();

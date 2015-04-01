@@ -20,6 +20,20 @@ namespace eReg.Controllers
     {
         private eregdbContext db = new eregdbContext();
 
+        //get SRO
+        [HttpGet]
+        [Route ("api/ApplyRegistrationController/getSRO")]
+
+        public IHttpActionResult getSRO()
+        {
+            var sro = db.RegistarOffice;
+            if(sro.Any())
+            {
+                return Ok(sro);
+
+            }
+            return NotFound();
+        }
 
         // Get States
         [HttpGet]

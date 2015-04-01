@@ -258,6 +258,7 @@
     <Compile Include="Migrations\Models\onlinePlot.cs" />
     <Compile Include="Migrations\Models\PoliceStation.cs" />
     <Compile Include="Migrations\Models\PostOffice.cs" />
+    <Compile Include="Migrations\Models\RegistarOffice.cs" />
     <Compile Include="Migrations\Models\RevVillage.cs" />
     <Compile Include="Migrations\Models\State.cs" />
     <Compile Include="Migrations\Models\subDivision.cs" />
