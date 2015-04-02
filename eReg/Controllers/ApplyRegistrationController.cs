@@ -35,6 +35,23 @@ namespace eReg.Controllers
             return NotFound();
         }
 
+        //get SroName
+        [HttpGet]
+        [Route("api/ApplyRegistrationController/{officeCode}/getSroName")]
+
+        public IHttpActionResult getSroName(short officeCode)
+        {
+            var query = db.RegistarOffice
+                       .Where(R => R.RegOfficeCode == officeCode)
+                       .Select(c=>c.RegOfficeName);
+            if (query.Any())
+            {
+                return Ok(query);
+
+            }
+            return NotFound();
+        }
+
         // Get States
         [HttpGet]
         [Route("api/ApplyRegistrationController/state")]
@@ -109,12 +126,18 @@ namespace eReg.Controllers
 
         [HttpGet]
         [Route("api/ApplyRegistrationController/{maj_code}/trans_name")]
-        public IEnumerable<MajorTrans_code> MajorTrans_name(String maj_code)
+        public IHttpActionResult MajorTrans_name(String maj_code)
         {
-           
-            return from s in db.MajorTrans_code
-                   where s.tran_maj_code == maj_code
-                   select s;
+
+            var query = db.MajorTrans_code
+                      .Where(m => m.tran_maj_code == maj_code)
+                      .Select(tn => tn.tran_name);
+            if(query.Any())
+            {
+                return Ok(query);
+
+            }
+            return NotFound();
            
 
         }

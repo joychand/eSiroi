@@ -397,7 +397,7 @@
     }
 })();
 
-// dept_dataEntry_from_deep controller //
+// dept_dataEntry_from_deed controller //
 (function () {
     angular.module('eRegApp')
     .controller('deptDeedController', ['$scope', '$state', 'dept_sessionfactory', 'dataFactory', 'dept_dataFactory', 'deptModalService', 'modalService', deptDeedController])

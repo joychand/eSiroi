@@ -11,6 +11,8 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
    
    
     $urlRouterProvider.otherwise('/');
+
+    //********************** NAVIGATION TOP BAR ROUTING ******************************//
     $stateProvider
         .state('Home', {
             url: "/",
@@ -23,7 +25,7 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
              //controller: "simpleController"
          })
 
-        //DEPARTMENT ROUTING
+        //***************DEPARTMENT ROUTING********************//
 
          .state('department', {
              url: "/department",
@@ -149,16 +151,13 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
             controller: 'deptIdentController'
         })
 
-        // APPLY REGISTRATION ROUTING
+        // *************APPLY REGISTRATION ROUTING*****************//
 
          .state('registration', {
              url: "/registration",
              templateUrl: 'Home/registration',
              deepStateRedirect: true
-             //controller: function ($scope, $state) {
-             //                                           $state.go('registration.content.apply');
-             //                                       }
-             
+            
          })
 
         .state('registration.content',
@@ -184,7 +183,7 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
 
                 '@registration.content': {
                     templateUrl: 'Home/applyregistration',
-                    controller: 'simpleController2'
+                    controller: 'applyRegistrationController'
                 }
             },
             //deepStateRedirect: true
@@ -294,6 +293,8 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
 
 }]);
 
+
+//*********** GLOBAL RUN CONFIG EVENTS *************************//
 app.run(['$rootScope', '$state', '$window', '$timeout', '$stateParams',
 
     function ($rootScope, $state, $window, $timeout, $stateParams) {
@@ -316,203 +317,13 @@ app.run(['$rootScope', '$state', '$window', '$timeout', '$stateParams',
 
     }]);
 
-// HOME CONTROLLER
 
-app.controller('HomeController', ['$state', '$window',
-    function ($state, $window) {
-        window.onbeforeunload = function (event) {
-            var message = 'All data will be lost?';
-            if (typeof event == 'undefined') {
-                event = window.event;
-            }
-            if (event) {
-                event.returnValue = message;
-            }
-            return message;
-        }
-    }
-])
+//app.controller('simpleController', ['$scope','$state', 'dataFactory', 'sessionFactory',
+//        function ($scope, $state, dataFactory,sessionFactory) {
+//            $scope.ack = 'kjkjhkjhk';
+//        }]);
 
-app.controller('simpleController', ['$scope','$state', 'dataFactory', 'sessionFactory',
-        function ($scope, $state, dataFactory,sessionFactory) {
-            $scope.ack = 'kjkjhkjhk';
-        }]);
-app.controller('simpleController2', ['$scope', '$state', 'dataFactory', '$rootScope', 'sessionFactory','$timeout', 'errors',function ($scope, $state, dataFactory, $rootScope, sessionFactory, $timeout,errors) {
-    $scope.transactions = {};
-    $scope.visibility = true;
-    $scope.click = false;
-    $scope.data = '';
-    $scope.onlineapplication = {};
-    init();
-    $scope.transaction = {};
-    $scope.currAckno = [];
-    $scope.ackno = [];
-    $scope.sro = {};
-    function init() {
-        $scope.loading = true;
-        getMajortransaction();
-        getsro();
-        //getsession();
 
-    }
-
-    function getsro() {
-        dataFactory.getSRO().then(function (response) {
-            $scope.sro = response.data;
-        })
-    }
-    
-    function getMajortransaction() {
-        dataFactory.getMajortransaction().then(function (response) {
-            $scope.transactions = response.data;
-        },
-        function (result) { })
-        .finally(function () {
-            $scope.loading = false;
-        });
-
-    }
-
-    function sessionTransName(tran_Name) {
-        sessionFactory.putTransName(tran_Name)
-    }
-
-    function getsession() {
-        $scope.data = sessionFactory.getData();
-       
-
-    }
-
-    $scope.next = function () {
-        submit();
-    }
-        //sessionFactory.getAckno($scope.transaction.sro)
-        //    .then(function (result) {
-        //        console.log(result.data[0].ackno);
-        //        $scope.ackno.value = result.data[0].ackno + 1;
-        //        console.log($scope.ackno.value);
-        //    }, function (error) {
-        //        $scope.ackno.value = 1;
-        //    })
-        //.catch(function (error) {
-        //    console.log('catch error' + error)
-        //})
-        //.finally(function () { submit();})}
-        
-    //    getackno();
-    //    //submit();
-    //    $scope.$watch('ackno', function () {
-    //        $timeout(function () { submit(); }, 2000);
-    //    })
-    //}
-    $scope.clearform = function () {
-        $scope.regapplyform.$setPristine();
-    }
-    function submit() {
-       try {
-        //console.log($scope.ackno)
-        //$scope.onlineapplication.ackno = $scope.ackno.value;
-        $scope.onlineapplication.year = '2014';
-        $scope.onlineapplication.trans_maj_code = $scope.transaction.maj_code;
-        //$scope.onlineapplication.name = $scope.transaction.name;
-        //$scope.onlineapplication.address = $scope.transaction.address;
-        $scope.onlineapplication.mobile = $scope.transaction.mobile;
-        $scope.onlineapplication.aadhar = $scope.transaction.aadhar;
-        $scope.onlineapplication.password = $scope.transaction.passwd;
-        $scope.onlineapplication.sro = $scope.transaction.sro;
-        sessionFactory.pushApplication($scope.onlineapplication);
-        sessionTransName($scope.transaction.tran_name);
-        sessionFactory.putSro($scope.transaction.sro);
-        $state.go('registration.content.forms.propertydetails');
-           
-       } 
-        catch (error){
-            console.log("error " + error);
-        }
-       // var online = sessionFactory.popApplicaton();
-        //console.log(online.ackno);
-        //dataFactory.postonlineapplication($scope.onlineapplication)
-        //    .then(function (success) {
-
-        //        sessionTransName($scope.transaction.tran_name);
-        //        sessionFactory.putSro($scope.transaction.sro)
-        //        //throw "oh no something failed";
-        //         $rootScope.transName = $scope.transaction.tran_name;
-        //        $rootScope.transName = success.data
-        //        $scope.state = $state;
-        //        $state.go('registration.content.forms.propertydetails');
-
-        //    },function(error){console.log('post FactoryError'+ error)})
-        //    .catch(function (error) {
-        //        console.log('post catch all error  ' + error);
-        //    });
-       
-        
-      
-    }
-    $scope.login = function () {
-        $scope.visibility = false;
-        $scope.click = true;
-        $scope.state = $state;
-        $state.go('registration.content.apply.login')
-    }
-
-    function getackno(sro) {
-        // $scope.ackno = 0;
-      sessionFactory.getAckno(sro).then(function (result) {
-            //console.log(result.data[0].ackno);
-            $scope.currAckno = result.data;
-          // console.log($scope.currAckno[0].ackno);
-            if ($scope.currAckno) {
-                if ($scope.currAckno[0].ackno == 1) {
-                    $scope.ackno.value = 2;
-                }
-            }
-           
-            else {
-                $scope.ackno.value = 1;
-            }
-          // $scope.ackno.value= $scope.currAckno[0].ackno;
-      },
-        function (error) {
-            console.log('getackno error: '+ error);
-            $scope.ackno.value = 1;
-
-        })
-        .catch(function (error) { console.log('catch error ' + error)});
-     
-      //$scope.$apply();
-      //  console.log($scope.currAckno)
-        //    var dataPromise=sessionFactory.getAckno(sro);
-
-        //    ////     return ackno;
-        //    ////console.log(response);
-        //    //    $rootScope.ackno=response
-        //    ////    //console.log($scope.currAckno)
-        //    //});
-        //    //console.log($rootScope.ackno);
-        //    // $rootScope.ackno = Ackno
-        //     dataPromise.success(function (result) {
-        //        // console.log(result.data)
-        //         $scope.currAckno.ackno = result.ackno
-        //         //console.log($scope.currAckno.ackno)
-        //     })
-        // console.log($scope.currAckno[0].ackno)
-        //$timeout(function () {
-       //     if ($scope.ackno.value == 1) {
-       //         $scope.ackno.value = 2;
-       //     }
-       //     else {
-       //         $scope.ackno.value = 1;
-       //     }
-       //    // $rootScope.$apply();
-       //// }, 1000);
-       // //$scope.$apply();
-       // return $scope.ackno.value
-        
-    }
-    
-}]);
 
 app.controller('propertyController', ['$scope', '$state','dataFactory', function ($scope, $state, dataFactory) {
 

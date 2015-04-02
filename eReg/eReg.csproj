@@ -331,11 +331,13 @@
     <Content Include="Scripts\app\controller\controller3.js" />
     <Content Include="Scripts\app\controller\dept_regController.js" />
     <Content Include="Scripts\app\controller\dept_VapplController.js" />
+    <Content Include="Scripts\app\controller\MainController.js" />
     <Content Include="Scripts\app\controller\regApplyController.js" />
     <Content Include="Scripts\app\controller\registrationController.js" />
     <Content Include="Scripts\app\controller\VapplController.js" />
     <Content Include="Scripts\app\directive\loadingWidget.js" />
     <Content Include="Scripts\app\factory\angularModalService.js" />
+    <Content Include="Scripts\app\factory\ApplyRegModel.js" />
     <Content Include="Scripts\app\factory\dataCommonFactory.js" />
     <Content Include="Scripts\app\factory\datafactory.js" />
     <Content Include="Scripts\app\factory\deptModelService.js" />

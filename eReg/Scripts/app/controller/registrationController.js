@@ -27,9 +27,154 @@ angular
         };
     }]);
 
+//***********APPLY REGISTRATION CONTROLLER***********************//
+(function () {
+    angular.module('eRegApp')
+    .controller('applyRegistrationController', ['$scope', '$state', 'dataFactory', '$rootScope', 'sessionFactory', '$timeout', 'errors', 'ApplyRegModel', function ($scope, $state, dataFactory, $rootScope, sessionFactory, $timeout, errors, ApplyRegModel) {
+        $scope.transactions = {};
+        $scope.visibility = true;
+        $scope.click = false;
+        $scope.data = '';
+        $scope.onlineapplication = {};
+        $scope.transaction = {};
+        $scope.currAckno = [];
+        $scope.ackno = [];
+        $scope.sro = {};
+        init();
+        function init() {
+            $scope.loading = true;
+            getMajortransaction();
+            getsro();
+
+
+        }
+
+        function getsro() {
+            dataFactory.getSRO().then(function (response) {
+                $scope.sro = response.data;
+            })
+        }
+
+        function getMajortransaction() {
+            dataFactory.getMajortransaction().then(function (response) {
+                $scope.transactions = response.data;
+            },
+            function (result) { })
+            .finally(function () {
+                $scope.loading = false;
+            });
+
+        }
+
+        function sessionTransName(tran_Name) {
+            sessionFactory.putTransName(tran_Name)
+        }
+
+        function getsession() {
+            $scope.data = sessionFactory.getData();
+
+
+        }
+
+        $scope.next = function () {
+            try {
+                ApplyRegModel.onlineapplication = $scope.onlineapplication;
+                dataFactory.getSroName(ApplyRegModel.onlineapplication.sro).then(function (sroName) {
+                    ApplyRegModel.sroName = sroName[0];
+                    dataFactory.getTransName(ApplyRegModel.onlineapplication.tran_maj_code).then(function (transName) {
+                        ApplyRegModel.transName = transName[0];
+                    })
+                    //sroName = response[0];
+                })
+                //$scope.onlineapplication.year = '2014';
+                //$scope.onlineapplication.trans_maj_code = $scope.transaction.maj_code;
+                //$scope.onlineapplication.mobile = $scope.transaction.mobile;
+                //$scope.onlineapplication.aadhar = $scope.transaction.aadhar;
+                //$scope.onlineapplication.password = $scope.transaction.passwd;
+                //$scope.onlineapplication.sro = $scope.transaction.sro;
+                //sessionFactory.pushApplication($scope.onlineapplication);
+                //sessionTransName($scope.transaction.tran_name);
+                //sessionFactory.putSro($scope.transaction.sro);
+                $state.go('registration.content.forms.propertydetails');
+
+            }
+            catch (error) {
+                console.log("error " + error);
+            }
+        }
+
+        $scope.clearform = function () {
+            $scope.onlineapplication = {}
+            $scope.confmpasswd = '';
+            $scope.regapplyform.$setPristine();
+        }
+
+        function submit() {
+           
+            // var online = sessionFactory.popApplicaton();
+            //console.log(online.ackno);
+            //dataFactory.postonlineapplication($scope.onlineapplication)
+            //    .then(function (success) {
+
+            //        sessionTransName($scope.transaction.tran_name);
+            //        sessionFactory.putSro($scope.transaction.sro)
+            //        //throw "oh no something failed";
+            //         $rootScope.transName = $scope.transaction.tran_name;
+            //        $rootScope.transName = success.data
+            //        $scope.state = $state;
+            //        $state.go('registration.content.forms.propertydetails');
+
+            //    },function(error){console.log('post FactoryError'+ error)})
+            //    .catch(function (error) {
+            //        console.log('post catch all error  ' + error);
+            //    });
+
+
+
+        }
+        $scope.login = function () {
+            $scope.visibility = false;
+            $scope.click = true;
+            $scope.state = $state;
+            $state.go('registration.content.apply.login')
+        }
+
+        function getackno(sro) {
+            // $scope.ackno = 0;
+            sessionFactory.getAckno(sro).then(function (result) {
+                //console.log(result.data[0].ackno);
+                $scope.currAckno = result.data;
+                // console.log($scope.currAckno[0].ackno);
+                if ($scope.currAckno) {
+                    if ($scope.currAckno[0].ackno == 1) {
+                        $scope.ackno.value = 2;
+                    }
+                }
+
+                else {
+                    $scope.ackno.value = 1;
+                }
+                // $scope.ackno.value= $scope.currAckno[0].ackno;
+            },
+              function (error) {
+                  console.log('getackno error: ' + error);
+                  $scope.ackno.value = 1;
+
+              })
+              .catch(function (error) { console.log('catch error ' + error) });
+
+          
+
+        }
+
+    }]);
+})();
+
+
+// ****** REGISTRATION APPLY FORMS CONTROLLER ******************//
 (function () {
     
-    var registrationController = function registrationController($scope, $state, dataFactory, $location, $rootScope, sessionFactory, ModalService, $modal, $log) {
+    var registrationController = function registrationController($scope, $state, dataFactory, $location, $rootScope, sessionFactory, ModalService, $modal, $log, ApplyRegModel) {
         $scope.title = 'registrationController';
         $scope.propertyObject = {};
         $scope.identifier = {}
@@ -49,10 +194,17 @@ angular
         $scope.claimSlno = 1;
         $scope.execSlno = 1;
         $scope.ident = {};
+        $scope.regForm = {};
+       
+        angular.extend($scope.regForm, {
+            transname:  ApplyRegModel.transName,
+            sroName: ApplyRegModel.sroName
+           
+        })
         // $scope.ident.slno = 1;
         //$scope.postoffice = {};
        
-        
+        //console.log($scope.regForm.sroName);
         $scope.circles = {}
         $scope.RevVillages = {}
         $scope.trans = {};
@@ -411,25 +563,11 @@ angular
 }
 
 
-    registrationController.$inject = ['$scope', '$state', 'dataFactory', '$location', '$rootScope', 'sessionFactory', 'ModalService','$modal','$log'];
+    registrationController.$inject = ['$scope', '$state', 'dataFactory', '$location', '$rootScope', 'sessionFactory', 'ModalService', '$modal', '$log', 'ApplyRegModel'];
     angular
        .module('eRegApp')
        .controller('registrationController', registrationController);
 
 }());
 
-//applyregistration controller
-
-angular
-.module('eRegApp')
-    .controller('applyRegistrationController', ['$scope', 'dataFactory', '$location',
-    function ($scope, dataFactory, $location) {
-
-        $scope.hint = "home";
-        //$scope.visibility = true;
-        init();
-        function init(){
-            $scope.visibility=false;
-        }
-    }])
 

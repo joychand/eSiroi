@@ -19,6 +19,14 @@ angular.module('eRegApp')
                 cache: true
             })
         },
+        dataFactory.getSroName = function (srocode) {
+            return $http({
+                method: 'GET',
+                url: urlBase3 + srocode + '/getSroName'
+            }).then(function (response) {
+                return response.data;
+            });
+        }
         dataFactory.getTransName = function (maj_code) {
             return $http({
                 method: 'GET',

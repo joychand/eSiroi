@@ -8,13 +8,13 @@
             <hr />
 
 <div class="col-sm-6" id="bord" >
-    <form class="form-horizontal" role="form" name="regapplyform">
+    <form class="form-horizontal css-form" role="form" name="regapplyform" data-ng-submit="next()">
         <div class="form-group">
             <label for="" class="col-sm-4 control-label">Transaction type: </label>
             <div class="col-sm-7  ">
-                <select name="transaction" class="form-control "
-                        data-ng-model="transaction"
-                        data-ng-options="trans.tran_name for trans in transactions | orderBy:'tran_name'">
+                <select name="onlineapplication" class="form-control "
+                        data-ng-model="onlineapplication.tran_maj_code"
+                        data-ng-options="trans.tran_maj_code as trans.tran_name for trans in transactions | orderBy:'tran_name'">
                     <option value="">--select Transaction --</option>
                 </select>
             </div>
@@ -24,8 +24,8 @@
             <label for="" class="col-sm-4 control-label">Sub Registrar: </label>
             <div class="col-sm-8 pull-left ">
                 <select name="sr" class="form-control "
-                        data-ng-model="transaction.sro"
-                        data-ng-options="sr.regOfficeName for sr in sro">
+                        data-ng-model="onlineapplication.sro"
+                        data-ng-options="sr.regOfficeCode as sr.regOfficeName  for sr in sro">
                     <option value="">--select --</option>
 
                 </select>
@@ -35,34 +35,34 @@
         <div class="form-group">
             <label class="col-sm-4 control-label">Password:</label>
             <div class="col-sm-8 pull-left">
-                <input data-ng-model="transaction.passwd" class="form-control" type="password" name="name" value="" />
+                <input data-ng-model="onlineapplication.passwd" class="form-control" type="password" name="name" value="" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4 control-label">Confirm Password:</label>
             <div class="col-sm-8 pull-left">
-                <input data-ng-model="transaction.confmpasswd" class="form-control" type="password" value="" />
+                <input name="confmPasswd" data-ng-model="confmpasswd" class="form-control" type="password" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4 control-label">Mobile:</label>
             <div class="input-group col-sm-8">
                 <span class="input-group-addon">+91</span>
-                <input data-ng-model="transaction.mobile" class="form-control" type="text" value="" />
+                <input data-ng-model="onlineapplication.mobile" ui-mask="9999999999" class="form-control" type="text" value="" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4 control-label">Aadhar No:</label>
             <div class="col-sm-8 pull-left">
-                <input data-ng-model="transaction.aadhar" class="form-control text-center" type="text" ui-mask ="9999-9999-9999" placeholder="____-____-____"/>
+                <input data-ng-model="onlineapplication.aadhar" class="form-control text-center" type="text" ui-mask="9999-9999-9999" />
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-sm-offset-4">
-                <button class="btn btn-primary btn-md" data-ng-click="next()">next</button>
-                <button class="btn btn-default btn-md" data-ng-click="transaction=''">Reset</button>
-                <button class="btn btn-default btn-md" type="reset">Reset</button>
+        <div class="form-group text-center">
+            <div class="btn-group">
+                <button class="btn btn-primary btn-md" type="submit">next</button>
+                <button class="btn btn-default btn-md" data-ng-click="clearform()">Reset</button>
+
             </div>
         </div>
     </form>
