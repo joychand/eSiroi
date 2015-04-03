@@ -32,14 +32,13 @@ angular
     angular.module('eRegApp')
     .controller('applyRegistrationController', ['$scope', '$state', 'dataFactory', '$rootScope', 'sessionFactory', '$timeout', 'errors', 'ApplyRegModel', function ($scope, $state, dataFactory, $rootScope, sessionFactory, $timeout, errors, ApplyRegModel) {
         $scope.transactions = {};
-        $scope.visibility = true;
-        $scope.click = false;
-        $scope.data = '';
+       
+        
         $scope.onlineapplication = {};
-        $scope.transaction = {};
-        $scope.currAckno = [];
-        $scope.ackno = [];
+       
         $scope.sro = {};
+        $scope.loginVisibility = 'clickLogin';
+        $scope.applylogin={}
         init();
         function init() {
             $scope.loading = true;
@@ -81,21 +80,16 @@ angular
                 ApplyRegModel.onlineapplication = $scope.onlineapplication;
                 dataFactory.getSroName(ApplyRegModel.onlineapplication.sro).then(function (sroName) {
                     ApplyRegModel.sroName = sroName[0];
+                   
+
                     dataFactory.getTransName(ApplyRegModel.onlineapplication.tran_maj_code).then(function (transName) {
                         ApplyRegModel.transName = transName[0];
+                        $state.go('registration.content.forms.propertydetails');
                     })
-                    //sroName = response[0];
+                   
                 })
-                //$scope.onlineapplication.year = '2014';
-                //$scope.onlineapplication.trans_maj_code = $scope.transaction.maj_code;
-                //$scope.onlineapplication.mobile = $scope.transaction.mobile;
-                //$scope.onlineapplication.aadhar = $scope.transaction.aadhar;
-                //$scope.onlineapplication.password = $scope.transaction.passwd;
-                //$scope.onlineapplication.sro = $scope.transaction.sro;
-                //sessionFactory.pushApplication($scope.onlineapplication);
-                //sessionTransName($scope.transaction.tran_name);
-                //sessionFactory.putSro($scope.transaction.sro);
-                $state.go('registration.content.forms.propertydetails');
+               
+               
 
             }
             catch (error) {
@@ -109,7 +103,7 @@ angular
             $scope.regapplyform.$setPristine();
         }
 
-        function submit() {
+        //function submit() {
            
             // var online = sessionFactory.popApplicaton();
             //console.log(online.ackno);
@@ -131,12 +125,18 @@ angular
 
 
 
-        }
+        //}
         $scope.login = function () {
-            $scope.visibility = false;
+            $scope.loginVisibility = 'Login';
             $scope.click = true;
-            $scope.state = $state;
-            $state.go('registration.content.apply.login')
+            //$scope.state = $state;
+            //$state.go('registration.content.apply.login')
+        }
+
+        $scope.loginCancel = function () {
+            $scope.loginVisibility = 'clickLogin';
+            $scope.applylogin = {};
+
         }
 
         function getackno(sro) {
@@ -176,51 +176,99 @@ angular
     
     var registrationController = function registrationController($scope, $state, dataFactory, $location, $rootScope, sessionFactory, ModalService, $modal, $log, ApplyRegModel) {
         $scope.title = 'registrationController';
+        //****** COMMON VARIABLES ********//
+        $scope.districts = {};
+        $scope.subdivisions = {};
+        $scope.revsubdivisions = {};
+        $scope.states = {};
+        $scope.villages = {};
+        $scope.RevVillages = {}
+        $scope.postoffices = {};
+        $scope.policestations = {};
+        $scope.occupations = [];
+        $scope.unit = [
+            {
+                unitcode: "H",
+                unitName: "Hectare"
+
+            },
+            {
+                unitcode: "A",
+                unitName: "Acre"
+            },
+
+            {
+                unitcode: "S",
+                unitName: "Sq Feet"
+            }
+    ]
+
+       
+        $scope.regForm = {};
+
+
+        angular.extend($scope.regForm, {
+            transname: ApplyRegModel.transName,
+            sroName: ApplyRegModel.sroName
+
+        })
+
+        //***** PROPERTYFORM VARIABLES********//
         $scope.propertyObject = {};
-        $scope.identifier = {}
-        $scope.claimant ={}
+        $scope.property = {};
+        $scope.property.unit = $scope.unit[0].unitcode;
+        $scope.prpertyList = [];
+        $scope.pformModel ={}
+
+        //**** EXECUTANTFORM VARIABLES
         $scope.executant = {};
         $scope.exec = {};
-        $scope.districts = [];
-        $scope.subdivisions = [];
-        $scope.states = [];
-        $scope.villages = [];
-        $scope.postoffices = [];
-        $scope.policestations = [];
-        $scope.pinCode = '';
-        $scope.tempExecutant = {};
-        $scope.occupations = [];
-        $scope.success = false;
-        $scope.claimSlno = 1;
+        $scope.executantList = [];
+        $scope.eformModel = {};
         $scope.execSlno = 1;
+        //**** CLAIMANTFORM VARIABLES *****//
+        $scope.claimant = {}
+        $scope.claim = {};
+        $scope.claimantList = [];
+        $scope.claimantObject = {};
+        $scope.claimSlno = 1;
+        $scope.cformModel = {};
+       //*****IDENTIFIERFORM VARIABLES *****//
+        $scope.identifier = {}
         $scope.ident = {};
-        $scope.regForm = {};
+        $scope.identifierList = [];
+        $scope.ident.slno = 1;
+        $scope.iformModel = {};
+         $scope.pinCode = '';
+        $scope.tempExecutant = {};
+        $scope.claimant.slno = 1;
+        $scope.ident.slno = 1;
+        $scope.identSlno = 1;
+        $scope.success = false;
+        
        
-        angular.extend($scope.regForm, {
-            transname:  ApplyRegModel.transName,
-            sroName: ApplyRegModel.sroName
-           
-        })
-        // $scope.ident.slno = 1;
+      
+        
+        // 
         //$scope.postoffice = {};
        
         //console.log($scope.regForm.sroName);
         $scope.circles = {}
-        $scope.RevVillages = {}
+        
         $scope.trans = {};
-        $scope.prpertyList = [];
-        $scope.executantList = [];
-        $scope.claimantList = [];
-        $scope.identifierList = [];
-        $scope.property = {};
+       
+        
+       
+        
+       
         $scope.postoffice = {};
         $scope.aa = {};
-        $scope.claimantObject = {};
+       
         $scope.district = {};
         $scope.subdiv = {};
         $scope.village = {};
-        $scope.claim = {};
-        $scope.ident = {};
+       
+       
         $scope.readonly = false;
         //$scope.transName = {}
         
@@ -238,8 +286,8 @@ angular
             getDistricts();
             getCircles()
             getRevVillages()
-            getTransName()
-            getSro()
+            //getTransName()
+            //getSro()
           
            
             //party details
@@ -249,36 +297,45 @@ angular
             getPostOffices();
             getVillages();
             $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
-            $scope.claimant.slno = 1;
-            $scope.ident.slno = 1;
-            $scope.identSlno = 1;
+           
             //$scope.ident.slno = $scope.identSlno;
             
         }
 
 
-        //function showspinning() {
-        //    $scope.loading = true;
-        //}
+      
 
-        //function hidespinning() {
-        //    $scope.loading = false;
+        //function getSro() {
+        //    $scope.sro = sessionFactory.getSro();
         //}
-
-        function getSro() {
-            $scope.sro = sessionFactory.getSro();
-        }
-        function getTransName() {
-            $scope.trans.transname = sessionFactory.getTransName();
+        //function getTransName() {
+        //    $scope.trans.transname = sessionFactory.getTransName();
            
-        }
+        //}
 
-        function getAckno() {
-            $scope.trans.currAckno = sessionFactory.getAckno();
+        //function getAckno() {
+        //    $scope.trans.currAckno = sessionFactory.getAckno();
+        //}
+        function getStates() {
+            dataFactory.getStates().then(function (states) {
+                $scope.states = states;
+                $scope.state = $scope.states[21];
+            });
+
         }
         function getDistricts() {
             dataFactory.getDistricts().then(function (districts) {
                 $scope.districts = districts;
+            });
+        }
+        function getRevSubdivions() {
+            dataFactory.getRevSubDivisions().then(function (revsubdiv) {
+                $scope.revsubdivisions = revsubdiv;
+            })
+        }
+        function getSubDivisions() {
+            dataFactory.getSubDivisions().then(function (subdivisions) {
+                $scope.subdivisions = subdivisions;
             });
         }
         function getCircles() {
@@ -292,27 +349,7 @@ angular
                 $scope.RevVillages = RevVillages;
             });
         }
-
-        //$scope.nextparty = function () {
-
-        //    $scope.state = $state;
-        //    $state.go('registration.content.forms.executant');
-        //}
-
-        function getSubDivisions() {
-            dataFactory.getSubDivisions().then(function (subdivisions) {
-                $scope.subdivisions = subdivisions;
-            });
-        }
-
-        function getStates() {
-            dataFactory.getStates().then(function (states) {
-                $scope.states = states;
-                $scope.state = $scope.states[21];
-            });
-            
-        }
-
+        
         function getVillages() {
             dataFactory.getVillages().then(function (villages) {
                 $scope.villages = villages;

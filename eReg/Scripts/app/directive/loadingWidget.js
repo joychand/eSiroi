@@ -10,7 +10,7 @@ angular.module('eRegApp')
 
             var startRequestHandler = function () {
                 // got the request start notification, show the element
-                console.log('directive call');
+                
                 element.show();
             };
 

@@ -210,7 +210,7 @@
             dataFactory.getStates().then(function (states) {
                 $scope.states = states;
                 console.log('getStates' + $scope.states[21].stateName);
-                $scope.loadDone = true;
+                //$scope.loadDone = true;
                // $scope.execddl.state = $scope.states[21];
             });
 

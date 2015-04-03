@@ -74,17 +74,33 @@
         <h4><span class="label label-default">Plz login with Ackno and password to view application</span></h4>
     </div>
     </div>
-    <div class="row">
-    <div class="col-sm-12">
-        <button class="btn btn-primary col-sm-3 col-sm-offset-4" data-ng-click="login()" data-ng-show="visibility">View</button>
+    <div class="row" data-ng-switch="loginVisibility">
+    <div class="col-sm-12" data-ng-switch-when="clickLogin">
+        <button class="btn btn-primary col-sm-3 col-sm-offset-4" data-ng-click="login()" >View</button>
     </div>
-    </div>
-    <div class="row">
-    <div class="col-sm-12" data-ui-view data-ng-show="click"></div>
+   
+        <div class="row" data-ng-switch-when="Login">
+            <form class="form-horizontal" role="form" name="applyReglogin" ng-submit="">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Ackno:</label>
+                    <div class="col-sm-6">
+                        <input type="text" data-ng-model="applylogin.ackno" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Password:</label>
+                    <div class="col-sm-6">
+                        <input type="password" data-ng-model="applylogin.passwd"class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group  text-center">
+                    <div class="btn-group">
+                        <button class="btn btn-success" type="submit">login</button>
+                        <button class="btn btn-default" data-ng-click="loginCancel()">cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-        <!--</div>-->
-   
-   
-<!--</div>
-    </div>-->
+        
