@@ -32,6 +32,7 @@ namespace eReg
                       "~/Scripts/angular-sanitize.js",
                       "~/Scripts/ui-utils.js",
                       "~/Scripts/app/app.js",
+                       "~/Scripts/app/Modules/ErrorHandler.js",
                       "~/Scripts/app/controller/MainController.js",
                       "~/Scripts/app/factory/dataFactory.js",
                        "~/Scripts/app/factory/ApplyRegModel.js",

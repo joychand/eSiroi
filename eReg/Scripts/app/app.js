@@ -4,7 +4,7 @@
 /// <reference path = ~/scripts/angular-ui-router.js>
 /// <reference path = ~/scripts/app/factory/sessionFactory.js>
 
-var app = angular.module('eRegApp', ['ui.router', 'ct.ui.router.extras', 'angularModalService', 'ui.bootstrap', 'ngGrid', 'ngSanitize', 'ui.mask']);
+var app = angular.module('eRegApp', ['ui.router', 'ct.ui.router.extras', 'angularModalService', 'ui.bootstrap', 'ngGrid', 'ngSanitize', 'ui.mask', 'errorHandler']);
 //var app1 = angular.module('eRegDeptApp', ['ngroute']);
 //app.value = ('maj_code', '');
 app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provide',function ($stateProvider, $locationProvider,$urlRouterProvider,$provide ) {
@@ -295,12 +295,13 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
 
 
 //*********** GLOBAL RUN CONFIG EVENTS *************************//
-app.run(['$rootScope', '$state', '$window', '$timeout', '$stateParams',
+app.run(['$rootScope', '$state', '$window', '$timeout', '$stateParams','errorHandler',
 
-    function ($rootScope, $state, $window, $timeout, $stateParams) {
+function ($rootScope, $state, $window, $timeout, $stateParams,errorHandler) {
         $rootScope.$state = $state;
            $rootScope.previouState;
            $rootScope.currentState;
+           $rootScope.errorHandler = errorHandler;
           $rootScope.$stateParams = $stateParams;
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         console.log('statechangestart');
@@ -318,10 +319,6 @@ app.run(['$rootScope', '$state', '$window', '$timeout', '$stateParams',
     }]);
 
 
-//app.controller('simpleController', ['$scope','$state', 'dataFactory', 'sessionFactory',
-//        function ($scope, $state, dataFactory,sessionFactory) {
-//            $scope.ack = 'kjkjhkjhk';
-//        }]);
 
 
 

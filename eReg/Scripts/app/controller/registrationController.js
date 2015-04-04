@@ -76,7 +76,7 @@ angular
         }
 
         $scope.next = function () {
-            try {
+            //try {
                 ApplyRegModel.onlineapplication = $scope.onlineapplication;
                 dataFactory.getSroName(ApplyRegModel.onlineapplication.sro).then(function (sroName) {
                     ApplyRegModel.sroName = sroName[0];
@@ -91,10 +91,10 @@ angular
                
                
 
-            }
-            catch (error) {
-                console.log("error " + error);
-            }
+            //}
+            //catch (error) {
+            //    console.log("error " + error);
+            //}
         }
 
         $scope.clearform = function () {
@@ -216,6 +216,7 @@ angular
         //***** PROPERTYFORM VARIABLES********//
         $scope.propertyObject = {};
         $scope.property = {};
+        $scope.propertyddl = {};
         $scope.property.unit = $scope.unit[0].unitcode;
         $scope.prpertyList = [];
         $scope.pformModel ={}
@@ -239,7 +240,7 @@ angular
         $scope.identifierList = [];
         $scope.ident.slno = 1;
         $scope.iformModel = {};
-         $scope.pinCode = '';
+        $scope.pinCode = '';
         $scope.tempExecutant = {};
         $scope.claimant.slno = 1;
         $scope.ident.slno = 1;
@@ -284,6 +285,7 @@ angular
 
             //property details
             getDistricts();
+            getRevSubdivions();
             getCircles()
             getRevVillages()
             //getTransName()
@@ -291,12 +293,15 @@ angular
           
            
             //party details
+           
             getSubDivisions();
             getStates();
             getPoliceStations();
             getPostOffices();
             getVillages();
             $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
+            //getLandtype();
+            //getLandClass();
            
             //$scope.ident.slno = $scope.identSlno;
             
@@ -368,6 +373,13 @@ angular
             });
         }
 
+        function getLandtype() {
+            dept
+        }
+
+        function getLandclass() {
+
+        }
        
         $scope.exec.clrpincode = function () {
             return $scope.postoffice.pinCode = '';

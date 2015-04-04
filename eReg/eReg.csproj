@@ -346,6 +346,7 @@
     <Content Include="Scripts\app\factory\requestNotificationChannel.js" />
     <Content Include="Scripts\app\factory\sessionFactory.js" />
     <Content Include="Scripts\app\factory\timestampMarker.js" />
+    <Content Include="Scripts\app\Modules\ErrorHandler.js" />
     <Content Include="Scripts\app\service\ModalService.js" />
     <Content Include="Scripts\ng-grid.debug.js" />
     <Content Include="Scripts\ng-grid.js" />

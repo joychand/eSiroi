@@ -15,10 +15,11 @@ angular.module('eRegApp')
         dataFactory.getSRO = function () {
             return $http({
                 method: 'GET',
-                url: urlBase3 + '/getSRO',
+                url: urlBase3 + 'getSRO',
                 cache: true
             })
-        },
+        }
+       
         dataFactory.getSroName = function (srocode) {
             return $http({
                 method: 'GET',
@@ -70,7 +71,7 @@ angular.module('eRegApp')
         dataFactory.getStates = function () {
             return $http({
                 method: 'GET',
-                url: urlBase3 + 'state',
+                url: urlBase3 + 'states',
                 cache: true
             }).then(function (results) {
                 return results.data;
@@ -178,9 +179,7 @@ angular.module('eRegApp')
             
         };
 
-
-
-      
+   
         //post property
         dataFactory.postProperty = function (plot) {
             return $http({
@@ -190,5 +189,17 @@ angular.module('eRegApp')
             })
         }
 
+
+        // Add each service function description for error handler service
+        dataFactory.getSRO.description = 'GetSro';
+        dataFactory.getTransName.description = 'getTransName';
+        dataFactory.getSroName.description = 'getSroName';
+        dataFactory.getDistricts.description = 'getDistricts';
+        dataFactory.getRevSubDivisions.description = 'getRevSubDivisions';
         return dataFactory;
     }]);
+
+ angular.module('eRegApp').config(function (errorHandlerProvider, $provide) {
+
+      errorHandlerProvider.decorate($provide, ['dataFactory'])});
+
