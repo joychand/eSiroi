@@ -115,4 +115,10 @@
 
         
     }
+    angular.module('eRegApp').config(function (errorHandlerProvider, $provide) {
+
+        errorHandlerProvider.decorate($provide, ['dept_dataFactory'])
+    });
 })();
+
+

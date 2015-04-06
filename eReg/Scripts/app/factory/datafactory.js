@@ -71,7 +71,7 @@ angular.module('eRegApp')
         dataFactory.getStates = function () {
             return $http({
                 method: 'GET',
-                url: urlBase3 + 'states',
+                url: urlBase3 + 'state',
                 cache: true
             }).then(function (results) {
                 return results.data;
@@ -196,10 +196,12 @@ angular.module('eRegApp')
         dataFactory.getSroName.description = 'getSroName';
         dataFactory.getDistricts.description = 'getDistricts';
         dataFactory.getRevSubDivisions.description = 'getRevSubDivisions';
+        dataFactory.postonlineapplication.description = 'postonlineapplication';
         return dataFactory;
     }]);
 
  angular.module('eRegApp').config(function (errorHandlerProvider, $provide) {
 
-      errorHandlerProvider.decorate($provide, ['dataFactory'])});
+     errorHandlerProvider.decorate($provide, ['dataFactory'])
+ });
 

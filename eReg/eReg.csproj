@@ -236,6 +236,10 @@
     <Compile Include="Migrations\201503121753529_circledroppk.Designer.cs">
       <DependentUpon>201503121753529_circledroppk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504061109106_updateonlineapplication.cs" />
+    <Compile Include="Migrations\201504061109106_updateonlineapplication.Designer.cs">
+      <DependentUpon>201504061109106_updateonlineapplication.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Models\CensusSubDiv.cs" />
     <Compile Include="Migrations\Models\CensusSubDivision.cs" />
@@ -509,6 +513,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503121753529_circledroppk.resx">
       <DependentUpon>201503121753529_circledroppk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504061109106_updateonlineapplication.resx">
+      <DependentUpon>201504061109106_updateonlineapplication.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

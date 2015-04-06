@@ -82,7 +82,7 @@ angular
                     ApplyRegModel.sroName = sroName[0];
                    
 
-                    dataFactory.getTransName(ApplyRegModel.onlineapplication.tran_maj_code).then(function (transName) {
+                    dataFactory.getTransName(ApplyRegModel.onlineapplication.trans_maj_code).then(function (transName) {
                         ApplyRegModel.transName = transName[0];
                         $state.go('registration.content.forms.propertydetails');
                     })
@@ -174,7 +174,7 @@ angular
 // ****** REGISTRATION APPLY FORMS CONTROLLER ******************//
 (function () {
     
-    var registrationController = function registrationController($scope, $state, dataFactory, $location, $rootScope, sessionFactory, ModalService, $modal, $log, ApplyRegModel) {
+    var registrationController = function registrationController($scope, $state, dataFactory, $location, $rootScope, sessionFactory, ModalService, $modal, $log, ApplyRegModel, dept_dataFactory) {
         $scope.title = 'registrationController';
         //****** COMMON VARIABLES ********//
         $scope.districts = {};
@@ -186,6 +186,8 @@ angular
         $scope.postoffices = {};
         $scope.policestations = {};
         $scope.occupations = [];
+        $scope.landclass = {};
+        $scope.landtype = {};
         $scope.unit = [
             {
                 unitcode: "H",
@@ -220,7 +222,9 @@ angular
         $scope.property.unit = $scope.unit[0].unitcode;
         $scope.prpertyList = [];
         $scope.pformModel ={}
-
+        angular.extend($scope.pformModel, {
+            submitted: false
+        })
         //**** EXECUTANTFORM VARIABLES
         $scope.executant = {};
         $scope.exec = {};
@@ -300,8 +304,8 @@ angular
             getPostOffices();
             getVillages();
             $scope.occupations = ['Govt. employee', 'Business', 'Unemployed', 'Others'];
-            //getLandtype();
-            //getLandClass();
+            getLandtype();
+            getLandclass();
            
             //$scope.ident.slno = $scope.identSlno;
             
@@ -374,11 +378,15 @@ angular
         }
 
         function getLandtype() {
-            dept
+            dept_dataFactory.getLandType().then(function (response) {
+                $scope.landtype = response.data;
+            })
         }
 
         function getLandclass() {
-
+            dept_dataFactory.getLandClass().then(function (response) {
+                $scope.landclass = response.data;
+            })
         }
        
         $scope.exec.clrpincode = function () {
@@ -392,40 +400,41 @@ angular
         $scope.exec.isActiveTab = function (tabUrl) {
             return tabUrl == $scope.exec.currentTab;
         }
-        //propertysubmit 
-        $scope.nextparty = function () {
-            $scope.propertyObject.Ackno = '1';
-            $scope.propertyObject.state='Manipur'
-            $scope.propertyObject.district = $scope.property.district.distName;
-            $scope.propertyObject.subdivision='lamphel'
-            $scope.propertyObject.Circle = $scope.property.circle.circleCode;
-            $scope.propertyObject.Village = 'village';
-            //$scope.propertyObject.propertyarea = $scope.property.area;
-            $scope.propertyObject.Dagno = $scope.property.plotno;
-            $scope.propertyObject.pattano = $scope.property.pattano;
-            $scope.propertyObject.TransactedArea = $scope.property.plotarea;
-            //$scope.propertyObject.unit = $scope.property.unit;
-            $scope.propertyObject.unit = 'H';
-            $scope.propertyObject.landtype = '1';
-            $scope.propertyObject.class = '1';
 
-            $scope.propertyObject.address1 = $scope.property.address1;
-            $scope.propertyObject.address2 = $scope.property.address2;
-            $scope.propertyObject.address3 = $scope.property.address3;
-            sessionFactory.pushProperty($scope.propertyObject);
+
+        //***** PROPERTY FORM SUBMIT********//
+        $scope.nextparty = function () {
+           
+            $scope.propertyObject.Ackno = '1';
+            $scope.property.state = 'Manipur'
+            $scope.property.district = $scope.propertyddl.district.distName;
+            $scope.property.subdivision = $scope.propertyddl.subdivsion.subDivName;
+            $scope.property.Circle = $scope.propertyddl.circle.circleCode;
+            $scope.property.Village = $scope.propertyddl.village.villName;
+           
+           
+
+           
+            //sessionFactory.pushProperty($scope.propertyObject);
             //var propertyData = sessionFactory.getProperty();
             //console.log(propertyData[0].district);
-            dataFactory.postProperty($scope.propertyObject)
+            dataFactory.postProperty($scope.property)
                 .then(function (response) {
                     sessionFactory.putCurrAckno(response.data);
                     $scope.trans.currAckno = response.data;
-                    console.log('currAckno='+ response.data)
-                    $state.go('registration.content.forms.executant');
-                }),
-               function (result) {
-                   console.log("plot submit fail" + result);
-               }
-            
+                    
+
+                    $scope.pformModel.submitted = true;
+                    ApplyRegModel.onlineapplication.ackno = response.data;
+                    ApplyRegModel.onlineapplication.year = '2015';
+                    ApplyRegModel.onlineapplication.date = '';
+                    console.log(ApplyRegModel.onlineapplication);
+                    dataFactory.postonlineapplication(ApplyRegModel.onlineapplication).then(function (reponse) {
+                        $state.go('registration.content.forms.executant');
+                    })
+                   
+                })
+              
             
         }
 
@@ -433,7 +442,7 @@ angular
         
         //executant submit
         $scope.onexsubmit = function () {
-
+            //console.log($scope.pformModel.submitted);
             createExecutantObject();
            
             $scope.$$childTail.execform.$setPristine();
@@ -572,11 +581,6 @@ angular
                 console.log('cancel pressed');
             });
 
-            
-       
-
-      
-
     }
       
 
@@ -612,7 +616,7 @@ angular
 }
 
 
-    registrationController.$inject = ['$scope', '$state', 'dataFactory', '$location', '$rootScope', 'sessionFactory', 'ModalService', '$modal', '$log', 'ApplyRegModel'];
+    registrationController.$inject = ['$scope', '$state', 'dataFactory', '$location', '$rootScope', 'sessionFactory', 'ModalService', '$modal', '$log', 'ApplyRegModel', 'dept_dataFactory'];
     angular
        .module('eRegApp')
        .controller('registrationController', registrationController);
