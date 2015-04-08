@@ -409,7 +409,7 @@ angular
             $scope.property.state = 'Manipur'
             $scope.property.district = $scope.propertyddl.district.distName;
             $scope.property.subdivision = $scope.propertyddl.subdivsion.subDivName;
-            $scope.property.Circle = $scope.propertyddl.circle.circleCode;
+            $scope.property.Circle = $scope.propertyddl.circle.circleName;
             $scope.property.Village = $scope.propertyddl.village.villName;
            
            

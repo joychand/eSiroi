@@ -23,11 +23,11 @@ namespace eReg.Models
         [StringLength(50)]
         public string sro { get; set; }
 
-        [StringLength(50)]
-        public string name { get; set; }
+        //[StringLength(50)]
+        //public string name { get; set; }
 
-        [StringLength(50)]
-        public string adress { get; set; }
+        //[StringLength(50)]
+        //public string adress { get; set; }
 
         [StringLength(50)]
         public string mobile { get; set; }
