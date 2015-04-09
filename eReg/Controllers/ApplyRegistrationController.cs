@@ -227,6 +227,7 @@ namespace eReg.Controllers
             {
                 return BadRequest(ModelState);
             }
+            onlineapplication.date = DateTime.Now.ToShortDateString();
 
             db.onlineapplication.Add(onlineapplication);
 

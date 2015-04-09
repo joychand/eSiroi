@@ -30,7 +30,7 @@ angular
 //***********APPLY REGISTRATION CONTROLLER***********************//
 (function () {
     angular.module('eRegApp')
-    .controller('applyRegistrationController', ['$scope', '$state', 'dataFactory', '$rootScope', 'sessionFactory', '$timeout', 'errors', 'ApplyRegModel', function ($scope, $state, dataFactory, $rootScope, sessionFactory, $timeout, errors, ApplyRegModel) {
+    .controller('applyRegistrationController', ['$scope', '$state', 'dataFactory', '$rootScope', 'sessionFactory', '$timeout', 'errors', 'ApplyRegModel', 'modalService', function ($scope, $state, dataFactory, $rootScope, sessionFactory, $timeout, errors, ApplyRegModel) {
         $scope.transactions = {};
        
         
@@ -174,7 +174,7 @@ angular
 // ****** REGISTRATION APPLY FORMS CONTROLLER ******************//
 (function () {
     
-    var registrationController = function registrationController($scope, $state, dataFactory, $location, $rootScope, sessionFactory, ModalService, $modal, $log, ApplyRegModel, dept_dataFactory) {
+    var registrationController = function registrationController($scope, $state, dataFactory, $location, $rootScope, sessionFactory, ModalService, $modal, $log, ApplyRegModel, dept_dataFactory, modalService) {
         $scope.title = 'registrationController';
         //****** COMMON VARIABLES ********//
         $scope.districts = {};
@@ -428,6 +428,7 @@ angular
                     ApplyRegModel.onlineapplication.ackno = response.data;
                     ApplyRegModel.onlineapplication.year = '2015';
                     ApplyRegModel.onlineapplication.date = '';
+                    ApplyRegModel.onlineapplication.status = 'incomplete';
                     console.log(ApplyRegModel.onlineapplication);
                     dataFactory.postonlineapplication(ApplyRegModel.onlineapplication).then(function (reponse) {
                         $state.go('registration.content.forms.executant');
@@ -445,7 +446,7 @@ angular
             //console.log($scope.pformModel.submitted);
             createExecutantObject();
            
-            $scope.$$childTail.execform.$setPristine();
+            //$scope.$$childTail.execform.$setPristine();
             $scope.executant = {};
             $scope.exec = {};
             $scope.aa = {};
@@ -529,94 +530,107 @@ angular
             $scope.identSlno = $scope.ident.slno;
 
         }
+
+        // create Identifier object
+        var createIdentifierObject = function () {
+            $scope.identifier.State = $scope.state.stateName;
+            $scope.identifier.District = $scope.ident.district.distName;
+            $scope.identifier.SubDivision = $scope.ident.subdiv.subDivName;
+            $scope.identifier.Village = $scope.ident.village.villName;
+            $scope.identifier.PostOffice = $scope.ident.postoffice.postOffice1;
+            $scope.identifier.Ackno = sessionFactory.getCurrAckno();
+            $scope.identifier.slno = $scope.ident.slno;
+            $scope.identifier.IdentSurName = $scope.ident.SurName
+            $scope.identifier.IdentMiddleName = $scope.ident.MiddleName
+            $scope.identifier.IdentLastName = $scope.ident.LastName
+            $scope.identifier.Alias = $scope.ident.alias
+            //$scope.identifier.Identify = 'Identify';
+            $scope.identifier.Sex = $scope.ident.sex
+            $scope.identifier.FatherSurName = $scope.ident.fatherSurname
+            $scope.identifier.FatherMiddleName = $scope.ident.fatherMiddleName
+            $scope.identifier.FatherLastName = $scope.ident.fatherLastName
+            $scope.identifier.Street = 'sdfd';
+            $scope.identifier.PoliceSt = 'lkdfjdlkfd';
+            $scope.identifier.circle = 'Lamphel';
+            //$scope.identifier.EnterBy = 'dlkfjdlkf';
+            $scope.identifier.pinCode = $scope.ident.postoffice.pinCode;
+            $scope.identifier.occupation = 1;
+            sessionFactory.pushIdentifier($scope.identifier);
+        }
+
         $scope.items = ['item1', 'item2', 'item3'];
         
         //submit the Registration forms
         $scope.formsubmit = function () {
             createIdentifierObject();
-            dataFactory.postexecutant(sessionFactory.getExecutantList())
-            .then(function (response) {
-                console.log('ExecutantList inserted');
-                dataFactory.postclaimant(sessionFactory.getClaimantList())
-                .then(function (response) {
-                    console.log('claimantList inserted');
-                    console.log(sessionFactory.getIdentifierList());
-                    dataFactory.postidentifier(sessionFactory.getIdentifierList())
-                    .then(function (response) {
-                        console.log('idetifierlist inserted' );
 
-                    }, function (result) {
-                        console.log('identifierlist insert fails' + result)
 
-                    });
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'submit',
+                headerText: 'Confirmation',
+                bodyText: 'Do you want to submit the application ?'
+            };
+            modalService.showModal({}, modalOptions).then(function (result) {
+           dataFactory.postexecutant(sessionFactory.getExecutantList())
+           .then(function (response) {
+               console.log('ExecutantList inserted');
+               dataFactory.postclaimant(sessionFactory.getClaimantList())
+               .then(function (response) {
+                   console.log('claimantList inserted');
+                   console.log(sessionFactory.getIdentifierList());
+                   dataFactory.postidentifier(sessionFactory.getIdentifierList())
+                   .then(function (response) {
+                       console.log('idetifierlist inserted');
 
-                }, function (result) {
-                    console.log('claimantList insert fails' + result)
-                });
-            }, function (result) {
-                console.log('executantlist insert fails' + result);
+                   }, function (result) {
+                       console.log('identifierlist insert fails' + result)
+
+                   });
+
+               }, function (result) {
+                   console.log('claimantList insert fails' + result)
+               });
+           }, function (result) {
+               console.log('executantlist insert fails' + result);
+           });
             });
-            //$scope.mod = {};
-            $scope.modalInstance = {};
-            $scope.modalInstance = $modal.open({
-                templateUrl: 'Home/modal',
-                controller: 'ModalInstanceCtrl',
-                //scope: $scope,
-                backdrop: 'static',
-                //size: size,
-                resolve: {
-                    ackno: function () {
-                        return sessionFactory.getCurrAckno();
-                    }
-                }
-        });
+           
+        //    //$scope.mod = {};
+        //    $scope.modalInstance = {};
+        //    $scope.modalInstance = $modal.open({
+        //        templateUrl: 'Home/modal',
+        //        controller: 'ModalInstanceCtrl',
+        //        //scope: $scope,
+        //        backdrop: 'static',
+        //        //size: size,
+        //        resolve: {
+        //            ackno: function () {
+        //                return sessionFactory.getCurrAckno();
+        //            }
+        //        }
+        //});
         
 
-            $scope.modalInstance.result.then(function (result) {
-                //alert('ok');
-                //$scope.selected = selectedItem;
-               $state.go('Home');
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-                console.log('cancel pressed');
-            });
+            //$scope.modalInstance.result.then(function (result) {
+            //    //alert('ok');
+            //    //$scope.selected = selectedItem;
+            //    $state.go('department.content.home');
+            //}, function () {
+            //    $log.info('Modal dismissed at: ' + new Date());
+            //    console.log('cancel pressed');
+            //});
 
     }
       
 
    
-    // create Identifier object
-   var createIdentifierObject= function()
-    {
-        $scope.identifier.State = $scope.state.stateName;
-        $scope.identifier.District = $scope.ident.district.distName;
-        $scope.identifier.SubDivision = $scope.ident.subdiv.subDivName;
-        $scope.identifier.Village = $scope.ident.village.villName;
-        $scope.identifier.PostOffice = $scope.ident.postoffice.postOffice1;
-        $scope.identifier.Ackno = sessionFactory.getCurrAckno();
-        $scope.identifier.slno = $scope.ident.slno;
-        $scope.identifier.IdentSurName = $scope.ident.SurName
-        $scope.identifier.IdentMiddleName = $scope.ident.MiddleName
-        $scope.identifier.IdentLastName = $scope.ident.LastName
-        $scope.identifier.Alias = $scope.ident.alias
-        //$scope.identifier.Identify = 'Identify';
-        $scope.identifier.Sex = $scope.ident.sex
-        $scope.identifier.FatherSurName = $scope.ident.fatherSurname
-        $scope.identifier.FatherMiddleName = $scope.ident.fatherMiddleName
-        $scope.identifier.FatherLastName = $scope.ident.fatherLastName
-        $scope.identifier.Street = 'sdfd';
-        $scope.identifier.PoliceSt = 'lkdfjdlkfd';
-        $scope.identifier.circle = 'Lamphel';
-        //$scope.identifier.EnterBy = 'dlkfjdlkf';
-        $scope.identifier.pinCode = $scope.ident.postoffice.pinCode;
-        $scope.identifier.occupation = 1;
-        sessionFactory.pushIdentifier($scope.identifier);
-    }
+   
        
 }
 
 
-    registrationController.$inject = ['$scope', '$state', 'dataFactory', '$location', '$rootScope', 'sessionFactory', 'ModalService', '$modal', '$log', 'ApplyRegModel', 'dept_dataFactory'];
+    registrationController.$inject = ['$scope', '$state', 'dataFactory', '$location', '$rootScope', 'sessionFactory', 'ModalService', '$modal', '$log', 'ApplyRegModel', 'dept_dataFactory', 'modalService'];
     angular
        .module('eRegApp')
        .controller('registrationController', registrationController);

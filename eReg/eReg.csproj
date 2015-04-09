@@ -240,6 +240,14 @@
     <Compile Include="Migrations\201504061109106_updateonlineapplication.Designer.cs">
       <DependentUpon>201504061109106_updateonlineapplication.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504090522463_updateaOlappl.cs" />
+    <Compile Include="Migrations\201504090522463_updateaOlappl.Designer.cs">
+      <DependentUpon>201504090522463_updateaOlappl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504090709312_Onappl_Add_date_field.cs" />
+    <Compile Include="Migrations\201504090709312_Onappl_Add_date_field.Designer.cs">
+      <DependentUpon>201504090709312_Onappl_Add_date_field.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Models\CensusSubDiv.cs" />
     <Compile Include="Migrations\Models\CensusSubDivision.cs" />
@@ -516,6 +524,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504061109106_updateonlineapplication.resx">
       <DependentUpon>201504061109106_updateonlineapplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504090522463_updateaOlappl.resx">
+      <DependentUpon>201504090522463_updateaOlappl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504090709312_Onappl_Add_date_field.resx">
+      <DependentUpon>201504090709312_Onappl_Add_date_field.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
