@@ -236,10 +236,6 @@
     <Compile Include="Migrations\201503121753529_circledroppk.Designer.cs">
       <DependentUpon>201503121753529_circledroppk.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504061109106_updateonlineapplication.cs" />
-    <Compile Include="Migrations\201504061109106_updateonlineapplication.Designer.cs">
-      <DependentUpon>201504061109106_updateonlineapplication.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201504090522463_updateaOlappl.cs" />
     <Compile Include="Migrations\201504090522463_updateaOlappl.Designer.cs">
       <DependentUpon>201504090522463_updateaOlappl.cs</DependentUpon>
@@ -366,6 +362,7 @@
     <Content Include="Scripts\ui-utils.js" />
     <Content Include="spinning.gif" />
     <Content Include="Scripts\ui-grid.js" />
+    <Content Include="Views\Home\ApplyRegSuccess.html" />
     <Content Include="Views\Home\depthome.html" />
     <Content Include="Views\Home\dept_dataEntry_form_deed.html" />
     <Content Include="Views\Home\loginPage.html" />
@@ -521,9 +518,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503121753529_circledroppk.resx">
       <DependentUpon>201503121753529_circledroppk.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504061109106_updateonlineapplication.resx">
-      <DependentUpon>201504061109106_updateonlineapplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504090522463_updateaOlappl.resx">
       <DependentUpon>201504090522463_updateaOlappl.cs</DependentUpon>

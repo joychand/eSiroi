@@ -228,7 +228,11 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
             templateUrl: "Home/identifier",
             deepStateRedirect: true
         })
-      
+       .state('registration.content.applyregsuccess', {
+           url: '/success',
+           templateUrl: "Home/ApplyRegSuccess",
+           deepStateRedirect: true
+       })
          
     //$locationProvider.html5Mode(true).hashPrefix("!");
     //app.run(function ($rootScope, $state, $window, $timeout, $stateParams) {

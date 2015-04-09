@@ -147,5 +147,9 @@ namespace eReg.Controllers
         {
             return File("/Views/Home/loginPage.html", "text/html");
         }
+        public ActionResult ApplyRegSuccess()
+        {
+            return File("/Views/Home/ApplyRegSuccess.html", "text/html");
+        }
     }
 }

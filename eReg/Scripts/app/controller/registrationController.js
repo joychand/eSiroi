@@ -562,9 +562,6 @@ angular
         
         //submit the Registration forms
         $scope.formsubmit = function () {
-            createIdentifierObject();
-
-
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'submit',
@@ -572,61 +569,69 @@ angular
                 bodyText: 'Do you want to submit the application ?'
             };
             modalService.showModal({}, modalOptions).then(function (result) {
-           dataFactory.postexecutant(sessionFactory.getExecutantList())
-           .then(function (response) {
-               console.log('ExecutantList inserted');
-               dataFactory.postclaimant(sessionFactory.getClaimantList())
-               .then(function (response) {
-                   console.log('claimantList inserted');
-                   console.log(sessionFactory.getIdentifierList());
-                   dataFactory.postidentifier(sessionFactory.getIdentifierList())
-                   .then(function (response) {
-                       console.log('idetifierlist inserted');
+                createIdentifierObject();
+                postpartydetail();
 
-                   }, function (result) {
-                       console.log('identifierlist insert fails' + result)
 
-                   });
+                //    //$scope.mod = {};
+                //    $scope.modalInstance = {};
+                //    $scope.modalInstance = $modal.open({
+                //        templateUrl: 'Home/modal',
+                //        controller: 'ModalInstanceCtrl',
+                //        //scope: $scope,
+                //        backdrop: 'static',
+                //        //size: size,
+                //        resolve: {
+                //            ackno: function () {
+                //                return sessionFactory.getCurrAckno();
+                //            }
+                //        }
+                //});
 
-               }, function (result) {
-                   console.log('claimantList insert fails' + result)
-               });
-           }, function (result) {
-               console.log('executantlist insert fails' + result);
-           });
+
+                //$scope.modalInstance.result.then(function (result) {
+                //    //alert('ok');
+                //    //$scope.selected = selectedItem;
+                //    $state.go('department.content.home');
+                //}, function () {
+                //    $log.info('Modal dismissed at: ' + new Date());
+                //    console.log('cancel pressed');
+                //});
+
             });
-           
-        //    //$scope.mod = {};
-        //    $scope.modalInstance = {};
-        //    $scope.modalInstance = $modal.open({
-        //        templateUrl: 'Home/modal',
-        //        controller: 'ModalInstanceCtrl',
-        //        //scope: $scope,
-        //        backdrop: 'static',
-        //        //size: size,
-        //        resolve: {
-        //            ackno: function () {
-        //                return sessionFactory.getCurrAckno();
-        //            }
-        //        }
-        //});
-        
 
-            //$scope.modalInstance.result.then(function (result) {
-            //    //alert('ok');
-            //    //$scope.selected = selectedItem;
-            //    $state.go('department.content.home');
-            //}, function () {
-            //    $log.info('Modal dismissed at: ' + new Date());
-            //    console.log('cancel pressed');
-            //});
-
-    }
-      
-
+        }
    
-   
-       
+        function postpartydetail () {
+            dataFactory.postexecutant(sessionFactory.getExecutantList())
+                      .then(function (response) {
+                          console.log('ExecutantList inserted');
+                          dataFactory.postclaimant(sessionFactory.getClaimantList())
+                              .then(function (response) {
+                                  console.log('claimantList inserted');
+                                  dataFactory.postidentifier(sessionFactory.getIdentifierList())
+                                  .then(function (response) {
+                                      console.log('idetifierlist inserted');
+
+                                      // DISPLAY CONFIRMATION MODAL
+                                      var modalOptions = {
+                                          closeButtonText: 'Cancel',
+                                          actionButtonText: 'Ok',
+                                          headerText: 'Application Successfully submitted',
+                                          bodyText: 'Your Acknowledgement No. is: ',
+                                          customData:  sessionFactory.getCurrAckno()
+                                      };
+                                      modalService.showModal({}, modalOptions).then(function (result) {
+                                          console.log('dfsdfds' + sessionFactory.getCurrAckno)
+                                          $state.go('registration.content.applyregsuccess');
+                                      })
+
+                                  });
+                              });
+                      });
+
+        }
+
 }
 
 

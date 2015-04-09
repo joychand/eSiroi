@@ -14,7 +14,8 @@
             closeButtonText: 'Close',
             actionButtonText: 'OK',
             headerText: 'Proceed?',
-            bodyText: 'Perform this action?'
+            bodyText: 'Perform this action?',
+            customData:''
         };
 
         this.showModal = function (customModalDefaults, customModalOptions) {
