@@ -103,29 +103,7 @@ angular
             $scope.regapplyform.$setPristine();
         }
 
-        //function submit() {
-           
-            // var online = sessionFactory.popApplicaton();
-            //console.log(online.ackno);
-            //dataFactory.postonlineapplication($scope.onlineapplication)
-            //    .then(function (success) {
-
-            //        sessionTransName($scope.transaction.tran_name);
-            //        sessionFactory.putSro($scope.transaction.sro)
-            //        //throw "oh no something failed";
-            //         $rootScope.transName = $scope.transaction.tran_name;
-            //        $rootScope.transName = success.data
-            //        $scope.state = $state;
-            //        $state.go('registration.content.forms.propertydetails');
-
-            //    },function(error){console.log('post FactoryError'+ error)})
-            //    .catch(function (error) {
-            //        console.log('post catch all error  ' + error);
-            //    });
-
-
-
-        //}
+       
         $scope.login = function () {
             $scope.loginVisibility = 'Login';
             $scope.click = true;
@@ -139,33 +117,7 @@ angular
 
         }
 
-        function getackno(sro) {
-            // $scope.ackno = 0;
-            sessionFactory.getAckno(sro).then(function (result) {
-                //console.log(result.data[0].ackno);
-                $scope.currAckno = result.data;
-                // console.log($scope.currAckno[0].ackno);
-                if ($scope.currAckno) {
-                    if ($scope.currAckno[0].ackno == 1) {
-                        $scope.ackno.value = 2;
-                    }
-                }
-
-                else {
-                    $scope.ackno.value = 1;
-                }
-                // $scope.ackno.value= $scope.currAckno[0].ackno;
-            },
-              function (error) {
-                  console.log('getackno error: ' + error);
-                  $scope.ackno.value = 1;
-
-              })
-              .catch(function (error) { console.log('catch error ' + error) });
-
-          
-
-        }
+       
 
     }]);
 })();
