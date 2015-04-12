@@ -140,6 +140,7 @@ angular
         $scope.occupations = [];
         $scope.landclass = {};
         $scope.landtype = {};
+        $scope.tabdisabled = true;
         $scope.unit = [
             {
                 unitcode: "H",
@@ -181,7 +182,7 @@ angular
         $scope.executant = {};
         $scope.exec = {};
         $scope.executantList = [];
-        $scope.eformModel = {};
+       
         $scope.execSlno = 1;
         //**** CLAIMANTFORM VARIABLES *****//
         $scope.claimant = {}
@@ -357,12 +358,40 @@ angular
         //***** PROPERTY FORM SUBMIT********//
         $scope.nextparty = function () {
            
-            $scope.propertyObject.Ackno = '1';
-            $scope.property.state = 'Manipur'
-            $scope.property.district = $scope.propertyddl.district.distName;
-            $scope.property.subdivision = $scope.propertyddl.subdivsion.subDivName;
-            $scope.property.Circle = $scope.propertyddl.circle.circleName;
-            $scope.property.Village = $scope.propertyddl.village.villName;
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'submit',
+                headerText: 'Confirmation',
+                bodyText: 'Do you want to submit the propertyDetails ?'
+            };
+            modalService.showModal({}, modalOptions).then(function (result) {
+                $scope.property.state = 'Manipur'
+                $scope.property.district = $scope.propertyddl.district.distName;
+                $scope.property.subdivision = $scope.propertyddl.subdivsion.subDivName;
+                $scope.property.Circle = $scope.propertyddl.circle.circleName;
+                $scope.property.Village = $scope.propertyddl.village.villName;
+
+                //POST PROPERTY DETAIL 
+                dataFactory.postProperty($scope.property)
+              .then(function (response) {
+                  sessionFactory.putCurrAckno(response.data);
+                  $scope.trans.currAckno = response.data;
+
+
+                  $scope.pformModel.submitted = true;
+                  ApplyRegModel.onlineapplication.ackno = response.data;
+                  ApplyRegModel.onlineapplication.year = '2015';
+                  ApplyRegModel.onlineapplication.date = '';
+                  ApplyRegModel.onlineapplication.status = 'incomplete';
+                  console.log(ApplyRegModel.onlineapplication);
+                  dataFactory.postonlineapplication(ApplyRegModel.onlineapplication).then(function (reponse) {
+                      $scope.tabdisabled = false;
+                      $state.go('registration.content.forms.executant');
+                  })
+
+              })
+
+            })
            
            
 
@@ -370,40 +399,27 @@ angular
             //sessionFactory.pushProperty($scope.propertyObject);
             //var propertyData = sessionFactory.getProperty();
             //console.log(propertyData[0].district);
-            dataFactory.postProperty($scope.property)
-                .then(function (response) {
-                    sessionFactory.putCurrAckno(response.data);
-                    $scope.trans.currAckno = response.data;
-                    
-
-                    $scope.pformModel.submitted = true;
-                    ApplyRegModel.onlineapplication.ackno = response.data;
-                    ApplyRegModel.onlineapplication.year = '2015';
-                    ApplyRegModel.onlineapplication.date = '';
-                    ApplyRegModel.onlineapplication.status = 'incomplete';
-                    console.log(ApplyRegModel.onlineapplication);
-                    dataFactory.postonlineapplication(ApplyRegModel.onlineapplication).then(function (reponse) {
-                        $state.go('registration.content.forms.executant');
-                    })
-                   
-                })
+          
               
             
         }
 
-        
+        $scope.eformModel = {};
+        angular.extend($scope.eformModel, {
+            submitted: false
+        });
         
         //executant submit
         $scope.onexsubmit = function () {
-            //console.log($scope.pformModel.submitted);
+            
             createExecutantObject();
-           
+            $scope.eformModel.submitted = true;
             //$scope.$$childTail.execform.$setPristine();
-            $scope.executant = {};
-            $scope.exec = {};
-            $scope.aa = {};
-            $scope.executant.slno = $scope.execSlno + 1;
-            $scope.execSlno = $scope.executant.slno;
+            //$scope.executant = {};
+            //$scope.exec = {};
+            //$scope.aa = {};
+            //$scope.executant.slno = $scope.execSlno + 1;
+            //$scope.execSlno = $scope.executant.slno;
             $state.go('registration.content.forms.claimant')
             //$scope.readonly = true;
             //postexecutant($scope.executant);

@@ -206,4 +206,10 @@ padding-top:0;
     }
   .alert {
       margin-bottom: 0;
+
     }
+  .error-messages {
+      color:#ff0000;
+      font-size:smaller;
+      font-style:italic;
+  }

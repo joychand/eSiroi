@@ -18,8 +18,10 @@
                         <label class="control-label">NewDagNo:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" data-ng-model="property.dagNo" placeholder="DagNo" class="form-control " data-ng-readonly="pformModel.submitted" />
-
+                        <input type="text" name="dagNo"data-ng-model="property.dagNo" placeholder="DagNo" class="form-control " data-ng-readonly="pformModel.submitted" required/>
+                        <span  data-ng-show="(applyPropForm.dagNo.$dirty && applyPropForm.dagNo.$invalid)||applyForm.$submitted">
+                <span class="error-messages"data-ng-show="applyPropForm.dagNo.$error.required">Plz input a valid dagno</span>
+            </span>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -28,9 +30,13 @@
                     </div>
                     <div class="col-md-8">
                         <div class="input-group">
-                            <input class=" form-control" type="text" data-ng-model="property.pattaNo" placeholder="PattaNo" data-ng-readonly="pformModel.submitted" />
-                            <span class="input-group-addon span-success"><button class="btn btn-xs btn-success" data-ng-click="verfyplot()">VerifyPlot</button></span>
+                            <input class=" form-control" type="text" name="pattaNo"data-ng-model="property.pattaNo" placeholder="PattaNo" data-ng-readonly="pformModel.submitted" required/>
+                            <span class="input-group-addon span-success"><button class="btn btn-xs btn-success" data-ng-click="verfyplot()" data-ng-disabled="!applyPropForm.dagNo.$dirty || applyPropForm.dagNo.$invalid">VerifyPlot</button></span>
                         </div>
+                        <span  data-ng-show="(applyPropForm.pattaNo.$dirty && applyPropForm.pattaNo.$invalid)||applyForm.$submitted">
+                            <span class="error-messages"data-ng-show="applyPropForm.pattaNo.$error.required"><em>Plz input a valid Pattano</em></span>
+                        </span>
+                        
 
 
                     </div>
@@ -63,10 +69,13 @@
                         <select name="landtype" class="form-control"
                                 data-ng-model="property.landType"
                                 data-ng-options="lt.landTypeCode as lt.landTypeName for lt in landtype"
-                                data-ng-change="showlandtype()" data-ng-disabled="pformModel.submitted">
+                                data-ng-change="showlandtype()" data-ng-disabled="pformModel.submitted" required>
 
                             <option value="">-select landType-</option>
                         </select>
+                         <span  data-ng-show="(applyPropForm.landtype.$dirty && applyPropForm.landtype.$invalid)||applyForm.$submitted">
+                            <span class="error-messages"data-ng-show="applyPropForm.landtype.$error.required">*</span>
+                         </span>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -144,7 +153,7 @@
             </div>
             <div class="text-center">
                 <div class="btn-group">
-                    <button type="submit" data-ng-click="nextparty()" class="btn btn-primary btn-md ">next</button>
+                    <button type="submit" data-ng-click="nextparty()" class="btn btn-primary btn-md " ng-disabled="applyPropForm.$pristine||applyPropForm.$dirty && applyPropForm.$invalid">next</button>
                     <button type="submit" data-ng-click="saveproperty()" class="btn btn-success btn-md "> <span class="glyphicon glyphicon-floppy-disk"> Draft</span></button>
                     <button type="reset" class="btn btn-default btn-md ">reset</button>
                 </div>
