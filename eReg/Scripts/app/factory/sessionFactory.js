@@ -130,7 +130,14 @@
              sessionFactory.getIdentifierList = function () {
                  return identifierList;
                 }
-                       
+            //CLEAR SESSIONCOLLECTION LIST
+
+             sessionFactory.clearSession = function () {
+                  propertyList = [];
+                  executantList = [];
+                  claimantList = [];
+                 identifierList = [];
+             }
             ////$rootScope.$on("savestate", service.SaveState);
                 ////$rootScope.$on("restorestate", service.RestoreState);
                 return sessionFactory;

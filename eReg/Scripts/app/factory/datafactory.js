@@ -9,6 +9,7 @@ angular.module('eRegApp')
         var urlBase2 = '/api/SubDivisions';
         var urlBase3 = '/api/ApplyRegistrationController/';
         var urlBase4 = 'api/OnlineExecutants';
+        var urlBase5 = 'api/ComDataController/'
         var dataFactory = {};
         var ackno = 0
 
@@ -79,27 +80,7 @@ angular.module('eRegApp')
             });
         };
 
-        dataFactory.getPoliceStations = function () {
-            return $http({
-                method: 'GET',
-                url: urlBase3 + 'villages',
-                cache: true
-            }).then(function (results) {
-                return results.data;
-
-            });
-        };
-
-        dataFactory.getPostOffices = function () {
-            return $http({
-                method: 'GET',
-                url: urlBase3 + 'postoffices',
-                cache: true
-            }).then(function (results) {
-                return results.data;
-
-            });
-        };
+       
 
         dataFactory.getVillages = function () {
             return $http({
@@ -128,7 +109,6 @@ angular.module('eRegApp')
 
             });
         };
-
         dataFactory.getRevVillage = function () {
             return $http({
                 method: 'GET',
@@ -139,7 +119,26 @@ angular.module('eRegApp')
 
             });
         };
+        dataFactory.getPoliceStations = function () {
+            return $http({
+                method: 'GET',
+                url: urlBase5 + 'getPoliceStations',
+                cache: true
+            }).then(function (results) {
+                return results.data;
 
+            });
+        };
+        dataFactory.getPostOffices = function () {
+            return $http({
+                method: 'GET',
+                url: urlBase3 + 'postoffices',
+                cache: true
+            }).then(function (results) {
+                return results.data;
+
+            });
+        };
         // post onlineApplication
         dataFactory.postonlineapplication = function (onlineapplication) {
             return $http({

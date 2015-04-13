@@ -115,7 +115,7 @@
                 </select>
             </div>
 
-            <!-- Sub-Division Dropdown
+            <!-- District Drop down
             ================================  -->
             <label for="" class="control-label col-sm-2">District</label>
             <div class="col-sm-4">
@@ -130,8 +130,8 @@
 
         </div>
 
-        <!-- District Dropdown
-        ================================  -->
+        <!--subDivision Dropdown=  -->
+        
         <div class="form-group">
             <label for="" class="control-label col-sm-2">Sub-Division</label>
             <div class="col-sm-4">
@@ -159,6 +159,13 @@
         <!-- Post Office Dropdown
         ================================  -->
         <div class="form-group">
+            <div class="col-sm-2">
+                <label class="control-label">Street/Locality/ Leikai</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" value="" class="form-control" placeholder="Stree/Locality/Leikai" data-ng-readonly="eformModel.submitted" data-ng-model="executant.street" />
+
+            </div>
             <label for="" class="control-label col-sm-2">Post Office</label>
             <div class="col-sm-4">
                 <select name="PostOffice" id="" class="form-control"
@@ -171,21 +178,24 @@
                 </select>
 
             </div>
-            <!-- Pincode Dropdown
-            ================================  -->
-            <label for="" class="control-label col-sm-2">PinCode</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control text-left" data-ng-model="aa.postoffice.pinCode" placeholder="Pincode" data-ng-readonly="eformModel.submitted"/>
-            </div>
-            <!--</div> -->
+           
+            
         </div>
              <div class="form-group">
-                 <div class="col-sm-2">
-                     <label class="control-label">Street/Locality/ Leikai</label>
-                 </div>
+                 <!-- Pincode Dropdown
+    ================================  -->
+                 <label for="" class="control-label col-sm-2">PinCode</label>
                  <div class="col-sm-4">
-                     <input type="text" value="" class="form-control" placeholder="Stree/Locality/Leikai" data-ng-readonly="eformModel.submitted"/>
-
+                     <input type="text" class="form-control text-left" data-ng-model="aa.postoffice.pinCode" placeholder="Pincode" data-ng-readonly="eformModel.submitted" />
+                 </div> 
+                 <label for="" class="control-label col-sm-2">PoliceStation</label>
+                 <div class="col-sm-4">
+                     <select class="form-control" name="ps"
+                             data-ng-model="exec.policestation"
+                             data-ng-options="ps.polStation for ps in policestations | filter:{distCode:exec.district.distCode}"
+                             data-ng-disbaled="!exec.district||eformModel.submitted">
+                         <option value="">-select PS-</option>
+                     </select>
                  </div>
              </div>
 

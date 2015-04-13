@@ -168,6 +168,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ApplyRegController.cs" />
     <Compile Include="Controllers\ApplyRegistrationController.cs" />
+    <Compile Include="Controllers\ComDataController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DeptController.cs" />
     <Compile Include="Controllers\deptRegistraionController.cs" />
