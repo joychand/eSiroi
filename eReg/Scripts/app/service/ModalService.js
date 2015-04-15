@@ -15,7 +15,8 @@
             actionButtonText: 'OK',
             headerText: 'Proceed?',
             bodyText: 'Perform this action?',
-            customData:''
+            customData: ''
+           
         };
 
         this.showModal = function (customModalDefaults, customModalOptions) {

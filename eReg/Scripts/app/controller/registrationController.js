@@ -580,24 +580,31 @@ angular
                                   dataFactory.postidentifier(sessionFactory.getIdentifierList())
                                   .then(function (response) {
                                       console.log('idetifierlist inserted');
-
-                                      // DISPLAY CONFIRMATION MODAL
-                                      var modalOptions = {
-                                          closeButtonText: 'Cancel',
-                                          actionButtonText: 'Ok',
-                                          headerText: 'Application Successfully submitted',
-                                          bodyText: 'Your Acknowledgement No. is: ',
-                                          customData:  sessionFactory.getCurrAckno()
-                                      };
-                                      modalService.showModal({}, modalOptions).then(function (result) {
-                                          console.log('dfsdfds' + sessionFactory.getCurrAckno)
-                                          $state.go('registration.content.applyregsuccess');
-                                      })
+                                      updateApplnStatus();
+                                     
+                                    
 
                                   });
                               });
                       });
 
+        }
+        function updateApplnStatus() {
+            dataFactory.updateApplnStatus(sessionFactory.getCurrAckno()).then(function (response) {
+                // DISPLAY CONFIRMATION MODAL
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Application Successfully submitted',
+                    bodyText: 'Your Acknowledgement No. is: ',
+                    customData: sessionFactory.getCurrAckno()
+                };
+                modalService.showModal({}, modalOptions).then(function (result) {
+                    $state.go('registration.content.applyregsuccess');
+
+                })
+               
+            })
         }
 
 }
@@ -611,3 +618,19 @@ angular
 }());
 
 
+//****** REGISTRATION SUCCESS PAGE CONTROLLER
+(function () {
+    angular.module('eRegApp')
+    .controller('ApplySuccessController', ['$scope', 'modalService'], ApplySuccessController);
+
+    function ApplySuccessController($scope, modalService) {
+
+        var modalOptions = {
+            closeButtonText: 'Print',
+            actionButtonText: 'Ok',
+            headerText: 'DRAFT DEED',
+            
+            
+        };
+    }
+})();

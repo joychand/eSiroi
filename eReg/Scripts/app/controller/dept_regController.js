@@ -21,20 +21,20 @@
 
     angular
         .module('eRegApp')
-        .controller('deptHomeController', ['$scope', '$rootScope', deptHomeController]);
+        .controller('deptHomeController', ['$scope', '$rootScope','dept_dataFactory', deptHomeController]);
 
-    function deptHomeController($scope, $rootScope) {
-        $scope.myData = [{ Ackno: "Moroni", date: 50 },
-                    { Ackno: "Tiancum", date: 43 },
-                    { Ackno: "Jacob", date: 27 },
-                    { Ackno: "Nephi", date: 29 },
-                    { Ackno: "Enos", date: 34 }];
+    function deptHomeController($scope, $rootScope, dept_dataFactory) {
+        dept_dataFactory.getOnlAppln().then(function (response) {
+            $scope.myData = response.data;
+            
+
+        })
+
         $scope.gridOptions = {
             data: 'myData',
-            columnDefs: [{ field: 'Ackno', displayName: 'Ackno' }, { field: 'date', displayName: 'AppliedOn' }],
+            columnDefs: [{ field: 'ackno', displayName: 'Ackno' }, { field: 'sro', displayName: 'SRO' }, { field: 'transaction', displayName: 'Trans_Type' }, { field: 'date', displayName: 'Applied On' }],
             jqueryUITheme: true
         };
-       
     }
 })();
 
@@ -510,7 +510,7 @@
                             controller: 'PlotVerifyModalInstanceCtrl',
                             //scope: $scope,
                             backdrop: 'static',
-                            //size: size,
+                            windowClass: 'app-modal-window',
                             resolve: {
                                 IsPlotFound: function(){
                                     return $scope.IsPlotFound ;

@@ -371,6 +371,7 @@
     <Content Include="Scripts\ui-grid.js" />
     <Content Include="Views\Home\ApplyRegSuccess.html" />
     <Content Include="Views\Home\dept_dataEntry_form_deed.html" />
+    <Content Include="Views\Home\draftDeeed.html" />
     <Content Include="Views\Home\loginPage.html" />
     <Content Include="Views\Home\modal.html" />
     <Content Include="Views\Home\deptOnlineData.html" />

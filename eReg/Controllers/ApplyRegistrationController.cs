@@ -19,7 +19,31 @@ namespace eReg.Controllers
     public class ApplyRegistrationController : ApiController
     {
         private eregdbContext db = new eregdbContext();
+        //UPDATE APPLICATION STATUS
 
+        [HttpPost]
+        [Route("api/ApplyRegistrationController/updateAppln")]
+        public IHttpActionResult updateAppln([FromBody]int ackno)
+        {
+            var query = db.onlineapplication
+                      .Where(a => a.ackno == ackno)
+                      .First();
+
+
+            try
+            {
+                query.status = "Applied";
+                db.SaveChanges();
+                return Ok();
+            }
+                
+           catch(Exception){
+               return NotFound();
+           }
+            
+
+                    
+        }
         //get SRO
         [HttpGet]
         [Route ("api/ApplyRegistrationController/getSRO")]

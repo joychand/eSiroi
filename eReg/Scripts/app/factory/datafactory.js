@@ -148,6 +148,17 @@ angular.module('eRegApp')
             });//.then(function (results) { return results.data; });
         }
 
+        // UPDATE ONLINEAPPLICATION STATUS
+
+        dataFactory.updateApplnStatus=function(ackno){
+            return $http({
+                method: 'POST',
+                url: urlBase3 + 'updateAppln',
+                data: ackno,
+                datatype: 'json'
+            });
+        }
+
         //post executant
 
         dataFactory.postexecutant = function (executantList) {

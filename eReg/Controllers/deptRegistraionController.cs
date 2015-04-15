@@ -9,6 +9,7 @@ using eReg.Migrations.Models;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.SqlServer;
 
 
 namespace eReg.Controllers
@@ -18,6 +19,33 @@ namespace eReg.Controllers
         private eregdbContext db = new eregdbContext();
         private LPplot lpdb = new LPplot();
 
+        //GET ONLINE APPLICATION
+        [HttpGet]
+        [Route("api/deptRegistraionController/getAppln")]
+        public IHttpActionResult getAppln()
+        {
+            var query =from oAppln in db.onlineapplication
+                                join ro in db.RegistarOffice
+                                on oAppln.sro equals SqlFunctions.StringConvert((double) ro.RegOfficeCode ).Trim()
+                                join trans in db.MajorTrans_code
+                                on oAppln.trans_maj_code equals trans.tran_maj_code
+                                 where oAppln.status == "Applied"
+                                select new
+                                {
+                                    ackno = oAppln.ackno,
+                                    sro = ro.RegOfficeName,
+                                    transaction = trans.tran_name,
+                                    date = oAppln.date
+                                   
+                                    
+
+                                };
+            if(query.Any())
+            {
+                return Ok(query);
+            }
+            return NotFound();       
+        }
         // COMMON DATA SERVICE API
 
         // get Exempt reason
@@ -203,9 +231,9 @@ namespace eReg.Controllers
         //IQueryable plotlist;
 
 
-           var plotlist = (from p in lpdb.Set<uniplot>()
+           var plotlist = (from p in lpdb.Set<uniowner>()
                         where p.NewDagNo == plotno && p.NewPattaNo == pattano
-                        select new { p.LocCd, p.LandClass, p.unit });
+                        select new { p.NewDagNo,p.NewPattaNo,p.ownno,p.Name,p.Father,p.Address,p.PArea });
             //.Select(x => new OnlineExecutant { Ackno = x.Ackno });
             if (plotlist.Any())
             {

@@ -10,6 +10,14 @@
         var urlBase2 = 'api/deptRegistraionController/';
         var service = {
 
+            /// GET ONLINE APPLICATION
+            getOnlAppln: function(){
+                return $http({
+                    method: 'GET',
+                    url: urlBase2 + 'getAppln'
+                });
+            },
+
             /// GET EXEMPT REASON LIST
             getExempReason: function(){
                 return $http({
