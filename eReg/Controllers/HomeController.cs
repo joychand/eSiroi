@@ -151,5 +151,10 @@ namespace eReg.Controllers
         {
             return File("/Views/Home/ApplyRegSuccess.html", "text/html");
         }
+        public ActionResult draftDeeed()
+        {
+            return File("/Views/Home/draftDeeed.html", "text/html");
+        }
+        
     }
 }

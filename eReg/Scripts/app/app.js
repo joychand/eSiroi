@@ -230,6 +230,7 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
         })
        .state('registration.content.applyregsuccess', {
            url: '/success',
+           controller:'ApplySuccessController',
            templateUrl: "Home/ApplyRegSuccess",
            deepStateRedirect: true
        })

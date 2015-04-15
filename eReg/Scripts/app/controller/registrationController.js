@@ -591,7 +591,7 @@ angular
         }
         function updateApplnStatus() {
             dataFactory.updateApplnStatus(sessionFactory.getCurrAckno()).then(function (response) {
-                // DISPLAY CONFIRMATION MODAL
+                // DISPLAY COMPLETION SUCCESS MODAL
                 var modalOptions = {
                     closeButtonText: 'Cancel',
                     actionButtonText: 'Ok',
@@ -621,16 +621,29 @@ angular
 //****** REGISTRATION SUCCESS PAGE CONTROLLER
 (function () {
     angular.module('eRegApp')
-    .controller('ApplySuccessController', ['$scope', 'modalService'], ApplySuccessController);
+    .controller('ApplySuccessController', ['$scope', 'modalService', ApplySuccessController]);
 
     function ApplySuccessController($scope, modalService) {
 
-        var modalOptions = {
-            closeButtonText: 'Print',
-            actionButtonText: 'Ok',
-            headerText: 'DRAFT DEED',
-            
-            
-        };
+        $scope.getdraftdeed=function() {
+            console.log('click');
+            var modalOptions = {
+                closeButtonText: 'Print',
+                actionButtonText: 'Ok',
+                headerText: 'DRAFT DEED',
+
+
+            };
+            var modalDefault = {
+                templateUrl: 'Home/draftDeeed',
+                //    controller: 'loginMocalCtrl',
+                backdrop: 'static',
+                windowClass: 'app-modal-window'
+            };
+
+            modalService.showModal(modalDefault, modalOptions).then(function (result) {
+                console.log('hahaha');
+            })
+        }
     }
 })();
