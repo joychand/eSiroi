@@ -30,6 +30,7 @@ namespace eReg
                       "~/Scripts/angular-ui-router.js",
                       "~/Scripts/ct-ui-router-extras.js",
                       "~/Scripts/angular-sanitize.js",
+                       "~/Scripts/smart-table.js",
                       "~/Scripts/ui-utils.js",
                       "~/Scripts/app/app.js",
                        "~/Scripts/app/Modules/ErrorHandler.js",

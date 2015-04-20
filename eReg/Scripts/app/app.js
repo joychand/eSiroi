@@ -4,24 +4,24 @@
 /// <reference path = ~/scripts/angular-ui-router.js>
 /// <reference path = ~/scripts/app/factory/sessionFactory.js>
 
-var app = angular.module('eRegApp', ['ui.router', 'ct.ui.router.extras', 'angularModalService', 'ui.bootstrap', 'ngGrid', 'ngSanitize', 'ui.mask', 'errorHandler']);
+var app = angular.module('eRegApp', ['ui.router', 'ct.ui.router.extras', 'angularModalService', 'ui.bootstrap', 'ngGrid', 'ngSanitize', 'ui.mask', 'errorHandler', 'smart-table']);
 //var app1 = angular.module('eRegDeptApp', ['ngroute']);
 //app.value = ('maj_code', '');
 app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provide',function ($stateProvider, $locationProvider,$urlRouterProvider,$provide ) {
    
    
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/home');
 
     //********************** NAVIGATION TOP BAR ROUTING ******************************//
     $stateProvider
         .state('Home', {
-            url: "/",
-            templateUrl: 'Home/home',
+            url: "/home",
+            templateUrl: '/Home/home_page',
             controller: "HomeController"
         })
          .state('login', {
              url: "/login",
-             templateUrl: 'Home/login'
+             templateUrl: '/Home/login_page'
              //controller: "simpleController"
          })
 
@@ -29,7 +29,7 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
 
          .state('department', {
              url: "/department",
-             templateUrl: 'Home/department'
+             templateUrl: '/Home/department'
              //controller: 'simpleController'
          })
 
@@ -42,7 +42,7 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
                 controller: 'deptmenuController'
             },
             '@department':{
-                    templateUrl: 'Home/departmentcontent'
+                    templateUrl: '/Home/departmentcontent'
             }
         }
     })
@@ -50,7 +50,7 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
         .state('department.content.login',
         {
             url: '/login',
-            templateUrl: 'Home/login',
+            templateUrl: '/Home/login_page',
             controller: 'deptloginController',
             resolve:{
                 modalService: 'modalService',
@@ -65,7 +65,7 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
                 };
 
                 var modalDefault = {
-                    templateUrl: 'Home/loginPage',
+                    templateUrl: '/Home/loginPage',
                     controller: 'loginModalCtrl',
                     backdrop: 'static',
                     size: 'lg'
@@ -81,18 +81,21 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
 
         .state('department.content.home', {
             url: '/home',
-            templateUrl: 'Home/dept_home',
-            controller: 'deptHomeController'
+            templateUrl: '/Home/dept_home',
+            controller: 'deptHomeController',
+            data: {
+                status: 'Applied'
+            }
         })
        
         .state('Search', {
             url: '/Search',
-            templateUrl: 'Home/searchReg'
+            templateUrl: '/Home/searchReg'
            
         })
         .state('department.content.data', {
             url: '/dataEntry',
-            templateUrl: 'Home/dept_dataEntry',
+            templateUrl: '/Home/dept_dataEntry',
             controller: 'dept_regController',
             resolve: {
                 majortrans: function (dataFactory) {
@@ -107,7 +110,7 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
         .state('department.content.form', {
             
             url: '/dataEntryform',
-            templateUrl: 'Home/dept_dataEntry_form',
+            templateUrl: '/Home/dept_dataEntry_form',
             controller: 'dataEntryformController',
             
         })

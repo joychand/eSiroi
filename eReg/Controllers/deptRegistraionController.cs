@@ -21,15 +21,15 @@ namespace eReg.Controllers
 
         //GET ONLINE APPLICATION
         [HttpGet]
-        [Route("api/deptRegistraionController/getAppln")]
-        public IHttpActionResult getAppln()
+        [Route("api/deptRegistraionController/{status}/getAppln")]
+        public IHttpActionResult getAppln(String status)
         {
             var query =from oAppln in db.onlineapplication
                                 join ro in db.RegistarOffice
                                 on oAppln.sro equals SqlFunctions.StringConvert((double) ro.RegOfficeCode ).Trim()
                                 join trans in db.MajorTrans_code
                                 on oAppln.trans_maj_code equals trans.tran_maj_code
-                                 where oAppln.status == "Applied"
+                                 where oAppln.status == status
                                 select new
                                 {
                                     ackno = oAppln.ackno,

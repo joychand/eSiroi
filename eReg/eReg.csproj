@@ -336,6 +336,7 @@
     <Content Include="Scripts\angular-ui\ui-utils.js" />
     <Content Include="Scripts\angular-ui\ui-utils.min.js" />
     <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular2.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\controller\controller1.js" />
@@ -365,6 +366,8 @@
     <Content Include="Scripts\ng-grid.debug.js" />
     <Content Include="Scripts\ng-grid.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\smart-table.js" />
+    <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.12.0.js" />
     <Content Include="Scripts\ui-utils.js" />
     <Content Include="spinning.gif" />
@@ -412,8 +415,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -421,6 +422,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <None Include="Properties\PublishProfiles\eSiroiTest.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ct-ui-router-extras.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -446,20 +449,20 @@
     <Content Include="Views\Home\dept_home.html" />
     <Content Include="Views\Home\executant.html" />
     <Content Include="Views\Department\index.cshtml" />
-    <None Include="Views\Home\home.cshtml" />
+    <Content Include="Views\Home\home_page.html" />
     <Content Include="Scripts\WebApiTestClient.js" />
     <Content Include="test.html" />
     <Content Include="Views\Home\HtmlPage1.html" />
     <Content Include="Views\Home\identifier.html" />
     <Content Include="Views\Home\index.cshtml" />
-    <None Include="Views\Home\login.cshtml" />
+    <Content Include="Views\Home\login_page.html" />
     <Content Include="Views\Home\ModalTemp.html" />
     <Content Include="Views\Home\plotVerifyModal.html" />
     <Content Include="Views\Home\registrationcontent.html" />
     <Content Include="Views\Home\registrationforms.html" />
     <Content Include="Views\Home\searchReg.html" />
     <Content Include="Views\party1.htm" />
-    <None Include="Views\Home\registration.cshtml" />
+    <Content Include="Views\Home\registration.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -11,10 +11,10 @@
         var service = {
 
             /// GET ONLINE APPLICATION
-            getOnlAppln: function(){
+            getOnlAppln: function(status){
                 return $http({
                     method: 'GET',
-                    url: urlBase2 + 'getAppln'
+                    url: urlBase2 + status + '/getAppln'
                 });
             },
 

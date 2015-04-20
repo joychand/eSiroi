@@ -21,20 +21,39 @@
 
     angular
         .module('eRegApp')
-        .controller('deptHomeController', ['$scope', '$rootScope','dept_dataFactory', deptHomeController]);
+        .controller('deptHomeController', ['$state','$scope', '$rootScope','dept_dataFactory', deptHomeController]);
 
-    function deptHomeController($scope, $rootScope, dept_dataFactory) {
-        dept_dataFactory.getOnlAppln().then(function (response) {
-            $scope.myData = response.data;
+    function deptHomeController($state,$scope, $rootScope, dept_dataFactory) {
+       
+        var status = $state.current.data.status;
+        $scope.applnStatus = ['All', 'Applied', 'incomplete'];
+        $scope.selectedStatus = $scope.applnStatus[1];
+        getAppln(status);
+        
+        $scope.displayCollection = [].concat($scope.myData);
+
+        $scope.getSelectedStatus = function () {
+            if ($scope.selectedStatus && $scope.selectedStatus!='All') {
+                getAppln($scope.selectedStatus);
+            }
             
+         
+        }
 
-        })
+        //getAppln function status
+        function getAppln(status){
+           
+            dept_dataFactory.getOnlAppln(status).then(function (response) {
+                $scope.myData = response.data;
 
-        $scope.gridOptions = {
-            data: 'myData',
-            columnDefs: [{ field: 'ackno', displayName: 'Ackno' }, { field: 'sro', displayName: 'SRO' }, { field: 'transaction', displayName: 'Trans_Type' }, { field: 'date', displayName: 'Applied On' }],
-            jqueryUITheme: true
-        };
+
+            })
+        }
+        //$scope.gridOptions = {
+        //    data: 'myData',
+        //    columnDefs: [{ field: 'ackno', displayName: 'Ackno', width: '20%', cellClass: 'grid-align' }, { field: 'sro', displayName: 'SRO', width: '40%', cellClass: 'grid-align' }, { field: 'transaction', displayName: 'Trans_Type', width: '20%', cellClass: 'grid-align' }, { field: 'date', displayName: 'Applied On', width: '20%', cellClass: 'grid-align' }],
+        //    jqueryUITheme: true
+        //};
     }
 })();
 
