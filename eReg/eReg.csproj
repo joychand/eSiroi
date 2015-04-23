@@ -349,6 +349,7 @@
     <Content Include="Scripts\app\controller\registrationController.js" />
     <Content Include="Scripts\app\controller\VapplController.js" />
     <Content Include="Scripts\app\directive\loadingWidget.js" />
+    <Content Include="Scripts\app\directive\uiBreadcrumbs.js" />
     <Content Include="Scripts\app\factory\angularModalService.js" />
     <Content Include="Scripts\app\factory\ApplyRegModel.js" />
     <Content Include="Scripts\app\factory\dataCommonFactory.js" />
@@ -461,6 +462,7 @@
     <Content Include="Views\Home\registrationcontent.html" />
     <Content Include="Views\Home\registrationforms.html" />
     <Content Include="Views\Home\searchReg.html" />
+    <Content Include="Views\Home\uiBreadcrumbs.tpl.html" />
     <Content Include="Views\party1.htm" />
     <Content Include="Views\Home\registration.html" />
     <Content Include="Web.config">
