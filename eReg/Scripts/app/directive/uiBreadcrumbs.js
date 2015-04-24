@@ -7,8 +7,8 @@
      * Config
      */
     var moduleName = 'eRegApp';
-    var templateUrl = 'Home/uiBreadcrumbs.tpl.html';
-
+    var templateUrl = 'Home/tpl';
+   // var templateUrl = '';
     /**
      * Module
      */
@@ -16,7 +16,7 @@
     try {
         module = angular.module(moduleName);
     } catch(err) {
-        // named module does not exist, so create one
+        //named module does not exist, so create one
         module = angular.module(moduleName, ['ui.router']);
     }
 

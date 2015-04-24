@@ -30,9 +30,11 @@ namespace eReg
                       "~/Scripts/angular-ui-router.js",
                       "~/Scripts/ct-ui-router-extras.js",
                       "~/Scripts/angular-sanitize.js",
-                       "~/Scripts/smart-table.js",
-                      "~/Scripts/ui-utils.js",
+                      
+                     
                       "~/Scripts/app/app.js",
+                       "~/Scripts/smart-table.min.js",
+                        "~/Scripts/ui-utils.js",
                        "~/Scripts/app/Modules/ErrorHandler.js",
                       "~/Scripts/app/controller/MainController.js",
                       "~/Scripts/app/factory/dataFactory.js",
@@ -45,6 +47,7 @@ namespace eReg
                       "~/Scripts/app/factory/angularModalService.js",
                        "~/Scripts/app/factory/requestNotificationChannel.js",
                        "~/Scripts/app/directive/loadingWidget.js",
+                       "~/Scripts/app/directive/uiBreadcrumbs.js",
                       "~/Scripts/app/controller/registrationController.js",
                        "~/Scripts/app/controller/dept_regController.js",
                        "~/Scripts/app/service/ModalService.js"

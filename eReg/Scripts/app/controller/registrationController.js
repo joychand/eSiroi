@@ -621,10 +621,11 @@ angular
 //****** REGISTRATION SUCCESS PAGE CONTROLLER
 (function () {
     angular.module('eRegApp')
-    .controller('ApplySuccessController', ['$scope', 'modalService', ApplySuccessController]);
+    .controller('ApplySuccessController', ['$scope', 'modalService', 'sessionFactory', ApplySuccessController]);
 
-    function ApplySuccessController($scope, modalService) {
+    function ApplySuccessController($scope, modalService, sessionFactory) {
 
+        $scope.currAckno = sessionFactory.getCurrAckno();
         $scope.getdraftdeed=function() {
             console.log('click');
             var modalOptions = {

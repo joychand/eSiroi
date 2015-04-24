@@ -155,6 +155,10 @@ namespace eReg.Controllers
         {
             return File("~/Views/Home/draftDeeed.html", "text/html");
         }
+        public ActionResult tpl()
+        {
+            return File("~/Views/Home/uiBreadcrumbs.tpl.html", "text/html");
+        }
         
     }
 }

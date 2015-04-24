@@ -157,9 +157,13 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
         // *************APPLY REGISTRATION ROUTING*****************//
 
          .state('registration', {
+             abstract:true,
              url: "/registration",
              templateUrl: 'Home/registration',
-             deepStateRedirect: true
+             deepStateRedirect: true,
+             data:{
+                 breadcrumbProxy:'registration.content.apply'
+             }
             
          })
 
@@ -172,23 +176,34 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
                     templateUrl: 'Home/regsidemenu'
                 },
                 '@registration':{
-                    templateUrl:'Home/registrationcontent'
+                    templateUrl: 'Home/registrationcontent',
+                   
 
                     }
 
             },
-            deepStateRedirect: true
+            deepStateRedirect: true,
+            data: {
+                breadcrumbProxy: 'registration.content.apply'
+            }
+            
              
         })
         .state('registration.content.apply', {
             url:'/apply',
-            views: {
+            templateUrl: 'Home/applyregistration',
+           controller: 'applyRegistrationController',
+            //views: {
 
-                '@registration.content': {
-                    templateUrl: 'Home/applyregistration',
-                    controller: 'applyRegistrationController'
+            //    '@registration.content': {
+            //        templateUrl: 'Home/applyregistration',
+            //        controller: 'applyRegistrationController'
+
+            //    },
+                data: {
+                    displayName: 'ApplyHome'
                 }
-            },
+           
             //deepStateRedirect: true
             
         })
@@ -202,14 +217,21 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
         })
         
         .state('registration.content.forms', {
+            abstract:true,
             url: '/forms',
             templateUrl: 'Home/registrationforms',
             controller:'registrationController',
-            deepStateRedirect: true
+            deepStateRedirect: true,
+            data: {
+                breadcrumbProxy: 'registration.content.apply'
+            }
         })
         .state('registration.content.forms.propertydetails', {
             url: '/propertydetails',
-            templateUrl: 'Home/applyPropertyDetails'
+            templateUrl: 'Home/applyPropertyDetails',
+            data: {
+                displayName: 'Property'
+            }
             //controller: 'propertyController'
         })
         .state('registration.content.forms.executant', {
@@ -218,24 +240,36 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
             templateUrl: 'Home/executant',
             //controller: 'registrationController',
            // resolve
-            deepStateRedirect: true
+            deepStateRedirect: true,
+            data: {
+                displayName: 'Executant'
+            }
 
         })
         .state('registration.content.forms.claimant', {
             url: '/claimant',
             templateUrl: "Home/claimant",
-            deepStateRedirect: true
+            deepStateRedirect: true,
+            data: {
+                displayName: 'Claimant'
+            }
         })
         .state('registration.content.forms.identifier', {
             url:'/identifier',
             templateUrl: "Home/identifier",
-            deepStateRedirect: true
+            deepStateRedirect: true,
+            data: {
+                displayName: 'Identifier'
+            }
         })
        .state('registration.content.applyregsuccess', {
            url: '/success',
            controller:'ApplySuccessController',
            templateUrl: "Home/ApplyRegSuccess",
-           deepStateRedirect: true
+           deepStateRedirect: true,
+           data: {
+               displayName: 'ApplyComplete'
+           }
        })
          
     //$locationProvider.html5Mode(true).hashPrefix("!");
