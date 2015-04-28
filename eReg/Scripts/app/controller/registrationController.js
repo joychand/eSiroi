@@ -126,7 +126,7 @@ angular
 // ****** REGISTRATION APPLY FORMS CONTROLLER ******************//
 (function () {
     
-    var registrationController = function registrationController($scope, $state, dataFactory, $location, $rootScope, sessionFactory, ModalService, $modal, $log, ApplyRegModel, dept_dataFactory, modalService) {
+    var registrationController = function registrationController($scope, $state, dataFactory, $location, $rootScope, sessionFactory, ModalService, $modal, $log, ApplyRegModel, dept_dataFactory, modalService,$http) {
         $scope.title = 'registrationController';
         //****** COMMON VARIABLES ********//
         $scope.districts = {};
@@ -354,6 +354,60 @@ angular
             return tabUrl == $scope.exec.currentTab;
         }
 
+        //VERIFY PLOT FUNCTION
+        $scope.verfyplot = function () {
+
+            $http({
+                method: 'GET',
+                url: 'api/deptRegistraionController/' + $scope.property.dagNo + '/' + $scope.property.pattaNo + '/' + 'verfiyplot'
+            }).then(function (response) {
+
+                $scope.PlotDetails = response.data;
+                $scope.IsPlotFound = true;
+            }, function (result) {
+                console.log('not found' + result);
+                $scope.IsPlotFound = false;
+            })
+                .finally(function () {
+                    console.log('finally');
+
+
+
+                    var modalOptions = {
+                        closeButtonText: 'Cancel',
+                        actionButtonText: 'Ok',
+                        headerText: 'PlotDetails',
+                        bodyText: ''
+                    };
+
+                    var modalDefault = {
+                        templateUrl: 'Home/plotVerifyModal',
+                        controller: 'PlotVerifyModalInstanceCtrl',
+                        //scope: $scope,
+                        backdrop: 'static',
+                        windowClass: 'app-modal-window',
+                        resolve: {
+                            IsPlotFound: function () {
+                                return $scope.IsPlotFound;
+                            },
+
+                            plot: function () {
+                                return $scope.PlotDetails;
+                                //return (($scope.IsPlotFound)?$scope.PlotDetails:$scope.BlankPlot);
+                            }
+                        }
+
+                    };
+
+
+                    modalService.showModal(modalDefault, modalOptions).then(function (result) {
+                       
+
+                    });
+                });
+
+
+        }
 
         //***** PROPERTY FORM SUBMIT********//
         $scope.nextparty = function () {
@@ -610,7 +664,7 @@ angular
 }
 
 
-    registrationController.$inject = ['$scope', '$state', 'dataFactory', '$location', '$rootScope', 'sessionFactory', 'ModalService', '$modal', '$log', 'ApplyRegModel', 'dept_dataFactory', 'modalService'];
+    registrationController.$inject = ['$scope', '$state', 'dataFactory', '$location', '$rootScope', 'sessionFactory', 'ModalService', '$modal', '$log', 'ApplyRegModel', 'dept_dataFactory', 'modalService','$http'];
     angular
        .module('eRegApp')
        .controller('registrationController', registrationController);
