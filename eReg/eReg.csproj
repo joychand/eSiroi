@@ -324,6 +324,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Icon.png" />
+    <Content Include="images\image002.jpg" />
     <Content Include="images\loktak.jpg" />
     <Content Include="images\m1.jpg" />
     <Content Include="images\manHouse.jpg" />

@@ -21,9 +21,9 @@
 
     angular
         .module('eRegApp')
-        .controller('deptHomeController', ['$state','$scope', '$rootScope','dept_dataFactory', deptHomeController]);
+        .controller('deptHomeController', ['$state','$scope', '$rootScope','dept_dataFactory','modalService' ,deptHomeController]);
 
-    function deptHomeController($state,$scope, $rootScope, dept_dataFactory) {
+    function deptHomeController($state, $scope, $rootScope, dept_dataFactory, modalService) {
        
         var status = $state.current.data.status;
         $scope.applnStatus = ['All', 'Applied', 'incomplete'];
@@ -49,11 +49,22 @@
 
             })
         }
-        //$scope.gridOptions = {
-        //    data: 'myData',
-        //    columnDefs: [{ field: 'ackno', displayName: 'Ackno', width: '20%', cellClass: 'grid-align' }, { field: 'sro', displayName: 'SRO', width: '40%', cellClass: 'grid-align' }, { field: 'transaction', displayName: 'Trans_Type', width: '20%', cellClass: 'grid-align' }, { field: 'date', displayName: 'Applied On', width: '20%', cellClass: 'grid-align' }],
-        //    jqueryUITheme: true
-        //};
+
+        // PROCESS ROW FUNCTION
+         $scope.processrow =function(row)
+         {
+           
+             var modalOptions = {
+                 customData: row
+             }
+             modalService.showModal({}, modalOptions).then(function (result) {
+                 alert('link working');
+
+             }, function (error) {
+                 alert('link not working');
+             })
+        }
+       
     }
 })();
 
@@ -297,7 +308,9 @@
                 $scope.exreason = response.data;
             })
         }
-
+        if (dept_sessionfactory.row) {
+            getPropPartyList(row.ackno);
+        }
         $scope.getOnline = function () {
             $scope.onlinedata = 'getonline';
             //$scope.visibility = false;
@@ -326,9 +339,7 @@
                         dept_dataFactory.getOnlineIdentifierlist($scope.online.ackno).then(function (response) {
                             //update Identiferlist modal session
                             dept_sessionfactory.updateOnlineIdentModal(response.data);
-                            //deptModalService.idFormOnline.status = true;
-                            //deptModalService.idFormOnline.slnoddlVisibility = true;
-                            //deptModalService.idFormOnline.ddlview = 'online';
+                           
                             dept_dataFactory.getOnlineIdentddlist($scope.online.ackno).then(function (response) {
                                 dept_sessionfactory.updateOnlineIdentddlModal(response.data);
                                 //get Online Property Details
