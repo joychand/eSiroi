@@ -54,6 +54,19 @@
             execOnline = false;
         }
 
+       
+        // DEPT APPLICATION LIST VARIABLES
+        var rowData = {};
+        var FromStatus = 'New';
+        service.updateFormStatus=function(status){
+            FromStatus=status;
+        }
+        service.putRow = function (row) {
+            rowData = row;
+        }
+        service.getRow = function () {
+            return rowData;
+        }
         // PROPERTY SESSION MODEL LIST
 
         service.updateOnlinePropModel = function (property) {

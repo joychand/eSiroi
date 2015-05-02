@@ -13,6 +13,64 @@
 <div class="container-fluid">
         <div class="form-horizontal">
             <div class="form-group">
+
+                <div class="col-sm-6">
+                    <div class="col-md-4 hidden-xs text-right">
+                        <label class="control-label">District:</label>
+                    </div>
+                    <div class="col-md-8">
+
+                        <select name="district" class="form-control"
+                                data-ng-model="propertyddl.district"
+                                data-ng-options="district.distName for district in districts  | orderBy:'distName'" data-ng-disabled="pformModel.submitted">
+                            <option value="">--Select District--</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="col-md-4 hidden-xs text-right">
+                        <label class="control-label">Sub-Division:</label>
+                    </div>
+                    <div class="col-md-8 ">
+                        <select class="form-control"
+                                data-ng-model="propertyddl.subdivsion"
+                                data-ng-options="subdiv.subDivName for subdiv in revsubdivisions |  filter:{distCode:propertyddl.district.distCode} | orderBy: 'subDivName'"
+                                data-ng-disabled="!propertyddl.district||pformModel.submitted">
+                            <option value="">-subdivsion-</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="col-md-4 hidden-xs text-right">
+                        <label class="control-label">Circle:</label>
+                    </div>
+                    <div class="col-md-8 ">
+                        <select name="circle" class="form-control"
+                                data-ng-model="propertyddl.circle"
+                                data-ng-options="circle.circleName for circle in Circles | filter:{distCode:propertyddlddl.district.distCode}  | filter:{subDivCode:propertyddl.subdivsion.subDivCode} | orderBy:'circleName'"
+                                data-ng-disabled="!propertyddl.subdivsion||pformModel.submitted">
+                            <option value="">--Select Circle--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="col-md-4 hidden-xs text-right">
+                        <label class="control-label">Village:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="village" class="form-control"
+                                data-ng-model="propertyddl.village"
+                                data-ng-options="village.villName for village in RevVillages | filter:{distCode:propertyddl.district.distCode} | filter:{subDivCode:propertyddl.subdivsion.subDivCode} |filter:{circleCode:propertyddl.circle.circleCode} | orderBy:'villName'"
+                                data-ng-disabled="!propertyddl.circle || pformModel.submitted">
+                            <option value="">--Select village--</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
                 <div class="col-sm-6">
                     <div class="col-md-4 hidden-xs text-right">
                         <label class="control-label">NewDagNo:</label>
@@ -93,64 +151,7 @@
 
             </div>
 
-            <div class="form-group">
-
-                <div class="col-sm-6">
-                    <div class="col-md-4 hidden-xs text-right">
-                        <label class="control-label">District:</label>
-                    </div>
-                    <div class="col-md-8">
-
-                        <select name="district" class="form-control"
-                                data-ng-model="propertyddl.district"
-                                data-ng-options="district.distName for district in districts  | orderBy:'distName'" data-ng-disabled="pformModel.submitted">
-                            <option value="">--Select District--</option>
-                        </select>
-
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="col-md-4 hidden-xs text-right">
-                        <label class="control-label">Sub-Division:</label>
-                    </div>
-                    <div class="col-md-8 ">
-                        <select class="form-control"
-                                data-ng-model="propertyddl.subdivsion"
-                                data-ng-options="subdiv.subDivName for subdiv in revsubdivisions |  filter:{distCode:propertyddl.district.distCode} | orderBy: 'subDivName'"
-                                data-ng-disabled="!propertyddl.district||pformModel.submitted">
-                            <option value="">-subdivsion-</option>
-
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="col-md-4 hidden-xs text-right">
-                        <label class="control-label">Circle:</label>
-                    </div>
-                    <div class="col-md-8 ">
-                        <select name="circle" class="form-control"
-                                data-ng-model="propertyddl.circle"
-                                data-ng-options="circle.circleName for circle in Circles | filter:{distCode:propertyddlddl.district.distCode}  | filter:{subDivCode:propertyddl.subdivsion.subDivCode} | orderBy:'circleName'"
-                                data-ng-disabled="!propertyddl.subdivsion||pformModel.submitted">
-                            <option value="">--Select Circle--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="col-md-4 hidden-xs text-right">
-                        <label class="control-label">Village:</label>
-                    </div>
-                    <div class="col-md-8">
-                        <select name="village" class="form-control"
-                                data-ng-model="propertyddl.village"
-                                data-ng-options="village.villName for village in RevVillages | filter:{distCode:propertyddl.district.distCode} | filter:{subDivCode:propertyddl.subdivsion.subDivCode} |filter:{circleCode:propertyddl.circle.circleCode} | orderBy:'villName'"
-                                data-ng-disabled="!propertyddl.circle || pformModel.submitted">
-                            <option value="">--Select village--</option>
-                        </select>
-                    </div>
-                </div>
-                        
-            </div>
+            
             <div class="text-center">
                 <div class="btn-group">
                     <button type="submit" data-ng-click="nextparty()" class="btn btn-primary btn-md " ng-disabled="applyPropForm.$pristine||applyPropForm.$dirty && applyPropForm.$invalid">next</button>

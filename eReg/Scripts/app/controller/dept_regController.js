@@ -21,9 +21,9 @@
 
     angular
         .module('eRegApp')
-        .controller('deptHomeController', ['$state','$scope', '$rootScope','dept_dataFactory','modalService' ,deptHomeController]);
+        .controller('deptHomeController', ['$state', '$scope', '$rootScope', 'dept_dataFactory', 'modalService', 'dept_sessionfactory',deptHomeController]);
 
-    function deptHomeController($state, $scope, $rootScope, dept_dataFactory, modalService) {
+    function deptHomeController($state, $scope, $rootScope, dept_dataFactory, modalService, dept_sessionfactory) {
        
         var status = $state.current.data.status;
         $scope.applnStatus = ['All', 'Applied', 'incomplete'];
@@ -51,18 +51,12 @@
         }
 
         // PROCESS ROW FUNCTION
+       
          $scope.processrow =function(row)
          {
-           
-             var modalOptions = {
-                 customData: row
-             }
-             modalService.showModal({}, modalOptions).then(function (result) {
-                 alert('link working');
-
-             }, function (error) {
-                 alert('link not working');
-             })
+             dept_sessionfactory.updateFormStatus();
+             dept_sessionfactory.putRow(row);
+             $state.go('department.content.form')
         }
        
     }
@@ -164,9 +158,9 @@
 
     angular
         .module('eRegApp')
-        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory', 'dataFactory', 'dept_dataFactory', 'deptModalService', 'modalService', dataEntryformController]);
+        .controller('dataEntryformController', ['$scope', '$state', 'dept_sessionfactory', 'dataFactory', 'dept_dataFactory', 'deptModalService', 'modalService', '$rootScope', dataEntryformController]);
 
-    function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory, deptModalService, modalService) {
+    function dataEntryformController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory, deptModalService, modalService, $rootScope) {
         $scope.tsyear = {};
         $scope.visibility = true;
         $scope.click = false;
@@ -308,65 +302,62 @@
                 $scope.exreason = response.data;
             })
         }
-        if (dept_sessionfactory.row) {
+
+
+        var row = dept_sessionfactory.getRow();
+        if (row && $rootScope.previousState == 'department.content.home') {
             getPropPartyList(row.ackno);
         }
-        $scope.getOnline = function () {
-            $scope.onlinedata = 'getonline';
-            //$scope.visibility = false;
-            //$scope.click = true;
-        }
-       
-        //get Online Data click
-        $scope.onlineData = function () {
-            
-            dept_dataFactory.getOnlineExecutantList($scope.online.ackno).then(function (response) {
-               
+
+        function getPropPartyList(ackno) {
+            dept_dataFactory.getOnlineExecutantList(ackno).then(function (response) {
+
                 dept_sessionfactory.updateOnlineExecModal(response.data);
-               
+
                 // get Online execddllist
-                dept_dataFactory.getOnlineExecddlist($scope.online.ackno).then(function (response) {
+                dept_dataFactory.getOnlineExecddlist(ackno).then(function (response) {
                     dept_sessionfactory.updateOnlineExecddllModal(response.data);
                     // get Online ClaimantList
-                    dept_dataFactory.getOnlineClaimantlist($scope.online.ackno).then(function (response) {
+                    dept_dataFactory.getOnlineClaimantlist(ackno).then(function (response) {
                         //update claimantlist modal session
                         dept_sessionfactory.updateOnlineClaimModal(response.data);
-                        
-                        dept_dataFactory.getclaimddlist($scope.online.ackno).then(function (response) {
+
+                        dept_dataFactory.getclaimddlist(ackno).then(function (response) {
                             dept_sessionfactory.updateOnlineClaimddlModal(response.data);
-                           
-                        // get Online Identifer list
-                        dept_dataFactory.getOnlineIdentifierlist($scope.online.ackno).then(function (response) {
-                            //update Identiferlist modal session
-                            dept_sessionfactory.updateOnlineIdentModal(response.data);
-                           
-                            dept_dataFactory.getOnlineIdentddlist($scope.online.ackno).then(function (response) {
-                                dept_sessionfactory.updateOnlineIdentddlModal(response.data);
-                                //get Online Property Details
-                                dept_dataFactory.getPropertyDetail($scope.online.ackno).then(function (response) {
-                                    dept_sessionfactory.updateOnlinePropModel(response.data);
-                                    dept_dataFactory.getPropertyddl($scope.online.ackno).then(function (response) {
-                                        dept_sessionfactory.updateOnlinePropddlModel(response.data);
 
-                                    }, function (result) { console.log('propertyddl fail'); });
+                            // get Online Identifer list
+                            dept_dataFactory.getOnlineIdentifierlist(ackno).then(function (response) {
+                                //update Identiferlist modal session
+                                dept_sessionfactory.updateOnlineIdentModal(response.data);
 
-                                }, function (result) { console.log('getpropertydetail fails' + result) });
+                                dept_dataFactory.getOnlineIdentddlist(ackno).then(function (response) {
+                                    dept_sessionfactory.updateOnlineIdentddlModal(response.data);
+                                    //get Online Property Details
+                                    dept_dataFactory.getPropertyDetail(ackno).then(function (response) {
+                                        dept_sessionfactory.updateOnlinePropModel(response.data);
+                                        dept_dataFactory.getPropertyddl(ackno).then(function (response) {
+                                            dept_sessionfactory.updateOnlinePropddlModel(response.data);
 
-                            }, function (result) {
-                            console.log('getidentddlist fails' + result )});
-                        },
-                        //getOnlineIdentifierList erros
-                        function(result){
-                            console.log('get Identifer list errors: ' + result);
-                        });
+                                        }, function (result) { console.log('propertyddl fail'); });
+
+                                    }, function (result) { console.log('getpropertydetail fails' + result) });
+
+                                }, function (result) {
+                                    console.log('getidentddlist fails' + result)
+                                });
+                            },
+                            //getOnlineIdentifierList erros
+                            function (result) {
+                                console.log('get Identifer list errors: ' + result);
+                            });
                         },
                         // getCaimantddlist errors
                         function (result) {
                             console.log('getClaimantddlist errors' + result);
                         });
-                     }, 
+                    },
                     // getclaimant errors
-                    function(result){
+                    function (result) {
                         cosole.log('get Claimant list errors:' + result);
                     });
                     $scope.session.slnoddlVisibility = true; // flag used to display slno ddlist
@@ -376,17 +367,96 @@
                     $scope.session.idFormIsOnline = true;  // 
                     $scope.session.propFormIsOnline = true;//************************************************
                     //$scope.Form.deptRegform.$setDirty();
-                   
-                       
-                   
+
+
+
                 }, function (result) {
                     console.log('getOnlineExecddlist fails' + result);
                 });
 
-                }, function (result) {
+            }, function (result) {
                 console.log('getOnlineExecutantList fails ' + result)
-               });
+            });
             $state.go('department.content.form');
+        }
+        $scope.getOnline = function () {
+            $scope.onlinedata = 'getonline';
+            //$scope.visibility = false;
+            //$scope.click = true;
+        }
+       
+        //get Online Data click
+        $scope.onlineData = function () {
+
+            getPropPartyList($scope.online.ackno);
+            
+            //dept_dataFactory.getOnlineExecutantList($scope.online.ackno).then(function (response) {
+               
+            //    dept_sessionfactory.updateOnlineExecModal(response.data);
+               
+            //    // get Online execddllist
+            //    dept_dataFactory.getOnlineExecddlist($scope.online.ackno).then(function (response) {
+            //        dept_sessionfactory.updateOnlineExecddllModal(response.data);
+            //        // get Online ClaimantList
+            //        dept_dataFactory.getOnlineClaimantlist($scope.online.ackno).then(function (response) {
+            //            //update claimantlist modal session
+            //            dept_sessionfactory.updateOnlineClaimModal(response.data);
+                        
+            //            dept_dataFactory.getclaimddlist($scope.online.ackno).then(function (response) {
+            //                dept_sessionfactory.updateOnlineClaimddlModal(response.data);
+                           
+            //            // get Online Identifer list
+            //            dept_dataFactory.getOnlineIdentifierlist($scope.online.ackno).then(function (response) {
+            //                //update Identiferlist modal session
+            //                dept_sessionfactory.updateOnlineIdentModal(response.data);
+                           
+            //                dept_dataFactory.getOnlineIdentddlist($scope.online.ackno).then(function (response) {
+            //                    dept_sessionfactory.updateOnlineIdentddlModal(response.data);
+            //                    //get Online Property Details
+            //                    dept_dataFactory.getPropertyDetail($scope.online.ackno).then(function (response) {
+            //                        dept_sessionfactory.updateOnlinePropModel(response.data);
+            //                        dept_dataFactory.getPropertyddl($scope.online.ackno).then(function (response) {
+            //                            dept_sessionfactory.updateOnlinePropddlModel(response.data);
+
+            //                        }, function (result) { console.log('propertyddl fail'); });
+
+            //                    }, function (result) { console.log('getpropertydetail fails' + result) });
+
+            //                }, function (result) {
+            //                console.log('getidentddlist fails' + result )});
+            //            },
+            //            //getOnlineIdentifierList erros
+            //            function(result){
+            //                console.log('get Identifer list errors: ' + result);
+            //            });
+            //            },
+            //            // getCaimantddlist errors
+            //            function (result) {
+            //                console.log('getClaimantddlist errors' + result);
+            //            });
+            //         }, 
+            //        // getclaimant errors
+            //        function(result){
+            //            cosole.log('get Claimant list errors:' + result);
+            //        });
+            //        $scope.session.slnoddlVisibility = true; // flag used to display slno ddlist
+            //        $scope.session.OnlineStatus = 'online'; // Online status flag to toggle ddl online and offline
+            //        $scope.session.exFormIsOnline = true;   // ***********************************************
+            //        $scope.session.clFormIsOnline = true;  //   flag to populate online data to forms fields
+            //        $scope.session.idFormIsOnline = true;  // 
+            //        $scope.session.propFormIsOnline = true;//************************************************
+            //        //$scope.Form.deptRegform.$setDirty();
+                   
+                       
+                   
+            //    }, function (result) {
+            //        console.log('getOnlineExecddlist fails' + result);
+            //    });
+
+            //    }, function (result) {
+            //    console.log('getOnlineExecutantList fails ' + result)
+            //   });
+            //$state.go('department.content.form');
 
         }
 
@@ -425,6 +495,9 @@
         }
        
     }
+
+
+    
 })();
 
 // dept_dataEntry_from_deed controller //
