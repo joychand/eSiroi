@@ -1,4 +1,19 @@
-﻿
+﻿//departmentController
+(function () {
+    'use strict';
+
+    angular
+        .module('eRegApp')
+        .controller('departmentController', ['$scope', 'dept_sessionfactory', deptcontentController]);
+
+    function deptcontentController($scope, dept_sessionfactory) {
+        $scope.department = {};
+        //$scope.department.currUser = dept_sessionfactory.getCurrUser();
+
+
+    }
+
+})();
 //deptcontentController
 (function () {
     'use strict';
@@ -25,25 +40,38 @@
 
     function deptHomeController($state, $scope, $rootScope, dept_dataFactory, modalService, dept_sessionfactory) {
        
-        var status = $state.current.data.status;
-        $scope.applnStatus = ['All', 'Applied', 'incomplete'];
-        $scope.selectedStatus = $scope.applnStatus[1];
-        getAppln(status);
+        console.log(dept_sessionfactory.getCurrUser());
+        $scope.department.currUser = dept_sessionfactory.getCurrUser();
+        $scope.applnStatus = ['Approved', 'DataEntered', 'Pending'];
+        if (dept_sessionfactory.getCurrUser() == 'Operator')
+        {
+            var status = 'Approved';
+            $scope.selectedStatus = $scope.applnStatus[0];
+        }
+        else
+        {
+            var status = 'DataEntered';
+            $scope.selectedStatus = $scope.applnStatus[1];
+        }
+        
+       
+        //$scope.selectedStatus = $scope.applnStatus[0];
+        getDeed(status);
         
         $scope.displayCollection = [].concat($scope.myData);
 
-        $scope.getSelectedStatus = function () {
-            if ($scope.selectedStatus && $scope.selectedStatus!='All') {
-                getAppln($scope.selectedStatus);
-            }
+        //$scope.getSelectedStatus = function () {
+        //    if ($scope.selectedStatus && $scope.selectedStatus!='All') {
+        //        getAppln($scope.selectedStatus);
+        //    }
             
          
-        }
+        //}
 
         //getAppln function status
-        function getAppln(status){
+        function getDeed(status){
            
-            dept_dataFactory.getOnlAppln(status).then(function (response) {
+            dept_dataFactory.getDeed(status).then(function (response) {
                 $scope.myData = response.data;
 
 
@@ -54,11 +82,57 @@
        
          $scope.processrow =function(row)
          {
-             dept_sessionfactory.updateFormStatus();
-             dept_sessionfactory.putRow(row);
-             $state.go('department.content.form')
+            // dept_sessionfactory.updateFormStatus();
+             //dept_sessionfactory.putRow(row);
+             //$state.go('department.content.scan')
         }
        
+    }
+})();
+
+//dept_OnlineController
+(function () {
+    'use strict';
+
+    angular
+        .module('eRegApp')
+        .controller('dept_OnlineController', ['$state', '$scope', '$rootScope', 'dept_dataFactory', 'modalService', 'dept_sessionfactory', dept_OnlineController]);
+
+    function dept_OnlineController($state, $scope, $rootScope, dept_dataFactory, modalService, dept_sessionfactory) {
+
+        var status = $state.current.data.status;
+        $scope.applnStatus = ['All', 'Applied', 'incomplete'];
+        $scope.selectedStatus = $scope.applnStatus[1];
+        getAppln(status);
+
+        $scope.displayCollection = [].concat($scope.myData);
+
+        $scope.getSelectedStatus = function () {
+            if ($scope.selectedStatus && $scope.selectedStatus != 'All') {
+                getAppln($scope.selectedStatus);
+            }
+
+
+        }
+
+        //getAppln function status
+        function getAppln(status) {
+
+            dept_dataFactory.getOnlAppln(status).then(function (response) {
+                $scope.myData = response.data;
+
+
+            })
+        }
+
+        // PROCESS ROW FUNCTION
+
+        $scope.processrow = function (row) {
+            // dept_sessionfactory.updateFormStatus();
+            dept_sessionfactory.putRow(row);
+            $state.go('department.content.form')
+        }
+
     }
 })();
 
@@ -135,11 +209,18 @@
 //LoginModalController
 (function () {
     angular.module('eRegApp')
-    .controller('loginModalCtrl', ['$scope', '$modalInstance', loginModalCtrl]);
-    function loginModalCtrl($scope, $modalInstance) {
+    .controller('loginModalCtrl', ['$scope', '$modalInstance','dept_sessionfactory',loginModalCtrl]);
+    function loginModalCtrl($scope, $modalInstance, dept_sessionfactory) {
         $scope.login = {};
         // USER CLICK LOGIN EVENT
         $scope.login.login = function () {
+            console.log($scope.login.ein);
+            if ($scope.login.ein == '6061') {
+                dept_sessionfactory.putCurrUser('Operator');
+            }
+            else {
+                dept_sessionfactory.putCurrUser('SR');
+            }
             //TO DO GET USER CREDENTIALS VERIFY WITH THE BACKEND API
 
             $modalInstance.close();
@@ -305,7 +386,7 @@
 
 
         var row = dept_sessionfactory.getRow();
-        if (row && $rootScope.previousState == 'department.content.home') {
+        if (row && $rootScope.previousState == 'department.content.onlineapplication') {
             getPropPartyList(row.ackno);
         }
 
@@ -508,13 +589,23 @@
     function deptDeedController($scope, $state, dept_sessionfactory, dataFactory, dept_dataFactory, deptModalService, modalService) {
 
         $scope.deed = {};
+        $scope.d = {};
 
         /// Fee exempt reason radion button action
         $scope.isExemptYes = function (yes) {
             
-            return yes===$scope.deed.feeExem
+            return yes === $scope.deed.FeeExempt
         }
-        
+        $scope.ondeedSubmit = function () {
+            $scope.deed.TSNo = $scope.tsyear.ts;
+            $scope.deed.TSYear = $scope.tsyear.tyear
+            $scope.deed.Date_Time_Present = $scope.d.dop + $scope.d.dopt;
+            dept_dataFactory.postdeed($scope.deed).then(function (response) {
+                $state.go('department.content.form.property')
+            }, function (result) {
+                alert('deed details sumbit fails');
+            })
+        }
     }
 
 })();
@@ -674,12 +765,13 @@
                     //console.log($scope.plot);
 
                
-                $scope.gridOptions = { data: 'plot1' };
+                //$scope.gridOptions = { data: 'plot1' };
                 }
                 else
                 {
                     $scope.message = 'Record not found';
                 }
+                $scope.gridOptions = { data: 'plot1' };
                 $scope.mod.ok = function () {
                     $modalInstance.close();
                 }
@@ -756,12 +848,14 @@
         // Injecting executant from Modal Service
             $scope.executant = deptModalService.executant;             
             $scope.execddl = deptModalService.execddl;
+            console.log('hahahah');
+            console.log(deptModalService.execddl);
         // Set default values of the form fields
           
             if (!$scope.session.exFormIsonline && $scope.session.exFormFirstVisit)
             {
                
-                $scope.execddl.state = $scope.states[21];
+                //$scope.execddl.state = $scope.states[21];
                 $scope.executant.slNo = $scope.exForm.currSlno + 1;
                 $scope.exForm.currSlno = $scope.executant.slNo;
                 $scope.session.exFormFirstVisit = false;
@@ -948,9 +1042,10 @@
         
         $scope.formsubmit = function () {
             dept_dataFactory.postdeptexecutantlist(dept_sessionfactory.getExecutantlist()).then(function (response) {
-                console.log('registration successfully data entered');
+                console.log('registration data successfully  submitted');
+                $state.go('department.content.dataentered')
             }, function (result) {
-                console.log('registration fails');
+                alert('registration data entered fails');
             })
         }
         $scope.displayModal=function(){

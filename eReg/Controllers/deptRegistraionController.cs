@@ -46,6 +46,8 @@ namespace eReg.Controllers
             }
             return NotFound();       
         }
+     
+
         // COMMON DATA SERVICE API
 
         // get Exempt reason
@@ -91,6 +93,64 @@ namespace eReg.Controllers
             }
             return NotFound();
         }
+
+        //************DEED FORM******************//
+        //POST DEED DETAILS
+        [HttpPost]
+        [Route("api/deptRegistraionController/postdeed")]
+        public async Task<IHttpActionResult> postdeed([FromBody] Deed deedDetails)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            db.Deed.Add(deedDetails);
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+
+                throw;
+
+
+            }
+            return Ok();
+        }
+
+        // GET DEEDS STATUS
+        [HttpGet]
+        [Route("api/deptRegistraionController/{status}/getDeed")]
+        public IHttpActionResult getDeed(String status)
+        {
+            var query = from d in db.Deed
+                        join ro in db.RegistarOffice
+                        on d.SR equals ro.RegOfficeCode
+                        join trans in db.MajorTrans_code
+                        on d.TransType equals trans.tran_maj_code
+                        where d.Status == status
+                        select new
+                        {
+                            TS = d.TSNo,
+                            TYear = d.TSYear,
+                            sro = ro.RegOfficeName,
+                            transaction = trans.tran_name,
+                            status = d.Status,
+                            enterby = d.EnterBy,
+                            date = d.EntryDt
+
+
+
+                        };
+            if (query.Any())
+            {
+                return Ok(query);
+            }
+            return NotFound();
+        }
+
+        //******************PROPERTYFORM*************//
         //Get Property Details
         [HttpGet]
         [Route("api/deptRegistraionController/{ackno}/property")]

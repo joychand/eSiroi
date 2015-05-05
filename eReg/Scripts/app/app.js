@@ -29,8 +29,8 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
 
          .state('department', {
              url: "/department",
-             templateUrl: '/Home/department'
-             //controller: 'simpleController'
+             templateUrl: '/Home/department',
+             controller: 'departmentController'
          })
 
     .state('department.content',{
@@ -69,10 +69,14 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
                     controller: 'loginModalCtrl',
                     backdrop: 'static',
                     size: 'lg'
+                   
                 };
 
                 modalService.showModal(modalDefault, modalOptions).then(function (result) {
+
                     $state.go('department.content.home');
+                    
+                    
                 }, function (error) {
                     $state.go($rootScope.previousState);
                 });
@@ -92,6 +96,14 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
             url: '/Search',
             templateUrl: '/Home/searchReg'
            
+        })
+        .state('department.content.onlineapplication', {
+            url: '/onlineapplication',
+            templateUrl:'/Home/dept_OnlineApplication',
+            controller: 'dept_OnlineController',
+            data: {
+                status: 'Applied'
+            }
         })
         .state('department.content.data', {
             url: '/dataEntry',
@@ -153,7 +165,18 @@ app.config(['$stateProvider', "$locationProvider", '$urlRouterProvider','$provid
             templateUrl: 'Home/dept_dataEntry_form_identifier',
             controller: 'deptIdentController'
         })
-
+        .state('department.content.dataentered', {
+            url: '/dataEntered',
+            templateUrl: 'Home/dept_dataEntered'
+        })
+        .state('department.content.upload', {
+            url: '/upload',
+            templateUrl: 'Home/dept_scanDocuments'
+        })
+        .state('department.content.uploadComplete', {
+            url: '/uploadcomplete',
+            templateUrl: 'Home/upload_complete'
+        })
         // *************APPLY REGISTRATION ROUTING*****************//
 
          .state('registration', {

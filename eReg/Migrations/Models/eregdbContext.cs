@@ -40,7 +40,7 @@ namespace eReg.Models
         public System.Data.Entity.DbSet<eReg.Migrations.Models.Class> Class { get; set; }
         public System.Data.Entity.DbSet<eReg.Migrations.Models.Exempt_Reason> Exempt_Reason { get; set; }
         public System.Data.Entity.DbSet<eReg.Migrations.Models.RegistarOffice> RegistarOffice { get; set; }
-       // public System.Data.Entity.DbSet<eReg.MiModels.Identifier> Identifier { get; set; }
+        public System.Data.Entity.DbSet<eReg.Migrations.Models.Deed> Deed { get; set; }
         // public System.Data.Entity.DbSet<eReg.Models.OnlineExecutantList> OnlineExecutantList { get; set; }
     }
 }

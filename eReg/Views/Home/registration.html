@@ -2,280 +2,46 @@
     Layout = null;
 }-->
 
-
+  <p class="pull-left visible-xs" style="padding:0">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">SideMenu</button>
+          </p>
     
- 
-    
-<!-- content body 
-   =====================================  --> 
-    
+ <div class="row">
+    <div class="col-sm-9 pull-right">
+        <ui-breadcrumbs displayname-property="data.displayName" abstract-proxy-property="data.breadcrumbProxy"></ui-breadcrumbs>
+    </div>
+</div>
+     
 <div class="container">
     
-    <div class="row">
+   <div class="row row-offcanvas row-offcanvas-left ">
         
-     <div class="col-md-3 " id="leftCol" data-ui-view="sidemenu"></div>
-     
-      <!---sidebar menu
-    =========================== -->
-        <!--<div class="col-md-3 " id="leftCol">
-
-            <ul class="nav nav-stacked" id="sidebar">
-                <li><a href="#/registration">Apply for Registration</a></li>
-                <li><a href="#sec1">Know your Sub-registrar</a></li>
-                <li><a href="#sec2">Help</a></li>
-                <li><a href="#sec3">FAQ</a></li>
-                <li><a href="#sec4">Loucha Pathap</a></li>
-            </ul>
-
-            <!-- Button trigger modal
-            <button class="btn btn-primary btn-md col-md-4 col-md-offset-2" data-toggle="modal" data-target="#myModal">
-                Draft Deed
-            </button>
+      <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" data-ui-view="sidemenu">
+           
         </div>
-
-<!-- Modal 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title text-center" id="myModalLabel">Gift Deed</h4>
-      </div>
-      <div class="modal-body">
-        <p>THIS DEED of gift is made at ……….. this day of ………. 2000, between A son of Shri B resident of ….. (hereinafter called ” the Grantor”) of the ONE PART and C son of A resident of …………… (hereinafter called “the Grantee”) of the OTHER PART.
-
-WHEREAS the grantor is absolutely possessed of or otherwise well and sufficiently entitled to the land with building, more particularly described in the Schedule hereto and, hereinafter called “the said property” subject only to the mortgage next hereinafter recited.
-
-AND WHEREAS by a mortgage deed (hereinafter called “the mortgage”) dated …..………… and made between the grantor of the ONE PART and Shri D of the OTHER PART, the said property was mortgaged to the said D to secure the principal sum of Rs. ………………. and interest thereon as therein mentioned.
-
-And whereas a sum of Rs. ……………… towards principal together with Rs. ……………… interest thereon to the date of this deed remains now owing upon the security of the mortgage.
-
-AND WHEREAS the grantor is desirous of making a gift of the said property, subject to the mortgage to the donee.
-
-NOW THIS DEED WITNESSETH AS FOLLOWS:
-
-1. In consideration of his natural love and affection for the grantee, the grantor hereby transfers and conveys unto the donee all that the property particularly described in the Schedule hereto to hold the same unto the donee absolutely for ever subject to the mortgage and to the principal sum and all interest henceforth to become payable in respect thereof.
-
-2. The grantee accepts the said gift and hereby covenants with the grantor that the grantee or his successors, heirs or the persons deriving title under him will pay principal money and interest secured by and henceforth to become due under the mortgage and will hereafter keep the grantor, his estate and effects indemnified from all claims, proceedings and demands in respect thereof.
-
-3. The value of the property is Rs. …..………………..
-
-IN WITNESS WHEREOF, the parties aforementioned have hereunto set their hands on the day and year first above written.
-
-The Schedule above referred to
-
-Signed and delivered by the within named grantor
-
-Signed and delivered by the within named grantee
-
-WITNESSES;
-1.
-
-2</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>-->
-      		
-    <!-- forms
-    ================================= -->
- <div class="col-md-9">
+       
+     
+     
+     
+   
+ <div class="col-xs-12 col-sm-9">
        
         
-       <!-- <h1>Registration Form</h1>
-        <div class="container">
-            <!--  -->
-       <!-- <ul class="nav nav-tabs" role="tablist">-->
-           <!--<div class="btn-group">
-                <a class="btn btn-primary btn-lg "  role="button" ui-sref-active="active"  ui-sref="registration.content.claimant">claimant</a>
-                <a class="btn btn-success btn-lg " role="button" ui-sref-active="active" ui-sref="registration.content.executant">executant</a>
-               <a class="btn btn-warning btn-lg " role="button" ui-sref-active="active" ui-sref="registration.content.executant">identifiar</a>
-           </div>     
-            
-            <li  ui-sref-active="active"><a  ui-sref="registration.content.executant">Executant</a></li>
-            <li ui-sref-active="active"><a  ui-sref="registration.content.claimant">Claimant</a></li>
-            <li ui-sref-active="active"><a  ui-sref="registration.content.executant">Identifier</a></li>
-             
-        </ul>
-       </div> -->
+      
 
    <div data-ui-view></div>
 </div>
 </div>
 </div>
 
-       <!--<div class="tab-content">
-           <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
-               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>You have successfully added the Executant
-           </div>
-           <div class="tab-pane active" id="Party1"> <h1> Executant Details</h1><hr/>
-               <form class="form-horizontal" role="form" name="executantform" novalidate >
-                   
-                   <div class="form-group">
-                       <label for="executant" class="col-sm-2 control-label">Executant</label>
-
-                       <div class="col-sm-3">
-                           <input type="text" name="Surname" data-ng-model="executant.ExecSurName" class="form-control" placeholder="Surnanme" />
-                       </div>
-                       <div class="col-sm-3">
-                           <input type="text" name="name" data-ng-model="executant.ExecMiddleName" class="form-control text-left" placeholder="MiddleName" />
-                       </div>
-                       <div class="col-sm-3">
-                           <input type="text" name="name" data-ng-model="executant.ExecLastName" class="form-control text-left" placeholder="LastName" />
-                       </div>
-
-                      
-                   </div>
-                   <div class="form-group">
-                       <label for="alias" class="col-sm-2 control-label ">Alias</label>
-                       <div class="col-sm-3">
-                           <input type="text" name="alias" data-ng-model="executant.alias" class="form-control" placeholder="alias">
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label for="father" class="col-sm-2 control-label">Father</label>
-
-                       <div class="col-sm-3">
-                           <input type="text" name="Surname" data-ng-model="executant.fatherSurname" class="form-control" placeholder="Surnanme" />
-                       </div>
-                       <div class="col-sm-3">
-                           <input type="text" name="MiddleName" data-ng-model="executant.fatherMiddleName" class="form-control text-left" placeholder="MiddleName" />
-                       </div>
-                       <div class="col-sm-3">
-                           <input type="text" name="LastName" data-ng-model="executant.fatherLastName" class="form-control text-left" placeholder="LastName" />
-                       </div>
-                      </div>
-
-
-                   <div class="form-group">
-                       <label for="sex" class="col-sm-2 control-label">Sex</label>
-                       <div class="col-sm-4">
-                           <label for="" class="radio-inline">
-                               <input type="radio" name="sexradio" value="M"
-                                      data-ng-checked="executant.sex == 'M'"
-                                      data-ng-model="executant.sex" />Male
-                           </label>
-                          
-                           <label for="" class="radio-inline">
-                               <input type="radio" name="sexradio" value="F"
-                                      data-ng-checked="executant.sex == 'F'"
-                                      data-ng-model="executant.sex" />Female
-                           </label>
-                       </div>
-
-                       <!-- Dropdown select with jquery
-            ============================================================  -->
-                      
-                     <!--  <label for="" class=" control-label col-sm-2">Occupation</label>
-                           <div class="col-sm-3">
-                               <select name="occupation" id="" class="form-control"
-                                       data-ng-model="occupation"
-                                       data-ng-options="occupation for occupation in occupations">
-                                   <option value=""> --select Occupation--</option>
-                               </select>
-                           </div>
-                                       
-
-                   </div>
-                   <!-- Select list without dropdown
-        ========================================================  --->
-                   <!-- State Dropdown
-        ================================  -->
-
-                   <!--<div class="form-group">
-                       <label for="" class="control-label col-sm-2">State</label>
-                       <div class="col-sm-4">
-                           <select name="state" id="" class="form-control"
-                                   data-ng-model="state"
-                                   data-ng-options="state.stateName for state in states  ">
-                               <option value="">-Select State-</option>
-
-                           </select>
-                       </div>
-
-                       <!-- Sub-Division Dropdown
-            ================================  -->
-                         <!-- <label for="" class="control-label col-sm-2">District</label>
-                       <div class="col-sm-4">
-                           <select name="district" class="form-control"
-                                   data-ng-model="district"
-                                   data-ng-options="district.distName for district in districts  | orderBy:'distName'"
-                                   data-ng-change="clrpincode()">
-                               <option value="">--Select District--</option>
-                           </select>
-                         </div>
-                       
-                   </div>
-
-                   <!-- District Dropdown
-        ================================  
-                   <div class="form-group">
-                       <label for="" class="control-label col-sm-2">Sub-Division</label>
-                       <div class="col-sm-4">
-                           <select name="subdiv" class="form-control"
-                                   data-ng-model="subdiv"
-                                   data-ng-options="subdiv.subDivName for subdiv in subdivisions | filter:{distCode:district.distCode} | orderBy:'subDivName'"
-                                  
-                                   data-ng-disabled="!district">
-                               <option value="">--Select Sub-div--</option>
-                           </select>
-                          
-                       </div>
-
-                       <!-- Village Dropdown
-            ================================  
-                       <label for="" class="control-label col-sm-2">Village</label>
-                       <div class="col-sm-4">
-                           <select name="village" id="" class="form-control"
-                                   data-ng-model="village"
-                                   data-ng-options="village.villName for village in villages | filter:{distCode:district.distCode} | filter:{subDivCode: subdiv.subDivCode} | orderBy: 'villName'"
-                                   data-ng-disabled="!subdiv">
-                               <option value="">--Select Village--</option>
-                           </select>
-                       </div>
-                   </div>
-                   <!-- Post Office Dropdown
-        ================================  
-                   <div class="form-group">
-                       <label for="" class="control-label col-sm-2">Post Office</label>
-                       <div class="col-sm-4">
-                           <select name="PostOffice" id="" class="form-control"
-                                   data-ng-model="postoffice"
-                                   data-ng-options="po.postOffice1 for po in postoffices | filter:{distCode:district.distCode}  | orderBy: 'postOffice1'"
-                                   data-ng-disabled="!district"
-                                   data-ng-change="onchan()">
-                               
-
-                               <option value="">--select post office --</option>
-
-                           </select>
-                       </div> 
-                       <!-- Pincode Dropdown
-            ================================  
-                       <label for="" class="control-label col-sm-2">PinCode</label>
-                       <div class="col-sm-4">
-                           <input type="text" class="form-control text-left" data-ng-model="pinCode" placeholder="Pincode" /> 
-                       </div>                    <!--</div> 
-                   </div>
-
-                   <!-- ======================================== 
-                   <div class="form-group  ">
-                       <button type="submit" data-ng-click="onexsubmit()" class="btn btn-primary col-sm-1 col-sm-offset-3 btn-inline ">Next</button>
-                       <button type="reset" class="btn btn-default col-sm-1  btn-inline ">Reset</button>
-                   </div>
-               </form> 
-                </div>
-<!--                end 1st Party tab-pane
-               <div class="tab-pane" id="Party2"> <h1> Claimant</h1></div>
-           <div class="tab-pane" id="Party2"> <h1> Identifier</h1></div>
-           </div>  <!-- tab content  
-          
-            
-       </div>  div col-md-9-->
-      
-      
+     
+ <script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="offcanvas"]').click(function () {
+            $('.row-offcanvas').toggleClass('active')
+        });
+    });
+</script>                       
+                    
+               
    

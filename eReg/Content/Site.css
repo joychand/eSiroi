@@ -5,7 +5,7 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color:#808080;
-    /*overflow:auto;*/
+    /*overflow-x:hidden;*/
     /*overflow-y:scroll;*/
     height:100%;
     /*background: -webkit-linear-gradient(activeCaption,aliceblue); /* For Safari 5.1 to 6.0 */
@@ -21,11 +21,12 @@ body {
     padding-left: 15px;
     padding-right: 15px;
    background-color:#fcfcfe;
-   margin-bottom:-999px;
+    margin-bottom:-999px;
     padding-bottom:999px;
     min-height: 100%;
-    overflow:hidden;
+    overflow-x:hidden;
     padding-top:5px;
+    /*margin:0 auto -155px;*/
     /*margin-top: 0px;*/*/
     /*overflow-y:scroll;*/
     
@@ -78,8 +79,10 @@ textarea {
   	border:0 #eee solid;
   	border-right-width:4px;
 }*/
-#footer{
-    padding-top:0px;
+#footer,.push{
+     /*padding: 30px 0;*/
+     padding-top:30px;
+     height:155px;
 }
 #ul{
     
@@ -166,10 +169,10 @@ padding-top:0;
 #bord{
     border-right:1px double #000;
 }
-#sidebar{
+/*#sidebar{
     margin-top:5%;
     padding:0;
-}
+}*/
 #topframe{
     margin-top:2%;
 }
@@ -220,3 +223,49 @@ padding-top:0;
   .grid-align{
       text-align:center;
   }
+
+
+  /*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 767px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all .25s ease-out;
+         -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+  }
+
+  .row-offcanvas-right {
+    right: 0;
+  }
+
+  .row-offcanvas-left {
+    left: 0;
+  }
+
+  .row-offcanvas-right
+  .sidebar-offcanvas {
+    right: -50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -50%; /* 6 columns */
+  }
+
+  .row-offcanvas-right.active {
+    right: 50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left.active {
+    left: 50%; /* 6 columns */
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 50%; /* 6 columns */
+  }
+}

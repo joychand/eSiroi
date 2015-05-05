@@ -18,6 +18,26 @@
                 });
             },
 
+
+            //DEED FORM DATA FACTORY
+
+            // GET DEED STATUS
+            getDeed: function(status){
+                return $http({
+                    method:'GET',
+                    url:urlBase2 + status + '/getDeed'
+                });
+            },
+
+            //POST DEED DETAILS
+            postdeed:function(deed){
+                return $http({
+                    method: 'POST',
+                    data: deed,
+                    url: urlBase2 + 'postdeed'
+                })
+            },
+
             /// GET EXEMPT REASON LIST
             getExempReason: function(){
                 return $http({

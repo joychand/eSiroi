@@ -14,6 +14,8 @@ namespace eReg
     {
         protected void Application_Start()
         {
+            Application["Totaluser"] = 0;
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -21,5 +23,11 @@ namespace eReg
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Database.SetInitializer<Models.eregdbContext>(null);
         }
+        protected void Session_Start()
+        {
+            Application.Lock();
+            Application["Totaluser"] = (int)Application["Totaluser"] + 1;
+            Application.UnLock();
+        } 
     }
 }

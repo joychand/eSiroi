@@ -167,6 +167,16 @@
              sessionidentifierlist = [];
              sessionidentddlist = [];
         }
+
+        //LOGIN MODAL SERVICE
+        var currUser;
+        service.putCurrUser = function (User) {
+            currUser = User;
+
+        }
+        service.getCurrUser = function () {
+            return currUser;
+        }
         return service;
 
         //function getData() { }

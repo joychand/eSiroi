@@ -14,7 +14,7 @@
                     <label class="control-label ">RegnNo:</label>
                 </div>
                 <div class="col-sm-12 col-md-8 ">
-                    <input type="text" value="" class="form-control" placeholder="Regno" />
+                    <input type="text" value="" class="form-control" placeholder="Regno" data-ng-model="deed.Regno"/>
                 </div>
             </div>
             <div class="col-sm-6">
@@ -22,7 +22,7 @@
                     <label class="control-label">RegYear:</label>
                 </div>
                 <div class="col-sm-12 col-md-8 ">
-                    <input type="text" value="" class="form-control" placeholder="RegYear" />
+                    <input type="text" value="" class="form-control" placeholder="RegYear"  data-ng-model="deed.RegYear"/>
                 </div>
             </div>
             <div class="col-sm-6">
@@ -30,8 +30,12 @@
                     <label class="control-label ">RegDate:</label>
                 </div>
                 <div class="col-md-8 ">
-                    <input class="form-control" type="text" placeholder="Regdate" />
+                    <div class="input-group ">
+                    <input class="form-control" type="text" placeholder="Regdate" data-ng-model="deed.RegDate"/>
+                    <span class="input-group-addon">dd/mm/yyyy</span>
                 </div>
+                </div>
+
             </div>
             <div class="col-sm-6">
                 <div class="col-md-4 hidden-xs text-right">
@@ -39,7 +43,7 @@
                 </div>
                 <div class="col-sm-12 col-md-8">
                     <div class="input-group ">
-                        <input type="text" class="form-control" placeholder="DateOfExec" />
+                        <input type="text" class="form-control" placeholder="DateOfExec" data-ng-model="deed.Date_Exec" />
                         <span class="input-group-addon">dd/mm/yyyy</span>
                     </div>
 
@@ -53,7 +57,7 @@
                 </div>
                 <div class="col-sm-12 col-md-8">
                     <div class="input-group ">
-                        <input class="form-control" type="text" placeholder="DateofPresentant" />
+                        <input class="form-control" type="text" placeholder="DateofPresentant" data-ng-model="d.dop"/>
                         <span class="input-group-addon">dd/mm/yyyy</span>
                     </div>
                 </div>
@@ -64,7 +68,7 @@
                 </div>
                 <div class="col-sm-12 col-md-8">
                     <div class="input-group ">
-                        <input type="text" class="form-control" placeholder="Time" />
+                        <input type="text" class="form-control" placeholder="Time" data-ng-model="d.time"/>
                         <span class="input-group-addon">hh:mm</span>
                     </div>
                 </div>
@@ -82,14 +86,14 @@
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <input type="radio" name="Municipal"
-                           data-ng-checked="deed.municiple == 'Y'"
+                           data-ng-checked="deed.municipal == 'Y'"
                            data-ng-model="deed.municiple" />Yes
 
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <input type="radio" name="Municipal"
-                           data-ng-checked="deed.municiple == 'N'"
-                           data-ng-model="deed.municiple" />No
+                           data-ng-checked="deed.municipal == 'N'"
+                           data-ng-model="deed.municipal" />No
 
                 </div>
             </div>
@@ -146,7 +150,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><del>&#2352;</del></span>
 
-                        <input type="text" value="" class="form-control" placeholder="Consolidation Value" />
+                        <input type="text" value="" class="form-control" placeholder="Consolidation Value"  data-ng-model="deed.ConValue"/>
                     </div>
 
                 </div>
@@ -176,7 +180,7 @@
                 <div class="col-md-7">
                     <div class="input-group">
                         <span class="input-group-addon"><del>&#2352;</del></span>
-                        <input type="text" value="" class="form-control" placeholder="Stamp Value Paid" />
+                        <input type="text" value="" class="form-control" placeholder="Stamp Value Paid" data-ng-model="deed.StampPaid"/>
                     </div>
                 </div>
             </div>
@@ -200,12 +204,12 @@
                 <div class="col-md-3">
                     <input type="radio" name="feeExem"
                            value="Y"
-                           data-ng-model="deed.feeExem" />Yes
+                           data-ng-model="deed.FeeExempt" />Yes
                 </div>
                 <div class="col-md-3">
                     <input type="radio" name="feeExem"
                            value="N"
-                           data-ng-model="deed.feeExem" />No
+                           data-ng-model="deed.FeeExempt" />No
                 </div>
             </div>
             <div class="col-sm-6">
@@ -214,7 +218,7 @@
                 </div>
                 <div class="col-md-6">
                     <select class="form-control"
-                            data-ng-model="deed.reason"
+                            data-ng-model="deed.ExempReason"
                             data-ng-options="reason.p_desc for reason in exreason | orderBy: 'p_desc'"
                             data-ng-disabled="!isExemptYes('Y')">
                         <option value="">-select reason-</option>
@@ -224,7 +228,7 @@
         </div>
         <div class="form-group text-center">
             <div class="btn-group">
-                <button type="submit" data-ng-submit="deedSubmit()" class="btn btn-primary btn-md " ng-disabled="From.deedform.$pristine || From.deedform.$invalid && From.deedform.$dirty">Next</button>
+                <button type="submit" data-ng-submit="deedSubmit()" class="btn btn-primary btn-md " ng-disabled="From.deedform.$pristine || From.deedform.$invalid && From.deedform.$dirty" data-ng-click="ondeedSubmit()">Next</button>
                 <button class="btn btn-success btn-md" data-ng-click=""><span class="glyphicon glyphicon-floppy-disk"></span> Draft</button>
                 <button type="reset" class="btn btn-default btn-md">Reset</button>
             </div>

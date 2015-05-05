@@ -252,6 +252,7 @@
     <Compile Include="Migrations\Models\circle.cs" />
     <Compile Include="Migrations\Models\Claimant.cs" />
     <Compile Include="Migrations\Models\Class.cs" />
+    <Compile Include="Migrations\Models\deed.cs" />
     <Compile Include="Migrations\Models\district.cs" />
     <Compile Include="Migrations\Models\eregdbContext.cs" />
     <Compile Include="Migrations\Models\Executant.cs" />
@@ -382,7 +383,10 @@
     <Content Include="spinning.gif" />
     <Content Include="Scripts\ui-grid.js" />
     <Content Include="Views\Home\ApplyRegSuccess.html" />
+    <Content Include="Views\Home\dept_dataEntered.html" />
     <Content Include="Views\Home\dept_dataEntry_form_deed.html" />
+    <Content Include="Views\Home\dept_OnlineApplication.html" />
+    <Content Include="Views\Home\dept_scanDocuments.html" />
     <Content Include="Views\Home\draftDeeed.html" />
     <Content Include="Views\Home\loginPage.html" />
     <Content Include="Views\Home\modal.html" />
@@ -473,6 +477,7 @@
     <Content Include="Views\Home\registrationforms.html" />
     <Content Include="Views\Home\searchReg.html" />
     <Content Include="Views\Home\uiBreadcrumbs.tpl.html" />
+    <Content Include="Views\Home\upload_complete.html" />
     <Content Include="Views\party1.htm" />
     <Content Include="Views\Home\registration.html" />
     <Content Include="Web.config">

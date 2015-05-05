@@ -159,6 +159,22 @@ namespace eReg.Controllers
         {
             return File("~/Views/Home/uiBreadcrumbs.tpl.html", "text/html");
         }
-        
+        public ActionResult dept_OnlineApplication()
+        {
+            return File("~/Views/Home/dept_OnlineApplication.html", "text/html");
+        }
+         public ActionResult dept_dataEntered()
+        {
+            return File("~/Views/Home/dept_dataEntered.html", "text/html");
+        }
+         public ActionResult dept_scanDocuments()
+        {
+            return File("~/Views/Home/dept_scanDocuments.html", "text/html");
+        }
+         public ActionResult  upload_complete()
+        {
+            return File("~/Views/Home/upload_complete.html", "text/html");
+        }
+     
     }
 }
