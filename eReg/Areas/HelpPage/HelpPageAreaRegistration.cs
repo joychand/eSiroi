@@ -18,7 +18,6 @@ namespace eReg.Areas.HelpPage
             context.MapRoute(
                 "HelpPage_Default",
                 "Help/{action}/{apiId}",
-                //"Help/{*values}",
                 new { controller = "Help", action = "Index", apiId = UrlParameter.Optional });
 
             HelpPageConfig.Register(GlobalConfiguration.Configuration);

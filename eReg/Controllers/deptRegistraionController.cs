@@ -24,6 +24,7 @@ namespace eReg.Controllers
         [Route("api/deptRegistraionController/{status}/getAppln")]
         public IHttpActionResult getAppln(String status)
         {
+            
             var query =from oAppln in db.onlineapplication
                                 join ro in db.RegistarOffice
                                 on oAppln.sro equals SqlFunctions.StringConvert((double) ro.RegOfficeCode ).Trim()

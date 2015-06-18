@@ -25,7 +25,7 @@ namespace eReg.Areas.HelpPage.Controllers
 
         public HttpConfiguration Configuration { get; private set; }
 
-        public ActionResult Index(string values)
+        public ActionResult Index()
         {
             ViewBag.DocumentationProvider = Configuration.Services.GetDocumentationProvider();
             return View(Configuration.Services.GetApiExplorer().ApiDescriptions);
